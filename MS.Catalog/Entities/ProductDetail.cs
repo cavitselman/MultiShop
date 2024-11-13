@@ -1,9 +1,18 @@
-﻿namespace MS.Catalog.Entities
+﻿using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
+
+namespace MS.Catalog.Entities
 {
     public class ProductDetail
     {
-        public string ProductDetailID { get; set; }
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string ProductDetailId { get; set; }
         public string ProductDescription { get; set; }
         public string ProductInfo { get; set; }
+        public string ProductId { get; set; }
+
+        [BsonIgnore]
+        public Product Product { get; set; }
     }
 }
