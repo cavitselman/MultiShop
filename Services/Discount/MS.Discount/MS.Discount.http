@@ -1,0 +1,6 @@
+@MS.Discount_HostAddress = http://localhost:5259
+
+GET {{MS.Discount_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
