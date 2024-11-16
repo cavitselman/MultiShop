@@ -1,0 +1,6 @@
+@MS.Order.WebApi_HostAddress = http://localhost:5159
+
+GET {{MS.Order.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
