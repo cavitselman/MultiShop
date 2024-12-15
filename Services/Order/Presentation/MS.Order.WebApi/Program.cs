@@ -2,9 +2,12 @@ using MS.Order.Application.Features.CQRS.Handlers.AddressHandlers;
 using MS.Order.Application.Features.CQRS.Handlers.OrderDetailHandlers;
 using MS.Order.Application.Interfaces;
 using MS.Order.Application.Services;
+using MS.Order.Persistence.Context;
 using MS.Order.Persistence.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<OrderContext>();
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddApplicationService(builder.Configuration);
