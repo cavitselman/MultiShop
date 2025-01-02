@@ -34,6 +34,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MS.IdentityServer", "IdentityServer\MS.IdentityServer\MS.IdentityServer.csproj", "{B316C1EC-4128-49D1-B517-81A9D7B470B5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Requirements", "Requirements", "{03DFA9F1-52A8-47FE-8809-E1F6BD4FF4D1}"
+	ProjectSection(SolutionItems) = preProject
+		PortNumbers.txt = PortNumbers.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
