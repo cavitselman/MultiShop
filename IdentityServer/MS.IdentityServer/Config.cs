@@ -23,6 +23,10 @@ public static class Config
                   Scopes = { "OrderFullPermission" }
             },
 
+            new ApiResource("ResourceCargo")
+            {
+                  Scopes = { "CargoFullPermission" }
+            },
             new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
         };
 
@@ -41,6 +45,7 @@ public static class Config
             new ApiScope("CatalogReadPermission", "Read only authority for catalog operations"),
             new ApiScope("DiscountFullPermission", "Full authority for discount operations"),
             new ApiScope("OrderFullPermission", "Full authority for order operations"),
+            new ApiScope("CargoFullPermission", "Full authority for cargo operations"),
             new ApiScope(IdentityServerConstants.LocalApi.ScopeName)
         };
 
@@ -74,7 +79,7 @@ public static class Config
                 ClientName="Multi Shop Admin User",
                 AllowedGrantTypes=GrantTypes.ClientCredentials,
                 ClientSecrets={new Secret("multishopsecret".Sha256()) },
-                AllowedScopes={ "CatalogReadPermission", "CatalogFullPermission", "DiscountFullPermission", "OrderFullPermission",
+                AllowedScopes={ "CatalogReadPermission", "CatalogFullPermission", "DiscountFullPermission", "OrderFullPermission", "CargoFullPermission",
                     IdentityServerConstants.LocalApi.ScopeName,
                     IdentityServerConstants.StandardScopes.Email,
                     IdentityServerConstants.StandardScopes.OpenId,
