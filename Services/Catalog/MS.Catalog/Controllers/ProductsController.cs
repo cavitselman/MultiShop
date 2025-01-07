@@ -6,7 +6,7 @@ using MS.Catalog.Services.ProductServices;
 
 namespace MS.Catalog.Controllers
 {
-    [Authorize]
+    [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductsController : ControllerBase
@@ -25,7 +25,7 @@ namespace MS.Catalog.Controllers
             return Ok(values);
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetProductById(string id)
         {
             var values = await _productService.GetByIdProductAsync(id);
