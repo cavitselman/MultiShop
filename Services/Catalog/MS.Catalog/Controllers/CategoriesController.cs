@@ -7,7 +7,7 @@ using System.Formats.Asn1;
 
 namespace MS.Catalog.Controllers
 {
-    [Authorize]
+    [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]
     public class CategoriesController : ControllerBase
@@ -26,7 +26,7 @@ namespace MS.Catalog.Controllers
             return Ok(values);
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetCategoryById(string id)
         {
             var values = await _categoryService.GetByIdCategoryAsync(id);
