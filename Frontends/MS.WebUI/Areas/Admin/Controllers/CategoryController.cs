@@ -41,7 +41,7 @@ namespace MS.WebUI.Areas.Admin.Controllers
             ViewBag.v0 = "Kategori İşlemleri";
             ViewBag.v1 = "Ana Sayfa";
             ViewBag.v2 = "Kategoriler";
-            ViewBag.v3 = "Yeni Kategori Girişi";
+            ViewBag.v3 = "Kategori Listesi";
             return View();
         }
 
@@ -76,7 +76,7 @@ namespace MS.WebUI.Areas.Admin.Controllers
             ViewBag.v0 = "Kategori İşlemleri";
             ViewBag.v1 = "Ana Sayfa";
             ViewBag.v2 = "Kategoriler";
-            ViewBag.v3 = "Yeni Kategori Girişi";
+            ViewBag.v3 = "Kategori Listesi";
             var client = _httpClientFactory.CreateClient();
             var responseMessage = await client.GetAsync("https://localhost:7070/api/Categories/" + id);
             if (responseMessage.IsSuccessStatusCode)

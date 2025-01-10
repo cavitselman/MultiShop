@@ -1,24 +1,19 @@
-﻿<div class="container-fluid pt-5 pb-3">
+﻿@model List<ResultOfferDiscountDto>
+
+<div class="container-fluid pt-5 pb-3">
     <div class="row px-xl-5">
-        <div class="col-md-6">
-            <div class="product-offer mb-30" style="height: 300px;">
-                <img class="img-fluid" src="https://www.ikea.com/images/a-sunny-neutral-toned-bedroom-with-a-kleppstad-bed-covered-i-90f96ca7b3020af7b8625ab888bbfc86.jpg" alt="">
-                <div class="offer-text">
-                    <h6 class="text-white text-uppercase">%15 İndirim</h6>
-                    <h3 class="text-white mb-3">Ev Dekorasyonu</h3>
-                    <a href="" class="btn btn-primary">Alışverişe Başla</a>
+        @foreach (var item in Model)
+        {
+            <div class="col-md-6">
+                <div class="product-offer mb-30" style="height: 300px;">
+                    <img class="img-fluid" src="@item.ImageUrl" alt="">
+                    <div class="offer-text">
+                        <h6 class="text-white text-uppercase">@item.Title</h6>
+                        <h3 class="text-white mb-3">@item.SubTitle</h3>
+                        <a href="" class="btn btn-primary">@item.ButtonTitle</a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-6">
-            <div class="product-offer mb-30" style="height: 300px;">
-                <img class="img-fluid" src="https://www.ikea.com/images/a-small-bedroom-with-a-wooden-bed-frame-a-wardrobe-system-wi-6d99ac7918532ea3ab45a453808ac48c.jpg" alt="">
-                <div class="offer-text">
-                    <h6 class="text-white text-uppercase">%25 Ek İndirim</h6>
-                    <h3 class="text-white mb-3">Mobilya</h3>
-                    <a href="" class="btn btn-primary">Hemen İncele</a>
-                </div>
-            </div>
-        </div>
+        }
     </div>
 </div>

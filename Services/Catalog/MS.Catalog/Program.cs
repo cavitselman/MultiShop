@@ -1,9 +1,14 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
+using MS.Catalog.Services.BrandServices;
 using MS.Catalog.Services.CategoryServices;
+using MS.Catalog.Services.FeatureServices;
+using MS.Catalog.Services.FeatureSliderServices;
+using MS.Catalog.Services.OfferDiscountServices;
 using MS.Catalog.Services.ProductDetailDetailServices;
 using MS.Catalog.Services.ProductImageServices;
 using MS.Catalog.Services.ProductServices;
+using MS.Catalog.Services.SpecialOfferServices;
 using MS.Catalog.Settings;
 using System.Reflection;
 
@@ -21,6 +26,11 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IProductDetailService, ProductDetailService>();
 builder.Services.AddScoped<IProductImageService, ProductImageService>();
+builder.Services.AddScoped<IFeatureSliderService, FeatureSliderService>();
+builder.Services.AddScoped<ISpecialOfferService, SpecialOfferService>();
+builder.Services.AddScoped<IFeatureService, FeatureService>();
+builder.Services.AddScoped<IOfferDiscountService, OfferDiscountService>();
+builder.Services.AddScoped<IBrandService, BrandService>();
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 

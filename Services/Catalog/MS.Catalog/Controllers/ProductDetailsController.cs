@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MS.Catalog.Dtos.ProductDetailDtos;
 using MS.Catalog.Services.ProductDetailDetailServices;
 
 namespace MS.Catalog.Controllers
 {
+    [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductDetailDetailsController : ControllerBase
