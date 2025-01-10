@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using MS.Catalog.Dtos.AboutDtos;
 using MS.Catalog.Dtos.BrandDtos;
 using MS.Catalog.Dtos.CategoryDtos;
 using MS.Catalog.Dtos.FeatureDtos;
@@ -62,6 +63,11 @@ namespace MS.Catalog.Mapping
             CreateMap<Brand, CreateBrandDto>().ReverseMap();
             CreateMap<Brand, UpdateBrandDto>().ReverseMap();
             CreateMap<Brand, GetByIdBrandDto>().ReverseMap();
+
+            CreateMap<About, ResultAboutDto>().ReverseMap();
+            CreateMap<About, CreateAboutDto>().ReverseMap();
+            CreateMap<About, UpdateAboutDto>().ReverseMap();
+            CreateMap<About, GetByIdAboutDto>().ReverseMap();
         }
     }
 }

@@ -4,11 +4,11 @@ using Newtonsoft.Json;
 
 namespace MS.WebUI.ViewComponents.DefaultViewComponents
 {
-    public class _VendorDefaultComponentPartial : ViewComponent
+    public class _BrandDefaultComponentPartial : ViewComponent
     {
         private readonly IHttpClientFactory _httpClientFactory;
 
-        public _VendorDefaultComponentPartial(IHttpClientFactory httpClientFactory)
+        public _BrandDefaultComponentPartial(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
         }

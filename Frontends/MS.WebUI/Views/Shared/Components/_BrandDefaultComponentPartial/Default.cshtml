@@ -1,7 +1,7 @@
 ﻿@model List<ResultBrandDto>
 
 <style>
-    .vendor-image {
+    .brand-image {
         height: 80px;
         object-fit: contain;
     }
@@ -14,7 +14,7 @@
                 @foreach (var item in Model)
                 {
                     <div class="bg-light p-4">
-                        <img class="vendor-image" src="@item.ImageUrl" alt="">
+                        <img class="brand-image" src="@item.ImageUrl" alt="">
                     </div>
                 }
             </div>
