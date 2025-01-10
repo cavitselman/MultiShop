@@ -59,5 +59,12 @@ namespace MS.Catalog.Controllers
             var values = await _productService.GetProductWithCategoryAsync();
             return Ok(values);
         }
+
+        [HttpGet("ProductListWithCategoryByCategoryId")]
+        public async Task<IActionResult> ProductListWithCategoryByCategoryId(string id)
+        {
+            var values = await _productService.GetProductWithCategoryByCategoryIdAsync(id);
+            return Ok(values);
+        }
     }
 }
