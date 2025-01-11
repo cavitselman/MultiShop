@@ -1,4 +1,4 @@
-﻿namespace MS.Catalog.Dtos.ProductImageDtos
+﻿namespace MS.DtoL.CatalogDtos.ProductImageDtos
 {
     public class GetByIdProductImageDto
     {

@@ -8,11 +8,11 @@ namespace MS.Catalog.Controllers
     [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductDetailDetailsController : ControllerBase
+    public class ProductDetailsController : ControllerBase
     {
         private readonly IProductDetailService _productDetailService;
 
-        public ProductDetailDetailsController(IProductDetailService productDetailService)
+        public ProductDetailsController(IProductDetailService productDetailService)
         {
             _productDetailService = productDetailService;
         }
@@ -24,10 +24,17 @@ namespace MS.Catalog.Controllers
             return Ok(values);
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetProductDetailById(string id)
         {
             var values = await _productDetailService.GetByIdProductDetailAsync(id);
+            return Ok(values);
+        }
+
+        [HttpGet("GetProductDetailByProductId")]
+        public async Task<IActionResult> GetProductDetailByProductId(string id)
+        {
+            var values = await _productDetailService.GetByProductIdProductDetailAsync(id);
             return Ok(values);
         }
 

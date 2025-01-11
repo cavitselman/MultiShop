@@ -6,7 +6,7 @@ using MS.Catalog.Settings;
 
 namespace MS.Catalog.Services.ProductImageServices
 {
-    public class ProductImageService:IProductImageService
+    public class ProductImageService : IProductImageService
     {
         private readonly IMapper _mapper;
         private readonly IMongoCollection<ProductImage> _ProductImageCollection;
@@ -38,6 +38,12 @@ namespace MS.Catalog.Services.ProductImageServices
         public async Task<GetByIdProductImageDto> GetByIdProductImageAsync(string id)
         {
             var values = await _ProductImageCollection.Find<ProductImage>(x => x.ProductImageId == id).FirstOrDefaultAsync();
+            return _mapper.Map<GetByIdProductImageDto>(values);
+        }
+
+        public async Task<GetByIdProductImageDto> GetByProductIdProductImageAsync(string id)
+        {
+            var values = await _ProductImageCollection.Find(x => x.ProductId == id).FirstOrDefaultAsync();
             return _mapper.Map<GetByIdProductImageDto>(values);
         }
 

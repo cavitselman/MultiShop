@@ -1,6 +1,6 @@
-﻿namespace MS.Catalog.Dtos.ProductImageDtos
+﻿namespace MS.DtoL.CatalogDtos.ProductImageDtos
 {
-    public class GetByIdProductImageDto
+    public class UpdateProductImageDto
     {
         public string ProductImageId { get; set; }
         public string Image1 { get; set; }
