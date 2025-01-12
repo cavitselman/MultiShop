@@ -19,7 +19,9 @@
     @await Component.InvokeAsync("_FooterUILayoutComponentPartial")  
 
     @await Component.InvokeAsync("_ScriptUILayoutComponentPartial")
-    
+
+    { @RenderSection("Scripts", required: false) }
+
 </body>
 
 </html>

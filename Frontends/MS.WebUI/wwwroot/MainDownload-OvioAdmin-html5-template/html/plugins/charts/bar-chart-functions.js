@@ -81,7 +81,7 @@ Highcharts.chart('container12', {
         text: 'Source: <a href="http://en.wikipedia.org/wiki/List_of_cities_proper_by_population">Wikipedia</a>'
     },
     xAxis: {
-        type: 'category',
+        type: 'Category',
         labels: {
             rotation: -45,
             style: {

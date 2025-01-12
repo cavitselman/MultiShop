@@ -48,13 +48,13 @@ namespace MS.WebUI.Areas.Admin.Controllers
             var responseMessage = await client.GetAsync("https://localhost:7070/api/Categories");
             var jsonData = await responseMessage.Content.ReadAsStringAsync();
             var values = JsonConvert.DeserializeObject<List<ResultCategoryDto>>(jsonData);
-            List<SelectListItem> categoryValues=(from x in values 
+            List<SelectListItem> CategoryValues=(from x in values 
                                                  select new SelectListItem 
                                                  { 
                                                    Text = x.CategoryName, 
                                                    Value = x.CategoryId
                                                  }).ToList();
-            ViewBag.CategoryValues = categoryValues;
+            ViewBag.CategoryValues = CategoryValues;
             return View();
         }
 
@@ -94,13 +94,13 @@ namespace MS.WebUI.Areas.Admin.Controllers
             var responseMessage = await client.GetAsync("https://localhost:7070/api/Categories");
             var jsonData = await responseMessage.Content.ReadAsStringAsync();
             var values = JsonConvert.DeserializeObject<List<ResultCategoryDto>>(jsonData);
-            List<SelectListItem> categoryValues = (from x in values
+            List<SelectListItem> CategoryValues = (from x in values
                                                    select new SelectListItem
                                                    {
                                                        Text = x.CategoryName,
                                                        Value = x.CategoryId
                                                    }).ToList();
-            ViewBag.CategoryValues = categoryValues;
+            ViewBag.CategoryValues = CategoryValues;
             var responseMessage2 = await client.GetAsync("https://localhost:7070/api/Products/" + id);
             if (responseMessage2.IsSuccessStatusCode)
             {

@@ -482,7 +482,7 @@ filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1);
 .fa-random:before {
 	content:"\f074"
 }
-.fa-comment:before {
+.fa-Category:before {
 	content:"\f075"
 }
 .fa-magnet:before {
@@ -530,7 +530,7 @@ filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1);
 .fa-gears:before, .fa-cogs:before {
 	content:"\f085"
 }
-.fa-comments:before {
+.fa-Categorys:before {
 	content:"\f086"
 }
 .fa-thumbs-o-up:before {
@@ -761,10 +761,10 @@ filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1);
 .fa-dashboard:before, .fa-tachometer:before {
 	content:"\f0e4"
 }
-.fa-comment-o:before {
+.fa-Category-o:before {
 	content:"\f0e5"
 }
-.fa-comments-o:before {
+.fa-Categorys-o:before {
 	content:"\f0e6"
 }
 .fa-flash:before, .fa-bolt:before {
