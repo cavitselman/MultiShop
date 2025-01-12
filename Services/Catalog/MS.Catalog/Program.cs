@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using MS.Catalog.Services.AboutServices;
 using MS.Catalog.Services.BrandServices;
 using MS.Catalog.Services.CategoryServices;
+using MS.Catalog.Services.ContactServices;
 using MS.Catalog.Services.FeatureServices;
 using MS.Catalog.Services.FeatureSliderServices;
 using MS.Catalog.Services.OfferDiscountServices;
@@ -33,6 +34,7 @@ builder.Services.AddScoped<IFeatureService, FeatureService>();
 builder.Services.AddScoped<IOfferDiscountService, OfferDiscountService>();
 builder.Services.AddScoped<IBrandService, BrandService>();
 builder.Services.AddScoped<IAboutService, AboutService>();
+builder.Services.AddScoped<IContactService, ContactService>();
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 

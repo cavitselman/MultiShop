@@ -2,6 +2,7 @@
 using MS.Catalog.Dtos.AboutDtos;
 using MS.Catalog.Dtos.BrandDtos;
 using MS.Catalog.Dtos.CategoryDtos;
+using MS.Catalog.Dtos.ContactDtos;
 using MS.Catalog.Dtos.FeatureDtos;
 using MS.Catalog.Dtos.FeatureSliderDtos;
 using MS.Catalog.Dtos.OfferDiscountDtos;
@@ -68,6 +69,11 @@ namespace MS.Catalog.Mapping
             CreateMap<About, CreateAboutDto>().ReverseMap();
             CreateMap<About, UpdateAboutDto>().ReverseMap();
             CreateMap<About, GetByIdAboutDto>().ReverseMap();
+
+            CreateMap<Contact, ResultContactDto>().ReverseMap();
+            CreateMap<Contact, CreateContactDto>().ReverseMap();
+            CreateMap<Contact, UpdateContactDto>().ReverseMap();
+            CreateMap<Contact, GetByIdContactDto>().ReverseMap();
         }
     }
 }
