@@ -8,7 +8,7 @@ using static Duende.IdentityServer.IdentityServerConstants;
 
 namespace MS.IdentityServer.Controllers
 {
-    [Authorize(LocalApi.PolicyName)]
+    [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]
     public class RegistersController : ControllerBase
