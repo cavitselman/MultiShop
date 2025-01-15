@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using MS.DtoL.IdentityDtos.LoginDtos;
 using MS.WebUI.Models;
+using MS.WebUI.Services;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -13,10 +14,12 @@ namespace MS.WebUI.Controllers
     public class LoginController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
+        private readonly ILoginService _loginService;
 
-        public LoginController(IHttpClientFactory httpClientFactory)
+        public LoginController(IHttpClientFactory httpClientFactory, ILoginService loginService)
         {
             _httpClientFactory = httpClientFactory;
+            _loginService = loginService;
         }
 
         [HttpGet]
@@ -27,7 +30,7 @@ namespace MS.WebUI.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Index(CreateLoginDto createLoginDto)
-        {
+        {            
             var client = _httpClientFactory.CreateClient();
             var content = new StringContent(JsonSerializer.Serialize(createLoginDto), Encoding.UTF8, "application/json");
             var response = await client.PostAsync("http://localhost:5001/api/Logins", content);
@@ -55,6 +58,7 @@ namespace MS.WebUI.Controllers
                             IsPersistent = true
                         };
                         await HttpContext.SignInAsync(JwtBearerDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProps);
+                        var id = _loginService.GetUserId;
                         return Redirect("/Default/Index");
                     }
                 }

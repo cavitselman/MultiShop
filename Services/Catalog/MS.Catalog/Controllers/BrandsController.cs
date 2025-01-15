@@ -6,7 +6,7 @@ using MS.Catalog.Services.BrandServices;
 
 namespace MS.Catalog.Controllers
 {
-    [AllowAnonymous]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class BrandsController : ControllerBase

@@ -7,7 +7,7 @@ using System.Formats.Asn1;
 
 namespace MS.Catalog.Controllers
 {
-    [AllowAnonymous]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CategoriesController : ControllerBase
