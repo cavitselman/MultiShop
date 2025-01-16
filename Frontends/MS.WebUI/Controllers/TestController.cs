@@ -2,6 +2,7 @@
 using MS.DtoL.CatalogDtos.CategoryDtos;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Net.Http.Headers;
 
 namespace MS.WebUI.Controllers
 {
@@ -16,7 +17,7 @@ namespace MS.WebUI.Controllers
 
         public async Task<IActionResult> Index()
         {
-            string token;
+            string token = "";
             using (var httpClient = new HttpClient())
             {
                 var request = new HttpRequestMessage
@@ -43,6 +44,8 @@ namespace MS.WebUI.Controllers
             }
 
             var client = _httpClientFactory.CreateClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
             var responseMessage = await client.GetAsync("https://localhost:7070/api/Categories");
             if (responseMessage.IsSuccessStatusCode)
             {
@@ -50,6 +53,11 @@ namespace MS.WebUI.Controllers
                 var values = JsonConvert.DeserializeObject<List<ResultCategoryDto>>(jsonData);
                 return View(values);
             }
+            return View();
+        }
+
+        public IActionResult Deneme1()
+        {
             return View();
         }
     }
