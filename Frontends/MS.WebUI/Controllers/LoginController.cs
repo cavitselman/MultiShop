@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using MS.DtoL.IdentityDtos.LoginDtos;
 using MS.WebUI.Models;
-using MS.WebUI.Services;
 using MS.WebUI.Services.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -50,7 +49,7 @@ namespace MS.WebUI.Controllers
             signInDto.Username = "flp";
             signInDto.Password = "123456aA*";
             await _identityService.SignIn(signInDto);
-            return Redirect("/Test/Index");
+            return Redirect("/User/Index");
         }
     }
 }

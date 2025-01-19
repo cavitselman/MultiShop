@@ -1,6 +1,7 @@
-﻿using System.Security.Claims;
+﻿using MS.WebUI.Services.Interfaces;
+using System.Security.Claims;
 
-namespace MS.WebUI.Services
+namespace MS.WebUI.Services.Concrete
 {
     public class LoginService : ILoginService
     {
