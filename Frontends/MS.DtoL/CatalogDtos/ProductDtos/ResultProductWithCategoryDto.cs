@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MS.DtoL.CatalogDtos.CategoryDtos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,5 +16,6 @@ namespace MS.DtoL.CatalogDtos.ProductDtos
         public string ProductDescription { get; set; }
         public string CategoryId { get; set; }
         public string CategoryName { get; set; }
+        public ResultCategoryDto Category { get; set; }
     }
 }
