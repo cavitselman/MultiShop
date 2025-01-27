@@ -1,29 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MS.DtoL.CatalogDtos.BrandDtos;
+using MS.WebUI.Services.CatalogServices.BrandServices;
 using Newtonsoft.Json;
 
 namespace MS.WebUI.ViewComponents.DefaultViewComponents
 {
     public class _BrandDefaultComponentPartial : ViewComponent
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IBrandService _brandService;
 
-        public _BrandDefaultComponentPartial(IHttpClientFactory httpClientFactory)
+        public _BrandDefaultComponentPartial(IBrandService brandService)
         {
-            _httpClientFactory = httpClientFactory;
+            _brandService = brandService;
         }
-
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:7070/api/Brands");
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultBrandDto>>(jsonData);
-                return View(values);
-            }
-            return View();
+            var values = await _brandService.GetAllBrandAsync();
+            return View(values);
         }
     }
 }

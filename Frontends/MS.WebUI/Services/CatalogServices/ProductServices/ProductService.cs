@@ -29,10 +29,10 @@ namespace MS.WebUI.Services.CatalogServices.ProductServices
             return values;
         }
 
-        public async Task<UpdateProductDto> GetByIdProductAsync(string id)
+        public async Task<GetByIdProductDto> GetByIdProductAsync(string id)
         {
             var responseMessage = await _httpClient.GetAsync("products/" + id);
-            var values = await responseMessage.Content.ReadFromJsonAsync<UpdateProductDto>();
+            var values = await responseMessage.Content.ReadFromJsonAsync<GetByIdProductDto>();
             return values;
         }
 
@@ -44,9 +44,12 @@ namespace MS.WebUI.Services.CatalogServices.ProductServices
             return values;
         }
 
-        public Task<List<ResultProductWithCategoryDto>> GetProductWithCategoryByCategoryIdAsync(string CategoryId)
+        public async Task<List<ResultProductWithCategoryDto>> GetProductWithCategoryByCategoryIdAsync(string CategoryId)
         {
-            throw new NotImplementedException();
+            var responseMessage = await _httpClient.GetAsync("products/ProductListWithCategoryByCategoryId?id=" + CategoryId);
+            var jsonData = await responseMessage.Content.ReadAsStringAsync();
+            var values = JsonConvert.DeserializeObject<List<ResultProductWithCategoryDto>>(jsonData);
+            return values;
         }
 
         public async Task UpdateProductAsync(UpdateProductDto updateProductDto)

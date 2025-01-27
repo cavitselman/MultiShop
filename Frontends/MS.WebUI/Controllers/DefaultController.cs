@@ -6,6 +6,8 @@ namespace MS.WebUI.Controllers
     {
         public IActionResult Index()
         {
+            ViewBag.directory1 = "Ana Sayfa";
+            ViewBag.directory3 = "Ürün Listesi";
             return View();
         }
     }
