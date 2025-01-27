@@ -4,6 +4,7 @@ using MS.WebUI.Handlers;
 using MS.WebUI.Services.CatalogServices.AboutServices;
 using MS.WebUI.Services.CatalogServices.BrandServices;
 using MS.WebUI.Services.CatalogServices.CategoryServices;
+using MS.WebUI.Services.CatalogServices.ContactServices;
 using MS.WebUI.Services.CatalogServices.FeatureServices;
 using MS.WebUI.Services.CatalogServices.FeatureSliderServices;
 using MS.WebUI.Services.CatalogServices.OfferDiscountServices;
@@ -11,6 +12,7 @@ using MS.WebUI.Services.CatalogServices.ProductDetailServices;
 using MS.WebUI.Services.CatalogServices.ProductImageServices;
 using MS.WebUI.Services.CatalogServices.ProductServices;
 using MS.WebUI.Services.CatalogServices.SpecialOfferServices;
+using MS.WebUI.Services.CommentServices;
 using MS.WebUI.Services.Concrete;
 using MS.WebUI.Services.Interfaces;
 using MS.WebUI.Settings;
@@ -108,6 +110,16 @@ builder.Services.AddHttpClient<IProductImageService, ProductImageService>(opt =>
 }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
 
 builder.Services.AddHttpClient<IProductDetailService, ProductDetailService>(opt =>
+{
+    opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Catalog.Path}");
+}).AddHttpMessageHandler<ClientCredentialTokenHandler>();
+
+builder.Services.AddHttpClient<ICommentService, CommentService>(opt =>
+{
+    opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Comment.Path}");
+}).AddHttpMessageHandler<ClientCredentialTokenHandler>();
+
+builder.Services.AddHttpClient<IContactService, ContactService>(opt =>
 {
     opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Catalog.Path}");
 }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
