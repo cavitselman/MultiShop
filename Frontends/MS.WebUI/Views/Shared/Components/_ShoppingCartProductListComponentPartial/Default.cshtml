@@ -1,7 +1,10 @@
-﻿<div class="col-lg-8 table-responsive mb-5">
+﻿@model List<BasketItemDto>
+
+<div class="col-lg-8 table-responsive mb-5">
     <table class="table table-light table-borderless table-hover text-center mb-0">
         <thead class="thead-dark">
             <tr>
+                <th>#</th>
                 <th>Ürün</th>
                 <th>Fiyat</th>
                 <th>Miktar</th>
@@ -10,111 +13,31 @@
             </tr>
         </thead>
         <tbody class="align-middle">
-            <tr>
-                <td class="align-middle" style="position:relative;right:10px"><img src="https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,e_sharpen/global/392290/03/fnd/TUR/w/1000/h/1000/fmt/png" alt="" style="width: 50px;"> Ayakkabı</td>
-                <td class="align-middle">750₺</td>
-                <td class="align-middle">
-                    <div class="input-group quantity mx-auto" style="width: 100px;">
-                        <div class="input-group-btn">
-                            <button class="btn btn-sm btn-primary btn-minus">
-                                <i class="fa fa-minus"></i>
-                            </button>
+            @foreach(var item in Model)
+            {
+                <tr>
+                    <td class="align-middle"><img src="@item.ProductImageUrl" alt="" style="width:70px;height:50px"></td>
+                    <td class="align-middle">@item.ProductName</td>
+                    <td class="align-middle">@item.Price₺</td>
+                    <td class="align-middle">
+                        <div class="input-group quantity mx-auto" style="width: 100px;">
+                            <div class="input-group-btn">
+                                <button class="btn btn-sm btn-primary btn-minus">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                            <input type="text" class="form-control form-control-sm bg-secondary border-0 text-center" value="1">
+                            <div class="input-group-btn">
+                                <button class="btn btn-sm btn-primary btn-plus">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
                         </div>
-                        <input type="text" class="form-control form-control-sm bg-secondary border-0 text-center" value="1">
-                        <div class="input-group-btn">
-                            <button class="btn btn-sm btn-primary btn-plus">
-                                <i class="fa fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                </td>
-                <td class="align-middle">750₺</td>
-                <td class="align-middle"><button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button></td>
-            </tr>
-            <tr>
-                <td class="align-middle"><img src="https://static.ticimax.cloud/36929/uploads/urunresimleri/buyuk/nike-nk-acdmy-team-s-duff-spor-cantasi--a4db-.jpg" alt="" style="width: 50px;"> Spor Çanta</td>
-                <td class="align-middle">220₺</td>
-                <td class="align-middle">
-                    <div class="input-group quantity mx-auto" style="width: 100px;">
-                        <div class="input-group-btn">
-                            <button class="btn btn-sm btn-primary btn-minus">
-                                <i class="fa fa-minus"></i>
-                            </button>
-                        </div>
-                        <input type="text" class="form-control form-control-sm bg-secondary border-0 text-center" value="1">
-                        <div class="input-group-btn">
-                            <button class="btn btn-sm btn-primary btn-plus">
-                                <i class="fa fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                </td>
-                <td class="align-middle">220₺</td>
-                <td class="align-middle"><button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button></td>
-            </tr>
-            <tr>
-                <td class="align-middle" style="position:relative;right:15px"><img src="https://static.ticimax.cloud/cdn-cgi/image/width=-,quality=85/6506/uploads/urunresimleri/buyuk/peraluna-kirmizi-v-yaka-basic-erkek-tr-47c-47.jpg" alt="" style="width: 50px;"> Kazak</td>
-                <td class="align-middle">150₺</td>
-                <td class="align-middle">
-                    <div class="input-group quantity mx-auto" style="width: 100px;">
-                        <div class="input-group-btn">
-                            <button class="btn btn-sm btn-primary btn-minus">
-                                <i class="fa fa-minus"></i>
-                            </button>
-                        </div>
-                        <input type="text" class="form-control form-control-sm bg-secondary border-0 text-center" value="1">
-                        <div class="input-group-btn">
-                            <button class="btn btn-sm btn-primary btn-plus">
-                                <i class="fa fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                </td>
-                <td class="align-middle">150₺</td>
-                <td class="align-middle"><button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button></td>
-            </tr>
-            <tr>
-                <td class="align-middle" style="position:relative;right:15px"><img src="https://ae01.alicdn.com/kf/S1e9dbb6c3d754a70888d230cd35947c5K.jpg" alt="" style="width: 50px;"> Elbise</td>
-                <td class="align-middle">420₺</td>
-                <td class="align-middle">
-                    <div class="input-group quantity mx-auto" style="width: 100px;">
-                        <div class="input-group-btn">
-                            <button class="btn btn-sm btn-primary btn-minus">
-                                <i class="fa fa-minus"></i>
-                            </button>
-                        </div>
-                        <input type="text" class="form-control form-control-sm bg-secondary border-0 text-center" value="1">
-                        <div class="input-group-btn">
-                            <button class="btn btn-sm btn-primary btn-plus">
-                                <i class="fa fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                </td>
-                <td class="align-middle">420₺</td>
-                <td class="align-middle"><button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button></td>
-            </tr>
-            <tr>
-                <td class="align-middle"><img src="https://cihanpazarlama.com.tr/content/2023-i%CC%87lkbahar-ve-sonbahar-yeni-erkek-ceket-stand%C4%B1-3-114685.jpeg" alt="" style="width: 50px;"> Erkek Ceket</td>
-                <td class="align-middle">510₺</td>
-                <td class="align-middle">
-                    <div class="input-group quantity mx-auto" style="width: 100px;">
-                        <div class="input-group-btn">
-                            <button class="btn btn-sm btn-primary btn-minus">
-                                <i class="fa fa-minus"></i>
-                            </button>
-                        </div>
-                        <input type="text" class="form-control form-control-sm bg-secondary border-0 text-center" value="1">
-                        <div class="input-group-btn">
-                            <button class="btn btn-sm btn-primary btn-plus">
-                                <i class="fa fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                </td>
-                <td class="align-middle">510₺</td>
-                <td class="align-middle"><button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button></td>
-            </tr>
+                    </td>
+                    <td class="align-middle">@item.Price₺</td>
+                    <td class="align-middle"><a href="/ShoppingCart/RemoveBasketItem/@item.ProductId" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a></td>
+                </tr>
+            }            
         </tbody>
     </table>
 </div>

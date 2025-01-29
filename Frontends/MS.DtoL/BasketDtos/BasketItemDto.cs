@@ -1,4 +1,4 @@
-﻿namespace MS.Basket.Dtos
+﻿namespace MS.DtoL.BasketDtos
 {
     public class BasketItemDto
     {

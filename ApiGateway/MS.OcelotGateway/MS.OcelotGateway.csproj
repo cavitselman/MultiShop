@@ -11,4 +11,8 @@
     <PackageReference Include="Ocelot" Version="23.4.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\NetAspire\MS.NetAspire.ServiceDefaults\MS.NetAspire.ServiceDefaults.csproj" />
+  </ItemGroup>
+
 </Project>
