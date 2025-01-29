@@ -15,6 +15,7 @@ using MS.WebUI.Services.CatalogServices.ProductServices;
 using MS.WebUI.Services.CatalogServices.SpecialOfferServices;
 using MS.WebUI.Services.CommentServices;
 using MS.WebUI.Services.Concrete;
+using MS.WebUI.Services.DiscountServices;
 using MS.WebUI.Services.Interfaces;
 using MS.WebUI.Settings;
 
@@ -68,6 +69,11 @@ builder.Services.AddHttpClient<IUserService, UserService>(opt =>
 builder.Services.AddHttpClient<IBasketService, BasketService>(opt =>
 {
     opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Basket.Path}");
+}).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+
+builder.Services.AddHttpClient<IDiscountService, DiscountService>(opt =>
+{
+    opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Discount.Path}");
 }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
 
 builder.Services.AddHttpClient<ICategoryService, CategoryService>(opt =>

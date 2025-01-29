@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "http": {
+    "MS.Comment": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": false,

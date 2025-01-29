@@ -22,4 +22,8 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\NetAspire\MS.NetAspire.ServiceDefaults\MS.NetAspire.ServiceDefaults.csproj" />
+  </ItemGroup>
+
 </Project>
