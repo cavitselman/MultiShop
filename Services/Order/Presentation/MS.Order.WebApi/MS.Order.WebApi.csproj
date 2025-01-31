@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\NetAspire\MS.NetAspire.ServiceDefaults\MS.NetAspire.ServiceDefaults.csproj" />
     <ProjectReference Include="..\..\Core\MS.Order.Application\MS.Order.Application.csproj" />
     <ProjectReference Include="..\..\Core\MS.Order.Domain\MS.Order.Domain.csproj" />
     <ProjectReference Include="..\..\Infrastructure\MS.Order.Persistence\MS.Order.Persistence.csproj" />

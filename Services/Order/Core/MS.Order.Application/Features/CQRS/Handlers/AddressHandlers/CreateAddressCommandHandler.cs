@@ -21,9 +21,16 @@ namespace MS.Order.Application.Features.CQRS.Handlers.AddressHandlers
             await _repository.CreateAsync(new Address
             {
                 City = createAddressCommand.City,
-                Detail = createAddressCommand.Detail,
+                Detail1 = createAddressCommand.Detail1,
                 District = createAddressCommand.District,
-                UserId = createAddressCommand.UserId
+                UserId = createAddressCommand.UserId,
+                Country = createAddressCommand.Country,
+                Detail2 = createAddressCommand.Detail2,
+                Email = createAddressCommand.Email,
+                Phone = createAddressCommand.Phone,
+                Name = createAddressCommand.Name,
+                Surname = createAddressCommand.Surname,
+                ZipCode = createAddressCommand.ZipCode
             });
         }
     }

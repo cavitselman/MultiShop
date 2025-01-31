@@ -14,7 +14,7 @@ namespace MS.WebUI.Services.CatalogServices.FeatureSliderServices
 
         public async Task CreateFeatureSliderAsync(CreateFeatureSliderDto createFeatureSliderDto)
         {
-            var responseMessage = await _httpClient.PostAsJsonAsync<CreateFeatureSliderDto>("featuresliders", createFeatureSliderDto);
+            await _httpClient.PostAsJsonAsync<CreateFeatureSliderDto>("featuresliders", createFeatureSliderDto);
         }
 
         public async Task DeleteFeatureSliderAsync(string id)

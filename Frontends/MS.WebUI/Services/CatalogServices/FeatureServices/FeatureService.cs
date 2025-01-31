@@ -14,7 +14,7 @@ namespace MS.WebUI.Services.CatalogServices.FeatureServices
 
         public async Task CreateFeatureAsync(CreateFeatureDto createFeatureDto)
         {
-            var responseMessage = await _httpClient.PostAsJsonAsync<CreateFeatureDto>("features", createFeatureDto);
+            await _httpClient.PostAsJsonAsync<CreateFeatureDto>("features", createFeatureDto);
         }
 
         public async Task DeleteFeatureAsync(string id)

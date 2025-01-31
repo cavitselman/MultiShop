@@ -14,7 +14,7 @@ namespace MS.WebUI.Services.CatalogServices.SpecialOfferServices
 
         public async Task CreateSpecialOfferAsync(CreateSpecialOfferDto createSpecialOfferDto)
         {
-            var responseMessage = await _httpClient.PostAsJsonAsync<CreateSpecialOfferDto>("specialoffers", createSpecialOfferDto);
+            await _httpClient.PostAsJsonAsync<CreateSpecialOfferDto>("specialoffers", createSpecialOfferDto);
         }
 
         public async Task DeleteSpecialOfferAsync(string id)

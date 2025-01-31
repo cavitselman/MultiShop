@@ -14,7 +14,7 @@ namespace MS.WebUI.Services.CatalogServices.CategoryServices
 
         public async Task CreateCategoryAsync(CreateCategoryDto createCategoryDto)
         {
-            var responseMessage = await _httpClient.PostAsJsonAsync<CreateCategoryDto>("categories", createCategoryDto);
+            await _httpClient.PostAsJsonAsync<CreateCategoryDto>("categories", createCategoryDto);
         }
 
         public async Task DeleteCategoryAsync(string id)

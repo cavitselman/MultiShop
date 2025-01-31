@@ -12,4 +12,6 @@ builder.AddProject<Projects.MS_Discount>("ms-discount");
 
 builder.AddProject<Projects.MS_Comment>("ms-comment");
 
+builder.AddProject<Projects.MS_Order_WebApi>("ms-order-webapi");
+
 builder.Build().Run();

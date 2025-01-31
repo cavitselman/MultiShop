@@ -13,7 +13,7 @@ namespace MS.WebUI.Services.CatalogServices.ProductServices
         }
         public async Task CreateProductAsync(CreateProductDto createProductDto)
         {
-            var responseMessage = await _httpClient.PostAsJsonAsync<CreateProductDto>("products", createProductDto);
+            await _httpClient.PostAsJsonAsync<CreateProductDto>("products", createProductDto);
         }
 
         public async Task DeleteProductAsync(string id)

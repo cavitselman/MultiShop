@@ -14,7 +14,7 @@ namespace MS.WebUI.Services.CatalogServices.ContactServices
 
         public async Task CreateContactAsync(CreateContactDto createContactDto)
         {
-            var responseMessage = await _httpClient.PostAsJsonAsync<CreateContactDto>("contacts", createContactDto);
+            await _httpClient.PostAsJsonAsync<CreateContactDto>("contacts", createContactDto);
         }
 
         public async Task DeleteContactAsync(string id)

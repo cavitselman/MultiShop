@@ -14,7 +14,7 @@ namespace MS.WebUI.Services.CatalogServices.ProductDetailServices
 
         public async Task CreateProductDetailAsync(CreateProductDetailDto createProductDetailDto)
         {
-            var responseMessage = await _httpClient.PostAsJsonAsync<CreateProductDetailDto>("productdetails", createProductDetailDto);
+            await _httpClient.PostAsJsonAsync<CreateProductDetailDto>("productdetails", createProductDetailDto);
         }
 
         public async Task DeleteProductDetailAsync(string id)

@@ -14,7 +14,7 @@ namespace MS.WebUI.Services.CatalogServices.ProductImageServices
 
         public async Task CreateProductImageAsync(CreateProductImageDto createProductImageDto)
         {
-            var responseMessage = await _httpClient.PostAsJsonAsync<CreateProductImageDto>("productimages", createProductImageDto);
+            await _httpClient.PostAsJsonAsync<CreateProductImageDto>("productimages", createProductImageDto);
         }
 
         public async Task DeleteProductImageAsync(string id)

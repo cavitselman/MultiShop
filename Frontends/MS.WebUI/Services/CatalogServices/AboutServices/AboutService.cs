@@ -14,7 +14,7 @@ namespace MS.WebUI.Services.CatalogServices.AboutServices
 
         public async Task CreateAboutAsync(CreateAboutDto createAboutDto)
         {
-            var responseMessage = await _httpClient.PostAsJsonAsync<CreateAboutDto>("abouts", createAboutDto);
+            await _httpClient.PostAsJsonAsync<CreateAboutDto>("abouts", createAboutDto);
         }
 
         public async Task DeleteAboutAsync(string id)

@@ -14,7 +14,7 @@ namespace MS.WebUI.Services.CatalogServices.BrandServices
 
         public async Task CreateBrandAsync(CreateBrandDto createBrandDto)
         {
-            var responseMessage = await _httpClient.PostAsJsonAsync<CreateBrandDto>("brands", createBrandDto);
+            await _httpClient.PostAsJsonAsync<CreateBrandDto>("brands", createBrandDto);
         }
 
         public async Task DeleteBrandAsync(string id)

@@ -16,17 +16,29 @@ namespace MS.WebUI.Controllers
             _basketService = basketService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string code, int discountRate, decimal totalNewPriceWithDiscount)
         {
+            ViewBag.code = code;
+            ViewBag.discountRate = discountRate;
             ViewBag.directory1 = "Ana Sayfa";
             ViewBag.directory2 = "Ürünler";
             ViewBag.directory3 = "Sepetim";
+            // Eğer kupon uygulanmadıysa, toplam fiyatı ve KDV'yi göster
             var values = await _basketService.GetBasket();
             ViewBag.total = values.TotalPrice;
-            var totalPriceWithTax = values.TotalPrice + values.TotalPrice / 100 * 10;            
+            var totalPriceWithTax = values.TotalPrice + values.TotalPrice / 100 * 10;
             var tax = values.TotalPrice / 100 * 10;
-            ViewBag.totalPriceWithTax = totalPriceWithTax;
             ViewBag.tax = tax;
+            ViewBag.totalPriceWithTax = totalPriceWithTax;
+            // Eğer kupon kodu geçerliyse, yeni fiyatı göster
+            if (totalNewPriceWithDiscount > 0)
+            {
+                ViewBag.totalNewPriceWithDiscount = totalNewPriceWithDiscount;
+            }
+            else
+            {
+                ViewBag.totalNewPriceWithDiscount = totalPriceWithTax; // Kupon uygulanmadıysa, eski fiyatı göster
+            }
             return View();
         }
 

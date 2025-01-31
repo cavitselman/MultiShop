@@ -14,7 +14,7 @@ namespace MS.WebUI.Services.CatalogServices.OfferDiscountServices
 
         public async Task CreateOfferDiscountAsync(CreateOfferDiscountDto createOfferDiscountDto)
         {
-            var responseMessage = await _httpClient.PostAsJsonAsync<CreateOfferDiscountDto>("offerdiscounts", createOfferDiscountDto);
+            await _httpClient.PostAsJsonAsync<CreateOfferDiscountDto>("offerdiscounts", createOfferDiscountDto);
         }
 
         public async Task DeleteOfferDiscountAsync(string id)

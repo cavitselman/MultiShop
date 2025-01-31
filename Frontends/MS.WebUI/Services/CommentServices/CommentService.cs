@@ -22,7 +22,7 @@ namespace MS.WebUI.Services.CommentServices
 
         public async Task CreateCommentAsync(CreateCommentDto createCommentDto)
         {
-            var responseMessage = await _httpClient.PostAsJsonAsync<CreateCommentDto>("comments", createCommentDto);
+            await _httpClient.PostAsJsonAsync<CreateCommentDto>("comments", createCommentDto);
         }
 
         public async Task DeleteCommentAsync(string id)
