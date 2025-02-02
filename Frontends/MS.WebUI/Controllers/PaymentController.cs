@@ -6,6 +6,8 @@ namespace MS.WebUI.Controllers
     {
         public IActionResult Index()
         {
+            ViewBag.directory1 = "Ödeme Ekranı";
+            ViewBag.directory3 = "Kartla Ödeme";
             return View();
         }
     }
