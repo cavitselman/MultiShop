@@ -20,6 +20,7 @@
     <ProjectReference Include="..\..\Services\Catalog\MS.Catalog\MS.Catalog.csproj" />
     <ProjectReference Include="..\..\Services\Comment\MS.Comment\MS.Comment.csproj" />
     <ProjectReference Include="..\..\Services\Discount\MS.Discount\MS.Discount.csproj" />
+    <ProjectReference Include="..\..\Services\Message\MS.Message\MS.Message.csproj" />
     <ProjectReference Include="..\..\Services\Order\Presentation\MS.Order.WebApi\MS.Order.WebApi.csproj" />
   </ItemGroup>
 

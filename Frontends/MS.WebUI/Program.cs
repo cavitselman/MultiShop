@@ -17,6 +17,7 @@ using MS.WebUI.Services.CommentServices;
 using MS.WebUI.Services.Concrete;
 using MS.WebUI.Services.DiscountServices;
 using MS.WebUI.Services.Interfaces;
+using MS.WebUI.Services.MessageServices;
 using MS.WebUI.Services.OrderServices.OrderAddressServices;
 using MS.WebUI.Services.OrderServices.OrderOrderingServices;
 using MS.WebUI.Settings;
@@ -86,6 +87,11 @@ builder.Services.AddHttpClient<IOrderAddressService, OrderAddressService>(opt =>
 builder.Services.AddHttpClient<IDiscountService, DiscountService>(opt =>
 {
     opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Discount.Path}");
+}).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+
+builder.Services.AddHttpClient<IMessageService, MessageService>(opt =>
+{
+    opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Message.Path}");
 }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
 
 builder.Services.AddHttpClient<ICategoryService, CategoryService>(opt =>

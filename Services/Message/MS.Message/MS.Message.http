@@ -1,0 +1,6 @@
+@MS.Message_HostAddress = http://localhost:5011
+
+GET {{MS.Message_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
