@@ -11,6 +11,7 @@ using MS.Catalog.Services.ProductDetailDetailServices;
 using MS.Catalog.Services.ProductImageServices;
 using MS.Catalog.Services.ProductServices;
 using MS.Catalog.Services.SpecialOfferServices;
+using MS.Catalog.Services.StatisticServices;
 using MS.Catalog.Settings;
 using System.Reflection;
 
@@ -37,6 +38,7 @@ builder.Services.AddScoped<IOfferDiscountService, OfferDiscountService>();
 builder.Services.AddScoped<IBrandService, BrandService>();
 builder.Services.AddScoped<IAboutService, AboutService>();
 builder.Services.AddScoped<IContactService, ContactService>();
+builder.Services.AddScoped<IStatisticService, StatisticService>();
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
