@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using MS.WebUI.Handlers;
 using MS.WebUI.Services.BasketServices;
+using MS.WebUI.Services.CargoServices.CargoCompanyServices;
+using MS.WebUI.Services.CargoServices.CargoCustomerServices;
 using MS.WebUI.Services.CatalogServices.AboutServices;
 using MS.WebUI.Services.CatalogServices.BrandServices;
 using MS.WebUI.Services.CatalogServices.CategoryServices;
@@ -20,6 +22,7 @@ using MS.WebUI.Services.Interfaces;
 using MS.WebUI.Services.MessageServices;
 using MS.WebUI.Services.OrderServices.OrderAddressServices;
 using MS.WebUI.Services.OrderServices.OrderOrderingServices;
+using MS.WebUI.Services.UserIdentityServices;
 using MS.WebUI.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -69,6 +72,11 @@ builder.Services.AddHttpClient<IUserService, UserService>(opt =>
     opt.BaseAddress = new Uri(values.IdentityServerUrl);
 }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
 
+builder.Services.AddHttpClient<IUserIdentityService, UserIdentityService>(opt =>
+{
+    opt.BaseAddress = new Uri(values.IdentityServerUrl);
+}).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+
 builder.Services.AddHttpClient<IBasketService, BasketService>(opt =>
 {
     opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Basket.Path}");
@@ -87,6 +95,16 @@ builder.Services.AddHttpClient<IOrderAddressService, OrderAddressService>(opt =>
 builder.Services.AddHttpClient<IDiscountService, DiscountService>(opt =>
 {
     opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Discount.Path}");
+}).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+
+builder.Services.AddHttpClient<ICargoCompanyService, CargoCompanyService>(opt =>
+{
+    opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Cargo.Path}");
+}).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+
+builder.Services.AddHttpClient<ICargoCustomerService, CargoCustomerService>(opt =>
+{
+    opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Cargo.Path}");
 }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
 
 builder.Services.AddHttpClient<IMessageService, MessageService>(opt =>

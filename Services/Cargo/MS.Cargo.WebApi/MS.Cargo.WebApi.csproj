@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\NetAspire\MS.NetAspire.ServiceDefaults\MS.NetAspire.ServiceDefaults.csproj" />
     <ProjectReference Include="..\MS.Cargo.BL\MS.Cargo.BL.csproj" />
     <ProjectReference Include="..\MS.Cargo.DAL\MS.Cargo.DAL.csproj" />
     <ProjectReference Include="..\MS.Cargo.DtoL\MS.Cargo.DtoL.csproj" />

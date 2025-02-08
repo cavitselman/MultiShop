@@ -44,7 +44,8 @@ namespace MS.Cargo.WebApi.Controllers
                 Phone = createCargoCustomerDto.Phone,
                 District = createCargoCustomerDto.District,
                 City = createCargoCustomerDto.City,
-                Address = createCargoCustomerDto.Address
+                Address = createCargoCustomerDto.Address,
+                UserCustomerId = createCargoCustomerDto.UserCustomerId
             };
             _cargoCustomerService.TInsert(cargoCustomer);
             return Ok("Kargo Müşteri Ekleme İşlemi Başarıyla Yapıldı");
@@ -69,10 +70,17 @@ namespace MS.Cargo.WebApi.Controllers
                 Phone = updateCargoCustomerDto.Phone,
                 District = updateCargoCustomerDto.District,
                 City = updateCargoCustomerDto.City,
-                Address = updateCargoCustomerDto.Address
+                Address = updateCargoCustomerDto.Address,
+                UserCustomerId = updateCargoCustomerDto.UserCustomerId
             };
             _cargoCustomerService.TUpdate(cargoCustomer);
             return Ok("Kargo Müşteri Güncelleme İşlemi Başarıyla Yapıldı");
+        }
+
+        [HttpGet("GetCargoCustomerById")]
+        public IActionResult GetCargoCustomerById(string id)
+        {
+            return Ok(_cargoCustomerService.TGetCargoCustomerById(id));
         }
     }
 }

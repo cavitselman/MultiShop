@@ -16,5 +16,6 @@ namespace MS.Cargo.EL.Concrete
         public string District { get; set; }
         public string City { get; set; }
         public string Address { get; set; }
+        public string? UserCustomerId { get; set; }
     }
 }

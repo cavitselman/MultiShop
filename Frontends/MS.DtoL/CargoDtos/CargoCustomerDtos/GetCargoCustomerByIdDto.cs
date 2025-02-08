@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MS.Cargo.DtoL.Dtos.CargoCustomerDtos
+namespace MS.DtoL.CargoDtos.CargoCustomerDtos
 {
-    public class UpdateCargoCustomerDto
+    public class GetCargoCustomerByIdDto
     {
         public int CargoCustomerId { get; set; }
         public string Name { get; set; }

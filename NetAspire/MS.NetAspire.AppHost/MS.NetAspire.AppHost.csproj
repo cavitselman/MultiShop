@@ -17,6 +17,7 @@
     <ProjectReference Include="..\..\ApiGateway\MS.OcelotGateway\MS.OcelotGateway.csproj" />
     <ProjectReference Include="..\..\IdentityServer\MS.IdentityServer\MS.IdentityServer.csproj" />
     <ProjectReference Include="..\..\Services\Basket\MS.Basket\MS.Basket.csproj" />
+    <ProjectReference Include="..\..\Services\Cargo\MS.Cargo.WebApi\MS.Cargo.WebApi.csproj" />
     <ProjectReference Include="..\..\Services\Catalog\MS.Catalog\MS.Catalog.csproj" />
     <ProjectReference Include="..\..\Services\Comment\MS.Comment\MS.Comment.csproj" />
     <ProjectReference Include="..\..\Services\Discount\MS.Discount\MS.Discount.csproj" />

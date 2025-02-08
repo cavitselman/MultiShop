@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MS.WebUI.Services.CargoServices.CargoCustomerServices;
 using MS.WebUI.Services.Interfaces;
 
 namespace MS.WebUI.Controllers
@@ -16,6 +17,6 @@ namespace MS.WebUI.Controllers
         {
             var values = await _userService.GetUserInfo();
             return View(values);
-        }
+        }        
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MS.IdentityServer.Models;
 using System.IdentityModel.Tokens.Jwt;
 using static Duende.IdentityServer.IdentityServerConstants;
@@ -33,6 +34,13 @@ namespace MS.IdentityServer.Controllers
                 Email = user.Email,
                 UserName = user.UserName
             });
+        }
+
+        [HttpGet("GetAllUserList")]
+        public async Task<IActionResult> GetAllUserList()
+        {
+            var users = await _userManager.Users.ToListAsync();
+            return Ok(users);
         }
     }
 }
