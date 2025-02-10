@@ -22,6 +22,10 @@ using MS.WebUI.Services.Interfaces;
 using MS.WebUI.Services.MessageServices;
 using MS.WebUI.Services.OrderServices.OrderAddressServices;
 using MS.WebUI.Services.OrderServices.OrderOrderingServices;
+using MS.WebUI.Services.StatisticServices.CatalogStatisticServices;
+using MS.WebUI.Services.StatisticServices.DiscountStatisticServices;
+using MS.WebUI.Services.StatisticServices.MessageStatisticServices;
+using MS.WebUI.Services.StatisticServices.UserStatisticServices;
 using MS.WebUI.Services.UserIdentityServices;
 using MS.WebUI.Settings;
 
@@ -68,6 +72,26 @@ builder.Services.AddHttpClient<IClientCredentialTokenService, ClientCredentialTo
 var values = builder.Configuration.GetSection("ServiceApiSettings").Get<ServiceApiSettings>();
 
 builder.Services.AddHttpClient<IUserService, UserService>(opt =>
+{
+    opt.BaseAddress = new Uri(values.IdentityServerUrl);
+}).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+
+builder.Services.AddHttpClient<ICatalogStatisticService, CatalogStatisticService>(opt =>
+{
+    opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Catalog.Path}");
+}).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+
+builder.Services.AddHttpClient<IMessageStatisticService, MessageStatisticService>(opt =>
+{
+    opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Message.Path}");
+}).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+
+builder.Services.AddHttpClient<IDiscountStatisticService, DiscountStatisticService>(opt =>
+{
+    opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Discount.Path}");
+}).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+
+builder.Services.AddHttpClient<IUserStatisticService, UserStatisticService>(opt =>
 {
     opt.BaseAddress = new Uri(values.IdentityServerUrl);
 }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
