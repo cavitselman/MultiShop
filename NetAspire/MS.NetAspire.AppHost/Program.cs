@@ -18,4 +18,6 @@ builder.AddProject<Projects.MS_Message>("ms-message");
 
 builder.AddProject<Projects.MS_Cargo_WebApi>("ms-cargo-webapi");
 
+builder.AddProject<Projects.MS_SignalRRealTimeApi>("ms-signalrrealtimeapi");
+
 builder.Build().Run();

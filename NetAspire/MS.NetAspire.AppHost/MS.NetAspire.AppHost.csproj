@@ -23,6 +23,7 @@
     <ProjectReference Include="..\..\Services\Discount\MS.Discount\MS.Discount.csproj" />
     <ProjectReference Include="..\..\Services\Message\MS.Message\MS.Message.csproj" />
     <ProjectReference Include="..\..\Services\Order\Presentation\MS.Order.WebApi\MS.Order.WebApi.csproj" />
+    <ProjectReference Include="..\..\Services\SignalRRealTime\MS.SignalRRealTimeApi\MS.SignalRRealTimeApi.csproj" />
   </ItemGroup>
 
 </Project>

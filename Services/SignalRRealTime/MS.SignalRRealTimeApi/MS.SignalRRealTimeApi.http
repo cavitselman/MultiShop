@@ -1,0 +1,6 @@
+@MS.SignalRRealTimeApi_HostAddress = http://localhost:5133
+
+GET {{MS.SignalRRealTimeApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

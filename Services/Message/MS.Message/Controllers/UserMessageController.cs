@@ -19,7 +19,7 @@ namespace MS.Message.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllMessage()
         {
-            var values =await _userMessageService.GetAllMessageAsync();
+            var values = await _userMessageService.GetAllMessageAsync();
             return Ok(values);
         }
 
@@ -62,6 +62,13 @@ namespace MS.Message.Controllers
         public async Task<IActionResult> GetTotalMessageCount()
         {
             int values = await _userMessageService.GetTotalMessageCount();
+            return Ok(values);
+        }
+
+        [HttpGet("GetTotalMessageCountByReceiverId")]
+        public async Task<IActionResult> GetTotalMessageCountByReceiverId(string id)
+        {
+            int values = await _userMessageService.GetTotalMessageCountByReceiverId(id);
             return Ok(values);
         }
     }

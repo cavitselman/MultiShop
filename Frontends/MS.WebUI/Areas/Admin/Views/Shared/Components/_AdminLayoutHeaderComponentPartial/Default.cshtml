@@ -5,7 +5,7 @@
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><img src="https://multishop.com.pe/cdn/shop/files/logo_s_fondo_1.png?height=628&pad_color=ffffff&v=1726861037&width=1200" alt="Ovio"></span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><img src="https://multishop.com.pe/cdn/shop/files/logo_s_fondo_1.png?height=628&pad_color=ffffff&v=1726861037&width=1200" style="width:250px;height:55px;position:relative;right:20px" alt="Ovio"></span>
+        <span class="logo-lg"><img src="https://multishop.com.pe/cdn/shop/files/logo_s_fondo_1.png?height=628&pad_color=ffffff&v=1726861037&width=1200" style="width:200px;height:50px; important!" alt="Ovio"></span>
     </a>
 
     <!-- Header Navbar -->
@@ -28,8 +28,8 @@
             <ul class="nav navbar-nav">
                 <li class="dropdown messages-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="icon-envelope"></i>
-                        <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
+                        <i class="icon-envelope"><span class="badge" style="position:relative;top:-10px"><strong id="messageCount">@ViewBag.messageCount</strong></span></i>
+                        <div class="notify"> <span class="heartbit"></span><span class="point"></span></div>
                     </a>
                     <ul class="dropdown-menu">
                         <li class="header">You have 4 messages</li>
@@ -76,11 +76,11 @@
                 <!-- Notifications Menu -->
                 <li class="dropdown notifications-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="icon-megaphone"></i>
-                        <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
+                        <i class="fa fa-comment"><span class="badge" style="position:relative;top:-10px"><strong id="commentCount">@ViewBag.totalCommentCount</strong></span></i>
+                        <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
                     </a>
                     <ul class="dropdown-menu">
-                        <li class="header">Notifications</li>
+                        <li class="header">Son Yorumlar</li>
                         <li>
                             <ul class="menu">
                                 <li><a href="#"><i class="icon-lightbulb"></i> Lorem ipsum dolor sit amet </a> </li>
