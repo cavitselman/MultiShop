@@ -20,4 +20,6 @@ builder.AddProject<Projects.MS_Cargo_WebApi>("ms-cargo-webapi");
 
 builder.AddProject<Projects.MS_SignalRRealTimeApi>("ms-signalrrealtimeapi");
 
+builder.AddProject<Projects.MS_Images>("ms-images");
+
 builder.Build().Run();

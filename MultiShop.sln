@@ -94,6 +94,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SignalRRealTime", "SignalRR
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MS.SignalRRealTimeApi", "Services\SignalRRealTime\MS.SignalRRealTimeApi\MS.SignalRRealTimeApi.csproj", "{6BF1980E-EB6F-4AEA-B361-8243511A757B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MS.Images.WebUI", "Services\Images\MS.Images.WebUI\MS.Images.WebUI.csproj", "{C26318BC-6681-4233-802D-289BFFFB4BEF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -192,6 +194,10 @@ Global
 		{6BF1980E-EB6F-4AEA-B361-8243511A757B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6BF1980E-EB6F-4AEA-B361-8243511A757B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6BF1980E-EB6F-4AEA-B361-8243511A757B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C26318BC-6681-4233-802D-289BFFFB4BEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C26318BC-6681-4233-802D-289BFFFB4BEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C26318BC-6681-4233-802D-289BFFFB4BEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C26318BC-6681-4233-802D-289BFFFB4BEF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -233,6 +239,7 @@ Global
 		{9DF74516-454E-451F-ADB0-0064A56352D5} = {42859DF3-F60D-46C5-96F0-0E4FB5D4B245}
 		{C8B4F7BF-3ABD-4D48-9DD6-3613F38AC32C} = {63B6F9A1-8ACD-42C9-B915-17665793ADA4}
 		{6BF1980E-EB6F-4AEA-B361-8243511A757B} = {C8B4F7BF-3ABD-4D48-9DD6-3613F38AC32C}
+		{C26318BC-6681-4233-802D-289BFFFB4BEF} = {11BD8833-69A1-4188-AD3A-347F57E05C6B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3390E1B8-EB8C-4892-B9A7-EDC7C5269B05}
