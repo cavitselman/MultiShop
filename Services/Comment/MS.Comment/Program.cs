@@ -1,30 +1,33 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using MS.Comment.Context;
+using MS.Comment.Services.CommentServices;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(opt =>
-    {
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
+    {      
         opt.Authority = builder.Configuration["IdentityServerUrl"];
         opt.Audience = "ResourceComment";
         opt.RequireHttpsMetadata = false;
     });
 
-// Add services to the container.
-builder.Services.AddDbContext<CommentContext>();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ICommentService, CommentService>();
+
+builder.Services.AddDbContext<CommentContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-app.MapDefaultEndpoints();
-
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

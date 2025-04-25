@@ -9,6 +9,7 @@ namespace MS.Catalog.Services.CategoryServices
     public class CategoryService : ICategoryService
     {
         private readonly IMongoCollection<Category> _categoryCollection;
+        private readonly IMongoCollection<Product> _productCollection;
         private readonly IMapper _mapper;
 
         public CategoryService(IMapper mapper,IDatabaseSettings _databaseSettings)
@@ -16,6 +17,7 @@ namespace MS.Catalog.Services.CategoryServices
             var client = new MongoClient(_databaseSettings.ConnectionString);
             var database = client.GetDatabase(_databaseSettings.DatabaseName);
             _categoryCollection = database.GetCollection<Category>(_databaseSettings.CategoryCollectionName);
+            _productCollection = database.GetCollection<Product>(_databaseSettings.ProductCollectionName);
             _mapper = mapper;
         }
 
@@ -42,10 +44,41 @@ namespace MS.Catalog.Services.CategoryServices
             return _mapper.Map<GetByIdCategoryDto>(values);
         }
 
+        public async Task<int> GetProductCountByCategoryIdAsync(string categoryId)
+        {
+            var values = await _categoryCollection.CountDocumentsAsync(x => x.CategoryId == categoryId);
+            return (int)values;
+        }
+
         public async Task UpdateCategoryAsync(UpdateCategoryDto updateCategoryDto)
         {
             var values = _mapper.Map<Category>(updateCategoryDto);
             await _categoryCollection.FindOneAndReplaceAsync(x => x.CategoryId == updateCategoryDto.CategoryId, values);
+        }
+
+        public async Task<List<ResultCategoryDto>> GetCategoriesWithProductCountAsync()
+        {
+            var categories = await _categoryCollection.Find(_ => true).ToListAsync();
+            var products = await _productCollection.Find(_ => true).ToListAsync();
+
+            var result = new List<ResultCategoryDto>();
+
+            foreach (var category in categories)
+            {
+                var productCount = products
+                    .Where(p => p.CategoryId != null && p.CategoryId.Trim() == category.CategoryId.Trim())
+                    .Count();
+
+                result.Add(new ResultCategoryDto
+                {
+                    CategoryId = category.CategoryId,
+                    CategoryName = category.CategoryName,
+                    ImageUrl = category.ImageUrl,
+                    ProductCount = productCount
+                });
+            }
+
+            return result;
         }
     }
 }

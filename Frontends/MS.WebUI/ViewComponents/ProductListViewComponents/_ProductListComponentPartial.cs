@@ -14,10 +14,10 @@ namespace MS.WebUI.ViewComponents.ProductListViewComponents
             _productService = productService;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(string id)
+        public async Task<IViewComponentResult> InvokeAsync()
         {
-            var values = await _productService.GetProductWithCategoryByCategoryIdAsync(id);
+            var values = await _productService.GetProductWithCategoryAsync();
             return View(values);
-        }
+        }        
     }
 }

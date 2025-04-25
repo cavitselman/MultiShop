@@ -23,10 +23,19 @@ namespace MS.Order.Application.Features.CQRS.Handlers.AddressHandlers
             return values.Select(x => new GetAddressQueryResult
             {
                 AddressId = x.AddressId,
+                UserId = x.UserId,
+                Name = x.Name,
+                Surname = x.Surname,
+                Email = x.Email,
+                Phone = x.Phone,
+                Country = x.Country,
                 City = x.City,
-                Detail = x.Detail1,
                 District = x.District,
-                UserId = x.UserId
+                Detail1 = x.Detail1,
+                Detail2 = x.Detail2,
+                ZipCode = x.ZipCode,
+                Isdefault = x.Isdefault,
+                IsInvoice = x.IsInvoice
             }).ToList();
         }
     }

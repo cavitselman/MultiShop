@@ -1,4 +1,5 @@
-﻿using MS.Order.Application.Features.CQRS.Queries.AddressQueries;
+﻿using MS.Order.Application.Features.CQRS.Commands.AddressCommands;
+using MS.Order.Application.Features.CQRS.Queries.AddressQueries;
 using MS.Order.Application.Features.CQRS.Results.AddressResults;
 using MS.Order.Application.Interfaces;
 using MS.Order.Domain.Entities;
@@ -24,10 +25,19 @@ namespace MS.Order.Application.Features.CQRS.Handlers.AddressHandlers
             return new GetAddressByIdQueryResult
             {
                 AddressId = values.AddressId,
+                UserId = values.UserId,
+                Name = values.Name,
+                Surname = values.Surname,
+                Email = values.Email,
+                Phone = values.Phone,
+                Country = values.Country,
                 City = values.City,
-                Detail = values.Detail1,
                 District = values.District,
-                UserId = values.UserId
+                Detail1 = values.Detail1,                
+                Detail2 = values.Detail2,                
+                ZipCode = values.ZipCode,
+                Isdefault = values.Isdefault,
+                IsInvoice = values.IsInvoice
             };
         }
     }

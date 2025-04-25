@@ -1,8 +1,13 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/UILayout/_UILayout.cshtml";
 }
+
+<style>
+    .card-container {
+        margin-top: -350px;
+    }
+</style>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -45,20 +50,20 @@
                 </div>
             </div>
         </div>
-        <form action="">
+        <form asp-controller="Payment" asp-action="Index" method="POST">
             <div class="inputBox">
                 <span>Kart Numarası</span>
-                <input type="text" id="credit-card" maxlength="19" class="card-number-input">
+                <input type="text" name="CardNumber" id="credit-card" maxlength="19" class="card-number-input">
             </div>
             <div class="inputBox">
                 <span>Kart Sahibi</span>
-                <input type="text" class="card-holder-input">
+                <input type="text" name="CardHolder" class="card-holder-input">
             </div>
             <div class="flexbox">
                 <div class="inputBox">
                     <span>Ay</span>
-                    <select name="" id="" class="month-input">
-                        <option value="month" selected disabled>Ay Seçiniz</option>
+                    <select name="ExpiryMonth" id="" class="month-input">
+                        <option value="" selected disabled>Ay Seçiniz</option>
                         <option value="01">01</option>
                         <option value="02">02</option>
                         <option value="03">03</option>
@@ -75,23 +80,19 @@
                 </div>
                 <div class="inputBox">
                     <span>Yıl</span>
-                    <select name="" id="" class="year-input">
-                        <option value="year" selected disabled>Yıl Seçiniz</option>
-                        <option value="21">21</option>
-                        <option value="22">22</option>
-                        <option value="23">23</option>
-                        <option value="24">24</option>
-                        <option value="25">25</option>
-                        <option value="26">26</option>
-                        <option value="27">27</option>
-                        <option value="28">28</option>
-                        <option value="29">29</option>
-                        <option value="30">30</option>
+                    <select name="ExpiryYear" id="" class="year-input">
+                        <option value="" selected disabled>Yıl Seçiniz</option>
+                        <option value="2025">2025</option>
+                        <option value="2026">2026</option>
+                        <option value="2027">2027</option>
+                        <option value="2028">2028</option>
+                        <option value="2029">2029</option>
+                        <option value="2030">2030</option>
                     </select>
                 </div>
                 <div class="inputBox">
                     <span>Cvv</span>
-                    <input type="text" maxlength="4" class="cvv-input">
+                    <input type="text" name="Cvv" maxlength="4" class="cvv-input">
                 </div>
             </div>
             <input type="submit" value="ÖDEME YAP" class="submit-btn">
@@ -99,38 +100,7 @@
     </div>
 
     <script>
-        document.querySelector('.card-number-input').oninput = () =>{
-            document.querySelector('.card-number-box').innerText = document.querySelector('.card-number-input').value;
-        }
-
-        document.querySelector('.card-holder-input').oninput = () =>{
-            document.querySelector('.card-holder-name').innerText = document.querySelector('.card-holder-input').value;
-        }
-
-        document.querySelector('.month-input').oninput = () =>{
-            document.querySelector('.exp-month').innerText = document.querySelector('.month-input').value;
-        }
-
-        document.querySelector('.year-input').oninput = () =>{
-            document.querySelector('.exp-year').innerText = document.querySelector('.year-input').value;
-        }
-
-        document.querySelector('.cvv-input').onmouseenter = () =>{
-            document.querySelector('.front').style.transform = 'perspective(1000px) rotateY(-180deg)';
-            document.querySelector('.back').style.transform = 'perspective(1000px) rotateY(0deg)';
-        }
-
-        document.querySelector('.cvv-input').onmouseleave = () =>{
-            document.querySelector('.front').style.transform = 'perspective(1000px) rotateY(0deg)';
-            document.querySelector('.back').style.transform = 'perspective(1000px) rotateY(180deg)';
-        }
-
-        document.querySelector('.cvv-input').oninput = () =>{
-            document.querySelector('.cvv-box').innerText = document.querySelector('.cvv-input').value;
-        }
-    </script>
-
-    <script>
+        // Kart numarasını formatla (XXXX XXXX XXXX XXXX)
         const creditCardInput = document.getElementById('credit-card');
 
         creditCardInput.addEventListener('input', function (e) {
@@ -143,6 +113,46 @@
                 formattedValue += value[i];
             }
             e.target.value = formattedValue;
+        });
+
+        document.querySelector('.card-number-input').oninput = () =>{
+            document.querySelector('.card-number-box').innerText = document.querySelector('.card-number-input').value;
+        }
+
+        document.querySelector('.card-holder-input').oninput = () =>{
+            document.querySelector('.card-holder-name').innerText = document.querySelector('.card-holder-input').value;
+        }
+
+        // Kart sahibinin adını büyük harfe çevir
+        document.querySelector('.card-holder-input').addEventListener('input', function (e) {
+            e.target.value = e.target.value.toUpperCase(); // Küçük harfleri büyük harfe çevir
+            document.querySelector('.card-holder-name').innerText = e.target.value;
+        });
+
+        // Son kullanma tarihini güncelle
+        document.querySelector('.month-input').addEventListener('input', function () {
+            document.querySelector('.exp-month').innerText = this.value;
+        });
+
+        document.querySelector('.year-input').addEventListener('input', function () {
+            document.querySelector('.exp-year').innerText = this.value;
+        });
+
+        // CVV kutusuna tıkladığında kart arka yüzünü çevirmeyi sürdür
+        document.querySelector('.cvv-input').addEventListener('focus', function () {
+            document.querySelector('.front').style.transform = 'perspective(1000px) rotateY(-180deg)';
+            document.querySelector('.back').style.transform = 'perspective(1000px) rotateY(0deg)';
+        });
+
+        // CVV kutusundan çıkıldığında (blur) kart ön yüzüne dönsün
+        document.querySelector('.cvv-input').addEventListener('blur', function () {
+            document.querySelector('.front').style.transform = 'perspective(1000px) rotateY(0deg)';
+            document.querySelector('.back').style.transform = 'perspective(1000px) rotateY(180deg)';
+        });
+
+        // CVV kodu için input işlemi sırasında arka yüzü göster
+        document.querySelector('.cvv-input').addEventListener('input', function () {
+            document.querySelector('.cvv-box').innerText = this.value;
         });
     </script>
 </body>

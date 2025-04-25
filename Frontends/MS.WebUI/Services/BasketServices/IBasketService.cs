@@ -8,6 +8,7 @@ namespace MS.WebUI.Services.BasketServices
         Task SaveBasket(BasketTotalDto basketTotalDto);
         Task DeleteBasket(string userId);
         Task AddBasketItem(BasketItemDto basketItemDto);
+        Task UpdateBasketItem(BasketItemDto basketItemDto);
         Task<bool> RemoveBasketItem(string productId);
     }
 }

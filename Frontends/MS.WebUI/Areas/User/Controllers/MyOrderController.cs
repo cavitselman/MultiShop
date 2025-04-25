@@ -19,7 +19,7 @@ namespace MS.WebUI.Areas.User.Controllers
         public async Task<IActionResult> MyOrderList()
         {
             var user = await _userService.GetUserInfo();
-            var values = await _orderOrderingService.GetOrderingByUserId(user.Id);
+            var values = await _orderOrderingService.GetOrderingByUserIdAsync(user.Id);
             return View(values);
         }
     }

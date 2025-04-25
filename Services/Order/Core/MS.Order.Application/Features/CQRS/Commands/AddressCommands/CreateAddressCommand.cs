@@ -19,5 +19,7 @@ namespace MS.Order.Application.Features.CQRS.Commands.AddressCommands
         public string Detail1 { get; set; }
         public string Detail2 { get; set; }
         public string ZipCode { get; set; }
+        public bool Isdefault { get; set; }
+        public bool IsInvoice { get; set; }
     }
 }

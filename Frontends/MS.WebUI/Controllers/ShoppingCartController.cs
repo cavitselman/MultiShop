@@ -38,7 +38,22 @@ namespace MS.WebUI.Controllers
             else
             {
                 ViewBag.totalNewPriceWithDiscount = totalPriceWithTax; // Kupon uygulanmadıysa, eski fiyatı göster
+                totalNewPriceWithDiscount = totalPriceWithTax;
             }
+
+            // Kargo ücreti hesaplama (500₺ üzeri ücretsiz)
+            decimal shippingFee = totalNewPriceWithDiscount > 500 ? 0 : 50;
+
+            // Kargo notunu belirleme
+            string shippingNote = shippingFee == 0 ? "500₺ ve Üzeri Kargo Bedava (Satıcı Karşılar)" : "";
+
+            // Genel toplam hesaplama
+            decimal totalAmount = totalNewPriceWithDiscount + shippingFee;
+
+            ViewBag.shippingFee = shippingFee;
+            ViewBag.shippingNote = shippingNote;
+            ViewBag.totalAmount = totalAmount;
+
             return View();
         }
 
@@ -57,10 +72,17 @@ namespace MS.WebUI.Controllers
             return Redirect("/ShoppingCart/Index");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> UpdateBasketItem(BasketItemDto item)
+        {
+            await _basketService.UpdateBasketItem(item);
+            return Redirect("/ShoppingCart/Index");
+        }
+
         public async Task<IActionResult> RemoveBasketItem(string id)
         {
             await _basketService.RemoveBasketItem(id);
             return Redirect("/ShoppingCart/Index");
-        }
+        }        
     }
 }
