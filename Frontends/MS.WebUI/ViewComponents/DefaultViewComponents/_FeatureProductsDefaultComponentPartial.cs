@@ -15,7 +15,7 @@ namespace MS.WebUI.ViewComponents.DefaultViewComponents
         }
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var values = await _productService.GetAllProductAsync();
+            var values = await _productService.GetAllProductsWithCommentCountAsync();
             return View(values);
         }
     }

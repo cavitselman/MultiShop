@@ -13,5 +13,6 @@ namespace MS.WebUI.Services.CommentServices
         Task<int> GetTotalCommentCount();
         Task<int> GetActiveCommentCount();
         Task<int> GetPassiveCommentCount();
+        Task<Dictionary<string, int>> GetCommentCountsByProductIdsAsync(List<string> productIds);
     }
 }

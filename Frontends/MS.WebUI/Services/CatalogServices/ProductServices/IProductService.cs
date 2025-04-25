@@ -1,4 +1,5 @@
-﻿using MS.DtoL.CatalogDtos.ProductDtos;
+﻿using MS.DtoL.CatalogDtos.CategoryDtos;
+using MS.DtoL.CatalogDtos.ProductDtos;
 
 namespace MS.WebUI.Services.CatalogServices.ProductServices
 {
@@ -11,5 +12,6 @@ namespace MS.WebUI.Services.CatalogServices.ProductServices
         Task<GetByIdProductDto> GetByIdProductAsync(string id);
         Task<List<ResultProductWithCategoryDto>> GetProductWithCategoryAsync();
         Task<List<ResultProductWithCategoryDto>> GetProductWithCategoryByCategoryIdAsync(string CategoryId);
+        Task<List<ResultProductDto>> GetAllProductsWithCommentCountAsync();
     }
 }

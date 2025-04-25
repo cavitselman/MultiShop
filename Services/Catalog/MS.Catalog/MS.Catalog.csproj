@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\NetAspire\MS.NetAspire.ServiceDefaults\MS.NetAspire.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\..\Comment\MS.Comment\MS.Comment.csproj" />
   </ItemGroup>
 
 </Project>

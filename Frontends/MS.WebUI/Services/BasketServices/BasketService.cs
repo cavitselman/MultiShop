@@ -54,5 +54,29 @@ namespace MS.WebUI.Services.BasketServices
         {
             await _httpClient.PostAsJsonAsync<BasketTotalDto>("baskets", basketTotalDto);
         }
+
+        public async Task UpdateBasketItem(BasketItemDto item)
+        {
+            var basket = await GetBasket();
+
+            // Sepet hiç yoksa ya da boşsa işlem yapma
+            if (basket == null || basket.BasketItems == null || !basket.BasketItems.Any())
+                return;
+
+            var existingItem = basket.BasketItems.FirstOrDefault(x => x.ProductId == item.ProductId);
+            if (existingItem != null)
+            {
+                existingItem.Quantity = item.Quantity;
+
+                // İsteğe göre güncel fiyatı da güncelle
+                existingItem.Price = item.Price;
+            }
+
+            // Boş ya da null sepet gönderme
+            if (basket.BasketItems == null || !basket.BasketItems.Any())
+                return;
+
+            await SaveBasket(basket);
+        }
     }
 }

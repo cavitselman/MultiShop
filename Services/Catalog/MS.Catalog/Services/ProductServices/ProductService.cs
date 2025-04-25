@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using MongoDB.Driver;
+using MS.Catalog.Dtos.CategoryDtos;
 using MS.Catalog.Dtos.ProductDtos;
 using MS.Catalog.Entities;
 using MS.Catalog.Settings;
+using MS.Comment.Services.CommentServices;
 
 namespace MS.Catalog.Services.ProductServices
 {
@@ -34,14 +36,15 @@ namespace MS.Catalog.Services.ProductServices
         public async Task<List<ResultProductDto>> GetAllProductAsync()
         {
             var values = await _productCollection.Find(x => true).ToListAsync();
-            return _mapper.Map<List<ResultProductDto>>(values);
+            var result = _mapper.Map<List<ResultProductDto>>(values);
+            return result;
         }
 
         public async Task<GetByIdProductDto> GetByIdProductAsync(string id)
         {
             var values = await _productCollection.Find<Product>(x => x.ProductId == id).FirstOrDefaultAsync();
             return _mapper.Map<GetByIdProductDto>(values);
-        }
+        }        
 
         public async Task<List<ResultProductWithCategoryDto>> GetProductWithCategoryAsync()
         {

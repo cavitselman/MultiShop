@@ -53,5 +53,12 @@ namespace MS.Catalog.Controllers
             await _categoryService.UpdateCategoryAsync(updateCategoryDto);
             return Ok("Kategori başarıyla güncellendi.");
         }
+
+        [HttpGet("GetCategoriesWithProductCount")]
+        public async Task<IActionResult> GetCategoriesWithProductCount()
+        {
+            var result = await _categoryService.GetCategoriesWithProductCountAsync();
+            return Ok(result);
+        }
     }
 }

@@ -14,9 +14,9 @@ using MS.Catalog.Entities;
 
 namespace MS.Catalog.Mapping
 {
-    public class GeneralMapping:Profile
+    public class GeneralMapping : Profile
     {
-        public GeneralMapping() 
+        public GeneralMapping()
         {
             CreateMap<Category, ResultCategoryDto>().ReverseMap();
             CreateMap<Category, CreateCategoryDto>().ReverseMap();
@@ -27,6 +27,9 @@ namespace MS.Catalog.Mapping
             CreateMap<Product, CreateProductDto>().ReverseMap();
             CreateMap<Product, UpdateProductDto>().ReverseMap();
             CreateMap<Product, GetByIdProductDto>().ReverseMap();
+            CreateMap<Product, ResultProductDto>()
+    .ForMember(dest => dest.CommentCount, opt => opt.Ignore())
+    .ReverseMap();
 
             CreateMap<ProductDetail, ResultProductDetailDto>().ReverseMap();
             CreateMap<ProductDetail, CreateProductDetailDto>().ReverseMap();
@@ -37,8 +40,6 @@ namespace MS.Catalog.Mapping
             CreateMap<ProductImage, CreateProductImageDto>().ReverseMap();
             CreateMap<ProductImage, UpdateProductImageDto>().ReverseMap();
             CreateMap<ProductImage, GetByIdProductImageDto>().ReverseMap();
-
-            CreateMap<Product, ResultProductWithCategoryDto>().ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.CategoryName));
 
             CreateMap<FeatureSlider, ResultFeatureSliderDto>().ReverseMap();
             CreateMap<FeatureSlider, CreateFeatureSliderDto>().ReverseMap();

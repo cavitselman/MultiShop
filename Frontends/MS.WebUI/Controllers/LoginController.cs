@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using MS.DtoL.IdentityDtos.LoginDtos;
@@ -25,6 +26,8 @@ namespace MS.WebUI.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            ViewBag.directory1 = "Ana Sayfa";
+            ViewBag.directory3 = "Giriş Yap";
             return View();
         }
 
@@ -32,7 +35,17 @@ namespace MS.WebUI.Controllers
         public async Task<IActionResult> Index(SignInDto signInDto)
         {
             await _identityService.SignIn(signInDto);
-            return Redirect("/User/Index");
+            return Redirect("/Default/Index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> LogOut()
+        {
+            // Kullanıcının oturumunu sonlandır
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            // Anasayfaya yönlendir
+            return RedirectToAction("Index", "Default");
         }
     }
 }

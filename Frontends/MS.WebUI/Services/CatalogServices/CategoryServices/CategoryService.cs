@@ -41,5 +41,15 @@ namespace MS.WebUI.Services.CatalogServices.CategoryServices
         {
             await _httpClient.PutAsJsonAsync<UpdateCategoryDto>("categories", updateCategoryDto);
         }
+
+        public async Task<List<ResultCategoryDto>> GetCategoriesWithProductCountAsync()
+        {
+            var responseMessage = await _httpClient.GetAsync("categories/GetCategoriesWithProductCount");
+            if (!responseMessage.IsSuccessStatusCode) return new List<ResultCategoryDto>();
+
+            var jsonData = await responseMessage.Content.ReadAsStringAsync();
+            var values = JsonConvert.DeserializeObject<List<ResultCategoryDto>>(jsonData);
+            return values;
+        }
     }
 }

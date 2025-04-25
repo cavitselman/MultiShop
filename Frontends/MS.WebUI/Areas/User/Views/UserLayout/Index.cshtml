@@ -1,8 +1,9 @@
-﻿﻿@{
+﻿@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/UILayout/_UILayout.cshtml";
     var currentPath = Context.Request.Path;
 }
+
 <style>
     .nav-link-user {
         display: block;
@@ -11,17 +12,15 @@
         color: #3d464d;
         text-align: center;
         white-space: nowrap;
-        background-color: transparent;
-        border: 0;
+        background-color: white;
+        border: 1px solid slategrey;
         text-decoration: none;
         transition: background-color 0.3s ease, color 0.3s ease;
-        border: 1px solid slategrey;
-        background-color: white;
     }
 
         .nav-link-user.active {
             background-color: #ffd333;
-            color: #3d464d
+            color: #3d464d;
         }
 
         .nav-link-user:hover {
@@ -30,26 +29,47 @@
         }
 
         .nav-link-user:focus {
-            outline: 0;
+            outline: none;
             box-shadow: 0 0 0 0.2rem #3d464d;
         }
 
+    .sidebar {
+        margin-left: 60px; /* Sidebar’ı hizalar */
+        padding: 0;
+        width: 20%; /* Sidebar'ı %20 genişliğinde yapalım */
+    }
+
+    .content {
+        padding-left: 10px; /* İçerikte biraz boşluk bırakılabilir */
+        margin-left: 0%;
+    }
+
+    .container-fluid {
+        padding-left: 0; /* Container'a padding vermemek için */
+        padding-right: 0;
+    }
+
+    .row {
+        display: flex; /* Flexbox kullanarak hizalamayı yapalım */
+        flex-wrap: wrap;
+    }
+
     .col-lg-3 {
-        margin-left: -35; /* Sidebar'ı biraz daha sola kaydırır */
+        flex: 0 0 16.5%; /* Sidebar genişliği */
+    }
+
+    .col-lg-9 {
+        flex: 0 0 100%; /* İçerik kısmı %80 */
     }
 </style>
 
-<div class="container-fluid mb-30">
-
-
-    <div class="row px-xl-5">
-        <div class="col-lg-3 px-xl-5">
-
-            @* @await Component.InvokeAsync("_UserCardUserLayoutViewComponentPartial") *@
-
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-lg-3 sidebar">
             <ul class="nav flex-column shadow">
                 <li class="nav-item">
-                    <a class="nav-link-user @(currentPath == "/User/AnotherLink" ? "active" : "")" href="/User/AnotherLink">Profilim </a>
+                    <a class="nav-link-user @(currentPath == "/User/AnotherLink" ? "active" : "")" href="/User/AnotherLink">Profilim</a>
                 </li>
                 <li class="nav-item text-dark">
                     <a class="nav-link-user @(currentPath == "/User/MyOrder/MyOrderList" ? "active" : "")" href="/User/MyOrder/MyOrderList">Siparişlerim</a>
@@ -64,37 +84,18 @@
                     <a class="nav-link-user @(currentPath == "/User/Message/Sendbox" ? "active" : "")" href="/User/Message/Sendbox">Giden Mesajlarım</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link-user @(currentPath == "/User/AnotherLink" ? "active" : "")" href="/Login/LogOut">Çıkış Yap </a>
+                    <a class="nav-link-user @(currentPath == "/User/AnotherLink" ? "active" : "")" href="/Login/LogOut">Çıkış Yap</a>
                 </li>
             </ul>
         </div>
 
-        <div class="col-lg-9 px-xl-5">
-            <div class="container">
+        <!-- İçerik -->
+        <div class="col-lg-9 content">
+            <div class="container-fluid">
                 <main role="main" class="pb-3">
                     @RenderBody()
                 </main>
             </div>
         </div>
-
     </div>
 </div>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Tüm nav-link'leri seç
-        var links = document.querySelectorAll('.nav-link');
-
-        // Her birine click event listener ekle
-        links.forEach(function (link) {
-            link.addEventListener('click', function () {
-                // Tüm linklerden "active" sınıfını kaldır
-                links.forEach(function (item) {
-                    item.classList.remove('active');
-                });
-
-                // Tıklanılan linke "active" sınıfını ekle
-                link.classList.add('active');
-            });
-        });
-    });
-</script>

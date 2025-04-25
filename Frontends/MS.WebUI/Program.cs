@@ -29,7 +29,6 @@ builder.Services.AddSession(options =>
 });
 #endregion
 
-
 #region addscoped
 builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<ResourceOwnerPasswordTokenHandler>();

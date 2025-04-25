@@ -18,12 +18,13 @@ namespace MS.Order.Application.Features.Mediator.Handlers.OrderingHandlers
         public async Task<List<GetOrderingQueryResult>> Handle(GetOrderingQuery request, CancellationToken cancellationToken)
         {
             var values = await _repository.GetAllAsync();
-            return values.Select(x=>new GetOrderingQueryResult
+            return values.Select(x => new GetOrderingQueryResult
             {
                 OrderingId = x.OrderingId,
                 OrderDate = x.OrderDate,
                 TotalPrice = x.TotalPrice,
-                UserId = x.UserId
+                UserId = x.UserId,
+                OrderNumber = x.OrderNumber
             }).ToList();
         }
     }

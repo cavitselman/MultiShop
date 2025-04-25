@@ -27,14 +27,14 @@ namespace MS.Order.WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> AddressList()
+        public async Task<IActionResult> GetAddressList()
         {
             var values = await _getAddressQueryHandler.Handle();
             return Ok(values);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetAddressById(int id)
+        public async Task<IActionResult> GetAddressListById(int id)
         {
             var values = await _getAddressByIdQueryHandler.Handle(new GetAddressByIdQuery(id));
             return Ok(values);
@@ -44,21 +44,29 @@ namespace MS.Order.WebApi.Controllers
         public async Task<IActionResult> CreateAddress(CreateAddressCommand command)
         {
             await _createAddressCommandHandler.Handle(command);
-            return Ok("Adres bilgisi başarıyla eklendi.");
+            return Ok("Adres Başarıyla Eklendi");
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateAddress(UpdateAddressCommand command)
         {
             await _updateAddressCommandHandler.Handle(command);
-            return Ok("Adres bilgisi başarıyla güncellendi.");
+            return Ok("Adres Başarıyla Güncellendi");
         }
 
-        [HttpDelete]
+        [HttpDelete("RemoveAddress/{id}")]
         public async Task<IActionResult> RemoveAddress(int id)
         {
             await _removeAddressCommandHandler.Handle(new RemoveAddressCommand(id));
-            return Ok("Adres başarıyla silindi.");
+            return Ok("Adres Silindi");
+        }
+
+        [HttpGet("GetAddressListByUserId/{id}")]
+        public async Task<IActionResult> GetAddressListByUserId(string id)
+        {
+            var values = await _getAddressQueryHandler.Handle();
+            var userAddresses = values.Where(x => x.UserId == id).ToList();
+            return Ok(userAddresses);
         }
     }
 }

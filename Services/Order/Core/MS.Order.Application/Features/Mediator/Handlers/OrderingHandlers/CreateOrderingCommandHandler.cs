@@ -21,12 +21,16 @@ namespace MS.Order.Application.Features.Mediator.Handlers.OrderingHandlers
 
         public async Task Handle(CreateOrderingCommand request, CancellationToken cancellationToken)
         {
-            await _repository.CreateAsync(new Ordering
+            var orderNumber = "ORD" + DateTime.Now.ToString("yyyyMMddHHmmss"); // Sipariş numarası oluşturuluyor
+            var ordering = new Ordering
             {
                 OrderDate = request.OrderDate,
                 TotalPrice = request.TotalPrice,
-                UserId = request.UserId
-            });
+                UserId = request.UserId,
+                OrderNumber = orderNumber // OrderNumber ekleniyor
+            };
+
+            await _repository.CreateAsync(ordering);
         }
     }
 }

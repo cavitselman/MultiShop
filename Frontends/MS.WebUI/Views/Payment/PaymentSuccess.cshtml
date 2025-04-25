@@ -1,0 +1,137 @@
+﻿@{
+    ViewData["Title"] = "PaymentSuccess";
+    Layout = "~/Views/UILayout/_UILayout.cshtml";
+}
+
+<div class="container">
+    <div class="thank-you-message">
+        <p class="thank-you-text">Alışverişinizde bizi tercih ettiğiniz için <strong>teşekkür ederiz.</strong></p>
+        <p class="order-number"><strong>Sipariş Numarası:</strong> @ViewBag.OrderNumber</p><br />
+        <p class="order-link">Sipariş detayları için <a href="/Orders">Siparişlerim</a>'e git.</p>
+    </div>
+
+    @* @if (ViewBag.OrderDetails != null && ViewBag.OrderDetails.Any())
+    {
+        <div class="order-summary">
+            <h4>Sipariş Detayları</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ürün Adı</th>
+                        <th>Fiyat</th>
+                        <th>Adet</th>
+                        <th>Toplam Fiyat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.OrderDetails)
+                    {
+                        <tr>
+                            <td>@item.ProductName</td>
+                            <td>@item.ProductPrice ₺</td>
+                            <td>@item.ProductAmount</td>
+                            <td>@item.ProductTotalPrice ₺</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <p class="total-price"><strong>Ödeme Tutarı: </strong> @ViewBag.TotalPrice ₺</p>
+        </div>
+    }
+    else
+    {
+        <p class="no-order">Sipariş detayları bulunamadı.</p>
+    } *@
+
+    <div class="btn-container">
+        <p class="order-link">Alışverişe kaldığın yerden <a href="/Default/Index">devam et</a>.</p>
+    </div>
+</div>
+
+<style>
+    .container {
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    .thank-you-text {
+        font-size: 20px;
+        font-weight: bold;
+        color: white;
+        background-color: green;
+        padding: 10px;
+        border-radius: 5px;
+        display: inline-block;
+        margin-bottom: 10px;
+    }
+
+    .order-number {
+        font-size: 18px;
+        font-weight: bold;
+        color: black;
+        margin-bottom: 10px;
+    }
+
+    .order-link {
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+
+    .order-summary {
+        margin-top: 30px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 15px;
+        background-color: #f8f9fa;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+
+    table, th, td {
+        border: 1px solid #ddd;
+        text-align: center;
+    }
+
+    th {
+        background-color: #f2f2f2;
+        padding: 10px;
+    }
+
+    td {
+        padding: 8px;
+    }
+
+    .total-price {
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    .no-order {
+        color: red;
+        font-weight: bold;
+        margin-top: 20px;
+    }
+
+    .btn-container {
+        margin-top: 30px;
+    }
+
+    .continue-btn {
+        text-decoration: none;
+        font-size: 18px;
+        color: white;
+        background-color: #28a745;
+        padding: 12px 25px;
+        border-radius: 5px;
+        transition: 0.3s;
+    }
+
+        .continue-btn:hover {
+            background-color: #218838;
+        }
+</style>

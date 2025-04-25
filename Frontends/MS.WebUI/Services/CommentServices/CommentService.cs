@@ -12,14 +12,20 @@ namespace MS.WebUI.Services.CommentServices
             _httpClient = httpClient;
         }
 
-        public async Task<List<ResultCommentDto>> CommentListByProductId(string id)
+        public async Task<List<ResultCommentDto>> CommentListByProductId(string productId)
         {
-            var responseMessage = await _httpClient.GetAsync($"comments/CommentListByProductId/{id}");
-            var jsonData = await responseMessage.Content.ReadAsStringAsync();
-            var values = JsonConvert.DeserializeObject<List<ResultCommentDto>>(jsonData);
-            return values;
-        }
+            var response = await _httpClient.GetAsync($"comments/product/{productId}");
 
+            if (!response.IsSuccessStatusCode)
+                return new List<ResultCommentDto>();
+
+            var json = await response.Content.ReadAsStringAsync();
+
+            if (string.IsNullOrWhiteSpace(json) || !json.Trim().StartsWith("["))
+                return new List<ResultCommentDto>(); // JSON array değilse boş liste döner
+
+            return JsonConvert.DeserializeObject<List<ResultCommentDto>>(json);
+        }
         public async Task CreateCommentAsync(CreateCommentDto createCommentDto)
         {
             await _httpClient.PostAsJsonAsync<CreateCommentDto>("comments", createCommentDto);
@@ -69,6 +75,20 @@ namespace MS.WebUI.Services.CommentServices
             var responseMessage = await _httpClient.GetAsync("comments/GetPassiveCommentCount");
             var values = await responseMessage.Content.ReadFromJsonAsync<int>();
             return values;
+        }
+
+        public async Task<Dictionary<string, int>> GetCommentCountsByProductIdsAsync(List<string> productIds)
+        {
+            var response = await _httpClient.PostAsJsonAsync("comments/CommentCountsByProductIds", productIds);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                return new Dictionary<string, int>();
+            }
+
+            var json = await response.Content.ReadAsStringAsync();
+
+            return JsonConvert.DeserializeObject<Dictionary<string, int>>(json);
         }
     }
 }
