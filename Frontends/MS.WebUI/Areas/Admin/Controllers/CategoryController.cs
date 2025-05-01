@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MS.DtoL.CatalogDtos.CategoryDtos;
 using MS.WebUI.Services.CatalogServices.CategoryServices;
-using Newtonsoft.Json;
-using System.Text;
 
 namespace MS.WebUI.Areas.Admin.Controllers
 {
@@ -66,6 +63,6 @@ namespace MS.WebUI.Areas.Admin.Controllers
         {
             await _categoryService.UpdateCategoryAsync(updateCategoryDto);
             return Redirect("/Admin/Category/Index");
-        }        
+        }
     }
 }

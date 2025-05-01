@@ -1,5 +1,4 @@
 ﻿using MS.Catalog.Dtos.CategoryDtos;
-using MS.Catalog.Dtos.ProductDtos;
 
 namespace MS.Catalog.Services.CategoryServices
 {

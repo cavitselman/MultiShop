@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MS.DtoL.CatalogDtos.CategoryDtos;
 using MS.DtoL.CommentDtos;
 using Newtonsoft.Json;
 using System.Text;

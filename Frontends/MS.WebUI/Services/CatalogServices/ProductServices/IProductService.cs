@@ -1,5 +1,4 @@
-﻿using MS.DtoL.CatalogDtos.CategoryDtos;
-using MS.DtoL.CatalogDtos.ProductDtos;
+﻿using MS.DtoL.CatalogDtos.ProductDtos;
 
 namespace MS.WebUI.Services.CatalogServices.ProductServices
 {

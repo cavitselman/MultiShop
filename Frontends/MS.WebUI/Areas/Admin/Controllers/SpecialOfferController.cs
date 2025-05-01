@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MS.DtoL.CatalogDtos.SpecialOfferDtos;
 using MS.WebUI.Services.CatalogServices.SpecialOfferServices;
-using Newtonsoft.Json;
-using System.Text;
 
 namespace MS.WebUI.Areas.Admin.Controllers
 {

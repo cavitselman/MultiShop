@@ -1,11 +1,6 @@
 ﻿using MS.Order.Application.Features.CQRS.Commands.AddressCommands;
 using MS.Order.Application.Interfaces;
 using MS.Order.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MS.Order.Application.Features.CQRS.Handlers.AddressHandlers
 {
@@ -28,8 +23,8 @@ namespace MS.Order.Application.Features.CQRS.Handlers.AddressHandlers
             values.Country = command.Country;
             values.City = command.City;
             values.District = command.District;
-            values.Detail1 = command.Detail1;            
-            values.Detail2 = command.Detail2;         
+            values.Detail1 = command.Detail1;
+            values.Detail2 = command.Detail2;
             values.ZipCode = command.ZipCode;
             values.Isdefault = command.Isdefault;
             values.IsInvoice = command.IsInvoice;

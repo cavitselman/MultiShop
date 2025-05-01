@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using MongoDB.Driver;
-using MS.Catalog.Dtos.CategoryDtos;
 using MS.Catalog.Dtos.FeatureSliderDtos;
 using MS.Catalog.Entities;
 using MS.Catalog.Settings;

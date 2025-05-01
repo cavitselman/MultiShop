@@ -1,5 +1,4 @@
-﻿using MS.DtoL.CatalogDtos.CategoryDtos;
-using MS.DtoL.CatalogDtos.ProductDtos;
+﻿using MS.DtoL.CatalogDtos.ProductDtos;
 using MS.WebUI.Services.CatalogServices.CategoryServices;
 using MS.WebUI.Services.CommentServices;
 using Newtonsoft.Json;

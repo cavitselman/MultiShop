@@ -42,7 +42,7 @@ namespace MS.Catalog.Services.ProductServices
         {
             var values = await _productCollection.Find<Product>(x => x.ProductId == id).FirstOrDefaultAsync();
             return _mapper.Map<GetByIdProductDto>(values);
-        }        
+        }
 
         public async Task<List<ResultProductWithCategoryDto>> GetProductWithCategoryAsync()
         {

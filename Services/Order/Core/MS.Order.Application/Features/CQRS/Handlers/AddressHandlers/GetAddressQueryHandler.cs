@@ -1,11 +1,6 @@
 ﻿using MS.Order.Application.Features.CQRS.Results.AddressResults;
 using MS.Order.Application.Interfaces;
 using MS.Order.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MS.Order.Application.Features.CQRS.Handlers.AddressHandlers
 {

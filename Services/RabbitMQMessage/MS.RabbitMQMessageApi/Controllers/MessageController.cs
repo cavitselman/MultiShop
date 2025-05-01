@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace MS.RabbitMQMessageApi.Controllers
 {
@@ -47,14 +45,14 @@ namespace MS.RabbitMQMessageApi.Controllers
 
             await channel.BasicConsumeAsync(queue: "Kuyruk1", autoAck: false, consumer: consumer);
 
-            if(string.IsNullOrEmpty(message))
+            if (string.IsNullOrEmpty(message))
             {
                 return NoContent();
             }
             else
             {
                 return Ok(message);
-            }                
+            }
         }
     }
 }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MS.Cargo.DtoL.Dtos.CargoOperationDtos
+﻿namespace MS.Cargo.DtoL.Dtos.CargoOperationDtos
 {
     public class CreateCargoOperationDto
     {

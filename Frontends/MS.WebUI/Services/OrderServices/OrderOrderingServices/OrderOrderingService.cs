@@ -1,5 +1,4 @@
-﻿using MS.DtoL.OrderDtos.OrderDetailDtos;
-using MS.DtoL.OrderDtos.OrderOrderingDtos;
+﻿using MS.DtoL.OrderDtos.OrderOrderingDtos;
 using Newtonsoft.Json;
 
 namespace MS.WebUI.Services.OrderServices.OrderOrderingServices

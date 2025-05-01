@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MS.Order.Application.Features.Mediator.Results.OrderingResults
+﻿namespace MS.Order.Application.Features.Mediator.Results.OrderingResults
 {
     public class GetOrderingQueryResult
     {

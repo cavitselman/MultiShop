@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MS.DtoL.CatalogDtos.ProductDtos;
 using MS.WebUI.Services.CatalogServices.ProductServices;
-using Newtonsoft.Json;
 
 namespace MS.WebUI.ViewComponents.ProductListViewComponents
 {
@@ -18,6 +16,6 @@ namespace MS.WebUI.ViewComponents.ProductListViewComponents
         {
             var values = await _productService.GetProductWithCategoryAsync();
             return View(values);
-        }        
+        }
     }
 }

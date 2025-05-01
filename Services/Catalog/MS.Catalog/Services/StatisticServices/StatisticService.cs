@@ -34,7 +34,7 @@ namespace MS.Catalog.Services.StatisticServices
         {
             var filter = Builders<Product>.Filter.Empty;
             var sort = Builders<Product>.Sort.Descending(x => x.ProductPrice);
-            var projection = Builders<Product>.Projection.Include(y =>y.ProductName).Exclude("ProductId");
+            var projection = Builders<Product>.Projection.Include(y => y.ProductName).Exclude("ProductId");
             var product = await _productCollection.Find(filter)
                                                   .Sort(sort)
                                                   .Project(projection)

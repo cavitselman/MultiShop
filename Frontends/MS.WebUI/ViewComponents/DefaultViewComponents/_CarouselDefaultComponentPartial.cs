@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MS.DtoL.CatalogDtos.FeatureSliderDtos;
 using MS.WebUI.Services.CatalogServices.FeatureSliderServices;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace MS.WebUI.ViewComponents.DefaultViewComponents
 {

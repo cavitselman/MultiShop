@@ -1,6 +1,6 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using MS.RapidApiWebUI.Models;
+using System.Diagnostics;
 
 namespace MS.RapidApiWebUI.Controllers;
 

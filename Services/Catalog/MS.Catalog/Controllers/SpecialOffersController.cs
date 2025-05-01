@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MS.Catalog.Dtos.SpecialOfferDtos;
 using MS.Catalog.Services.SpecialOfferServices;

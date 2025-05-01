@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MS.DtoL.CatalogDtos.ContactDtos;
 using MS.WebUI.Services.CatalogServices.ContactServices;
-using Newtonsoft.Json;
-using System.Text;
 
 namespace MS.WebUI.Controllers
 {

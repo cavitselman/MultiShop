@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MS.DtoL.CatalogDtos.ProductDetailDtos;
 using MS.WebUI.Services.CatalogServices.ProductDetailServices;
-using Newtonsoft.Json;
 
 namespace MS.WebUI.ViewComponents.ProductDetailViewComponents
 {

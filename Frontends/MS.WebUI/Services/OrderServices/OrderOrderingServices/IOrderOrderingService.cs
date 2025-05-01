@@ -1,5 +1,4 @@
-﻿using MS.DtoL.OrderDtos.OrderDetailDtos;
-using MS.DtoL.OrderDtos.OrderOrderingDtos;
+﻿using MS.DtoL.OrderDtos.OrderOrderingDtos;
 
 namespace MS.WebUI.Services.OrderServices.OrderOrderingServices
 {

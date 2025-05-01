@@ -12,7 +12,7 @@ namespace MS.Catalog.Services.CategoryServices
         private readonly IMongoCollection<Product> _productCollection;
         private readonly IMapper _mapper;
 
-        public CategoryService(IMapper mapper,IDatabaseSettings _databaseSettings)
+        public CategoryService(IMapper mapper, IDatabaseSettings _databaseSettings)
         {
             var client = new MongoClient(_databaseSettings.ConnectionString);
             var database = client.GetDatabase(_databaseSettings.DatabaseName);
@@ -23,13 +23,13 @@ namespace MS.Catalog.Services.CategoryServices
 
         public async Task CreateCategoryAsync(CreateCategoryDto createCategoryDto)
         {
-            var value = _mapper.Map<Category>(createCategoryDto); 
+            var value = _mapper.Map<Category>(createCategoryDto);
             await _categoryCollection.InsertOneAsync(value);
         }
 
         public async Task DeleteCategoryAsync(string id)
         {
-            await _categoryCollection.DeleteOneAsync(x=>x.CategoryId == id);
+            await _categoryCollection.DeleteOneAsync(x => x.CategoryId == id);
         }
 
         public async Task<List<ResultCategoryDto>> GetAllCategoryAsync()

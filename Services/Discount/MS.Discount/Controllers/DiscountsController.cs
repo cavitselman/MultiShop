@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MS.Discount.Dtos;
 using MS.Discount.Services;
@@ -27,7 +26,7 @@ namespace MS.Discount.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetDiscountCouponById(int id)
         {
-            var values= await _discountService.GetByIdDiscountCouponAsync(id);
+            var values = await _discountService.GetByIdDiscountCouponAsync(id);
             return Ok(values);
         }
 

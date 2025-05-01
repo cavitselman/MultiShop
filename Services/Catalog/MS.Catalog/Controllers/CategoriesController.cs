@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MS.Catalog.Dtos.CategoryDtos;
 using MS.Catalog.Services.CategoryServices;
-using System.Formats.Asn1;
 
 namespace MS.Catalog.Controllers
 {

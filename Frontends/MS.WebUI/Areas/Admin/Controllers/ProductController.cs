@@ -1,13 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using MS.DtoL.CatalogDtos.CategoryDtos;
 using MS.DtoL.CatalogDtos.ProductDtos;
 using MS.WebUI.Services.CatalogServices.CategoryServices;
 using MS.WebUI.Services.CatalogServices.ProductServices;
-using Newtonsoft.Json;
-using System.Net.Http;
-using System.Text;
 
 namespace MS.WebUI.Areas.Admin.Controllers
 {
@@ -91,6 +86,6 @@ namespace MS.WebUI.Areas.Admin.Controllers
         {
             await _productService.UpdateProductAsync(updateProductDto);
             return Redirect("/Admin/Product/Index");
-        }        
+        }
     }
 }

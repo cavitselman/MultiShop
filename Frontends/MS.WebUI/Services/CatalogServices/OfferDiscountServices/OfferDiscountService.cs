@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace MS.WebUI.Services.CatalogServices.OfferDiscountServices
 {
-    public class OfferDiscountService:IOfferDiscountService
+    public class OfferDiscountService : IOfferDiscountService
     {
         private readonly HttpClient _httpClient;
 

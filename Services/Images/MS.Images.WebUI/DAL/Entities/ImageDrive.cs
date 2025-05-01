@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace MS.Images.WebUI.DAL.Entities
+﻿namespace MS.Images.WebUI.DAL.Entities
 {
     public class ImageDrive
     {

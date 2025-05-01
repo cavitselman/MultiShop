@@ -83,6 +83,6 @@ namespace MS.WebUI.Controllers
         {
             await _basketService.RemoveBasketItem(id);
             return Redirect("/ShoppingCart/Index");
-        }        
+        }
     }
 }

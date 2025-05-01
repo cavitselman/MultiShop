@@ -1,6 +1,4 @@
-﻿
-using MS.DtoL.IdentityDtos.UserDtos;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace MS.WebUI.Services.StatisticServices.UserStatisticServices
 {

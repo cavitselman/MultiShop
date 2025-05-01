@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MS.IdentityServer.Dtos;
 using MS.IdentityServer.Models;
-using static Duende.IdentityServer.IdentityServerConstants;
 
 namespace MS.IdentityServer.Controllers
 {

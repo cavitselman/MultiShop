@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MS.IdentityServer.Dtos;
@@ -26,7 +25,7 @@ namespace MS.IdentityServer.Controllers
         public async Task<IActionResult> UserLogin(UserLoginDto userLoginDto)
         {
             var result = await _signInManager.PasswordSignInAsync(userLoginDto.Username, userLoginDto.Password, false, false);
-            var user=await _userManager.FindByNameAsync(userLoginDto.Username);
+            var user = await _userManager.FindByNameAsync(userLoginDto.Username);
 
             if (result.Succeeded)
             {

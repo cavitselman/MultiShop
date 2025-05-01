@@ -1,9 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MS.DtoL.CatalogDtos.AboutDtos;
 using MS.WebUI.Services.CatalogServices.AboutServices;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System.Net.Http.Headers;
 
 namespace MS.WebUI.ViewComponents.UILayoutViewComponents
 {

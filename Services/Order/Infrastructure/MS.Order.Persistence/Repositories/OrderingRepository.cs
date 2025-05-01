@@ -1,11 +1,6 @@
 ﻿using MS.Order.Application.Interfaces;
 using MS.Order.Domain.Entities;
 using MS.Order.Persistence.Context;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MS.Order.Persistence.Repositories
 {

@@ -1,11 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using MS.DtoL.IdentityDtos.LoginDtos;
-using MS.DtoL.OrderDtos.OrderDetailDtos;
+﻿using Microsoft.AspNetCore.Mvc;
 using MS.DtoL.OrderDtos.OrderOrderingDtos;
 using MS.WebUI.Services.OrderServices.OrderOrderingServices;
-using System.Net.Http;
-using System.Security.Claims;
 
 namespace MS.WebUI.Controllers
 {
