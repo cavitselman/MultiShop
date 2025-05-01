@@ -13,7 +13,6 @@ using MS.Catalog.Services.ProductServices;
 using MS.Catalog.Services.SpecialOfferServices;
 using MS.Catalog.Services.StatisticServices;
 using MS.Catalog.Settings;
-using MS.Comment.Services.CommentServices;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);

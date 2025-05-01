@@ -1,8 +1,7 @@
 ﻿@model GetByIdProductDto
 
 <div class="col-lg-7 h-auto mb-30">
-    <div class="h-100 bg-light p-30">
-        <h3>@Model.ProductName</h3>
+    <div class="h-100 bg-light p-30">        
         <div class="d-flex mb-3">
             <div class="text-primary mr-2">
                 <small class="fas fa-star"></small>
@@ -11,12 +10,13 @@
                 <small class="fas fa-star-half-alt"></small>
                 <small class="far fa-star"></small>
             </div>
-            <small class="pt-1">(16 değerlendirme)</small>
+            <small class="pt-1">(@Model.CommentCount değerlendirme)</small>
         </div>
+        <h3>@Model.ProductName</h3>
         <h3 class="font-weight-semi-bold mb-4">@Model.ProductPrice₺</h3>
-        <p class="mb-4">
+        @* <p class="mb-4">
             @Model.ProductDescription
-        </p>
+        </p> *@
 
         <div class="d-flex mb-3">
             <strong class="text-dark mr-3">Ebatlar:</strong>
@@ -84,9 +84,9 @@
                     </button>
                 </div>
             </div>
-            <button class="btn btn-primary px-3">
+            <a class="btn btn-primary px-3" href="/ShoppingCart/AddBasketItem/@Model.ProductId">
                 <i class="fa fa-shopping-cart mr-1"></i> Sepete Ekle
-            </button>
+            </a>
         </div>
 
         <div class="d-flex pt-2">

@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using MS.Comment.Context;
-using MS.Comment.Services.CommentServices;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +14,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     });
 
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddScoped<ICommentService, CommentService>();
 
 builder.Services.AddDbContext<CommentContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));

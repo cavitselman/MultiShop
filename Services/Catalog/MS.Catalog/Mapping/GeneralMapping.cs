@@ -30,6 +30,7 @@ namespace MS.Catalog.Mapping
             CreateMap<Product, ResultProductDto>()
     .ForMember(dest => dest.CommentCount, opt => opt.Ignore())
     .ReverseMap();
+            CreateMap<Product, ResultProductWithCategoryDto>().ReverseMap();
 
             CreateMap<ProductDetail, ResultProductDetailDto>().ReverseMap();
             CreateMap<ProductDetail, CreateProductDetailDto>().ReverseMap();

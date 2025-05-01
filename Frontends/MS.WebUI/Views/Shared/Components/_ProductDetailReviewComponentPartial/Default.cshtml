@@ -9,47 +9,19 @@
                 <div class="media mb-4">
                     <img src="@(item?.ImageUrl ?? "https://cdn-icons-png.flaticon.com/512/149/149071.png")" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
                     <div class="media-body">
-                        <h6>@item.NameSurname<small> - <i>@item.CreatedDate.ToShortDateString()</i></small></h6>
-                        @if (item.Rating == 1)
-                        {
-                            <div class="text-primary mb-2">
+                        <h6>@item.NameSurname<small> - <i>@item.CreatedDate.ToString("dd/MM/yyyy")</i></small></h6>
+
+                        <div class="text-primary mb-2">
+                            @for (var i = 0; i < item.Rating; i++)
+                            {
                                 <i class="fas fa-star"></i>
-                            </div>
-                        }
-                        @if (item.Rating == 2)
-                        {
-                            <div class="text-primary mb-2">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                        }
-                        @if (item.Rating == 3)
-                        {
-                            <div class="text-primary mb-2">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                        }
-                        @if (item.Rating == 4)
-                        {
-                            <div class="text-primary mb-2">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                        }
-                        @if (item.Rating == 5)
-                        {
-                            <div class="text-primary mb-2">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                        }
+                            }
+                            @for (var i = item.Rating; i < 5; i++)
+                            {
+                                <i class="far fa-star"></i>
+                            }
+                        </div>
+
                         <p>@item.CommentDetail</p>
                     </div>
                 </div>

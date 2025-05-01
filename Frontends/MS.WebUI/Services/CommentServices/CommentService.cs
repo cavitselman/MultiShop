@@ -14,18 +14,27 @@ namespace MS.WebUI.Services.CommentServices
 
         public async Task<List<ResultCommentDto>> CommentListByProductId(string productId)
         {
-            var response = await _httpClient.GetAsync($"comments/product/{productId}");
+            // Burada doğru endpoint'i kullanıyoruz.
+            var response = await _httpClient.GetAsync($"comments/CommentListByProductId/{productId}");
 
             if (!response.IsSuccessStatusCode)
+            {
+                Console.WriteLine($"Hata: {response.StatusCode} - {response.ReasonPhrase}");
                 return new List<ResultCommentDto>();
+            }
 
             var json = await response.Content.ReadAsStringAsync();
 
             if (string.IsNullOrWhiteSpace(json) || !json.Trim().StartsWith("["))
-                return new List<ResultCommentDto>(); // JSON array değilse boş liste döner
+            {
+                Console.WriteLine("Beklenmedik JSON formatı veya boş yanıt");
+                return new List<ResultCommentDto>();
+            }
 
             return JsonConvert.DeserializeObject<List<ResultCommentDto>>(json);
         }
+
+
         public async Task CreateCommentAsync(CreateCommentDto createCommentDto)
         {
             await _httpClient.PostAsJsonAsync<CreateCommentDto>("comments", createCommentDto);

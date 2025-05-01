@@ -58,16 +58,23 @@ namespace MS.Catalog.Services.CategoryServices
 
         public async Task<List<ResultCategoryDto>> GetCategoriesWithProductCountAsync()
         {
+            // Kategori koleksiyonunu alıyoruz
             var categories = await _categoryCollection.Find(_ => true).ToListAsync();
-            var products = await _productCollection.Find(_ => true).ToListAsync();
+
+            // Kategoriye ait ürün sayısını hesaplamak için aggregation kullanıyoruz
+            var productCountPipeline = new EmptyPipelineDefinition<Product>()
+                .Group(p => p.CategoryId, g => new { CategoryId = g.Key, Count = g.Count() });
+
+            // Ürün koleksiyonundaki verileri aggregation ile alıyoruz
+            var productCounts = await _productCollection.Aggregate(productCountPipeline).ToListAsync();
 
             var result = new List<ResultCategoryDto>();
 
+            // Her kategori için ürün sayısını ekliyoruz
             foreach (var category in categories)
             {
-                var productCount = products
-                    .Where(p => p.CategoryId != null && p.CategoryId.Trim() == category.CategoryId.Trim())
-                    .Count();
+                var productCount = productCounts
+                    .FirstOrDefault(p => p.CategoryId == category.CategoryId)?.Count ?? 0;
 
                 result.Add(new ResultCategoryDto
                 {

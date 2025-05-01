@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
 using MongoDB.Driver;
-using MS.Catalog.Dtos.CategoryDtos;
 using MS.Catalog.Dtos.ProductDtos;
 using MS.Catalog.Entities;
 using MS.Catalog.Settings;
-using MS.Comment.Services.CommentServices;
 
 namespace MS.Catalog.Services.ProductServices
 {

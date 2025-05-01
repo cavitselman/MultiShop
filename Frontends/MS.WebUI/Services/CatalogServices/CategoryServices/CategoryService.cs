@@ -51,5 +51,16 @@ namespace MS.WebUI.Services.CatalogServices.CategoryServices
             var values = JsonConvert.DeserializeObject<List<ResultCategoryDto>>(jsonData);
             return values;
         }
+
+        public async Task<ResultCategoryDto> GetCategoryByIdAsync(string categoryId)
+        {
+            var responseMessage = await _httpClient.GetAsync("categories/" + categoryId);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var category = await responseMessage.Content.ReadFromJsonAsync<ResultCategoryDto>();
+                return category;
+            }
+            return null; // Kategori bulunamazsa null döndür
+        }
     }
 }

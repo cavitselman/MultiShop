@@ -17,5 +17,6 @@ namespace MS.DtoL.CatalogDtos.ProductDtos
         public string CategoryId { get; set; }
         public string CategoryName { get; set; }
         public ResultCategoryDto Category { get; set; }
+        public int CommentCount { get; set; }
     }
 }

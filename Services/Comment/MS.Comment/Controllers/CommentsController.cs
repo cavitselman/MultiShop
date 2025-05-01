@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MS.Comment.Context;
 using MS.Comment.Entities;
-using MS.Comment.Services.CommentServices;
 
 namespace MS.Comment.Controllers
 {
@@ -13,12 +11,10 @@ namespace MS.Comment.Controllers
     public class CommentsController : ControllerBase
     {
         private readonly CommentContext _context;
-        private readonly ICommentService _commentService;
 
-        public CommentsController(CommentContext context, ICommentService commentService)
+        public CommentsController(CommentContext context)
         {
             _context = context;
-            _commentService = commentService;
         }
 
         [HttpGet]
@@ -60,12 +56,12 @@ namespace MS.Comment.Controllers
             return Ok("Yorum başarıyla güncellendi.");
         }
 
-        //[HttpGet("CommentListByProductId/{id}")]
-        //public IActionResult CommentListByProductId(string id)
-        //{
-        //    var value = _context.UserComments.Where(x => x.ProductId == id).ToList();
-        //    return Ok(value);
-        //}
+        [HttpGet("CommentListByProductId/{id}")]
+        public IActionResult CommentListByProductId(string id)
+        {
+            var value = _context.UserComments.Where(x => x.ProductId == id).ToList();
+            return Ok(value);
+        }
 
         [HttpGet("GetActiveCommentCount")]
         public IActionResult GetActiveCommentCount()
@@ -88,23 +84,20 @@ namespace MS.Comment.Controllers
             return Ok(value);
         }
 
-        // Ürün ID'sine göre yorumları al
-        [HttpGet("CommentListByProductId/{id}")]
-        public IActionResult CommentListByProductId(string id)
-        {
-            var comments = _context.UserComments.Where(x => x.ProductId == id).ToList();
-            if (comments == null || comments.Count == 0)
-            {
-                return Ok(new { ProductId = id, CommentCount = 0 });
-            }
-            return Ok(new { ProductId = id, CommentCount = comments.Count });
-        }
-
-        // Birden fazla ürün için yorum sayısı al
         [HttpPost("CommentCountsByProductIds")]
-        public async Task<IActionResult> CommentCountsByProductIds([FromBody] List<string> productIds)
+        public IActionResult CommentCountsByProductIds([FromBody] List<string> productIds)
         {
-            var commentCounts = await _commentService.GetCommentCountsByProductIdsAsync(productIds);
+            if (productIds == null || !productIds.Any())
+            {
+                return Ok(new Dictionary<string, int>());
+            }
+
+            // Yorumları veritabanından çekiyoruz
+            var commentCounts = _context.UserComments
+                .Where(c => c.ProductId != null && productIds.Contains(c.ProductId))
+                .GroupBy(c => c.ProductId)
+                .ToDictionary(g => g.Key, g => g.Count());
+
             return Ok(commentCounts);
         }
     }

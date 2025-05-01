@@ -10,5 +10,6 @@ namespace MS.WebUI.Services.CatalogServices.CategoryServices
         Task DeleteCategoryAsync(string id);
         Task<UpdateCategoryDto> GetByIdCategoryAsync(string id);
         Task<List<ResultCategoryDto>> GetCategoriesWithProductCountAsync();
+        Task<ResultCategoryDto> GetCategoryByIdAsync(string categoryId);
     }
 }
