@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MS.DtoL.CatalogDtos.FeatureDtos;
 using MS.WebUI.Services.CatalogServices.FeatureServices;
-using Newtonsoft.Json;
 
 namespace MS.WebUI.ViewComponents.DefaultViewComponents
 {

@@ -1,9 +1,4 @@
 ﻿using MS.DtoL.CatalogDtos.CategoryDtos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MS.DtoL.CatalogDtos.ProductDtos
 {
@@ -17,5 +12,6 @@ namespace MS.DtoL.CatalogDtos.ProductDtos
         public string CategoryId { get; set; }
         public string CategoryName { get; set; }
         public ResultCategoryDto Category { get; set; }
+        public int CommentCount { get; set; }
     }
 }

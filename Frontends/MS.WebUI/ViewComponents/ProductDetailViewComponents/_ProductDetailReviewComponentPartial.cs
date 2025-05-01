@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MS.DtoL.CommentDtos;
 using MS.WebUI.Services.CommentServices;
-using Newtonsoft.Json;
 
 namespace MS.WebUI.ViewComponents.ProductDetailViewComponents
 {

@@ -1,6 +1,6 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using MS.Images.WebUI.Models;
+using System.Diagnostics;
 
 namespace MS.Images.WebUI.Controllers;
 

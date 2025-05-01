@@ -41,13 +41,13 @@ namespace MS.WebUI.Areas.Admin.Controllers
         {
             updateProductDetailDto.ProductId = id;
             createProductDetailDto.ProductId = id;
-            if(!ModelState.IsValid || string.IsNullOrEmpty(updateProductDetailDto.ProductDetailId))
+            if (!ModelState.IsValid || string.IsNullOrEmpty(updateProductDetailDto.ProductDetailId))
             {
                 var client1 = _httpClientFactory.CreateClient();
                 var jsonData1 = JsonConvert.SerializeObject(updateProductDetailDto);
                 StringContent stringContent1 = new StringContent(jsonData1, Encoding.UTF8, "application/json");
                 var responseMessage1 = await client1.PutAsync("https://localhost:7070/api/ProductDetails/", stringContent1);
-                if(responseMessage1.IsSuccessStatusCode)
+                if (responseMessage1.IsSuccessStatusCode)
                 {
                     return Redirect("/Admin/Product/ProductListWithCategory");
                 }

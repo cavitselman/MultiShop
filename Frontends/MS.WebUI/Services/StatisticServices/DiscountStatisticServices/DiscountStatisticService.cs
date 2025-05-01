@@ -10,7 +10,7 @@ namespace MS.WebUI.Services.StatisticServices.DiscountStatisticServices
             _httpClient = httpClient;
         }
         public async Task<int> GetDiscountCouponCount()
-        {            
+        {
             var responseMessage = await _httpClient.GetAsync("Discounts/GetDiscountCouponCount");
             var values = await responseMessage.Content.ReadFromJsonAsync<int>();
             return values;

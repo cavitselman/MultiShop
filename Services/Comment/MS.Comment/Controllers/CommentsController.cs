@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MS.Comment.Context;
 using MS.Comment.Entities;
@@ -86,26 +85,6 @@ namespace MS.Comment.Controllers
         {
             int value = _context.UserComments.Count();
             return Ok(value);
-        }
-
-        // Ürün ID'sine göre yorumları al
-        [HttpGet("CommentListByProductId/{id}")]
-        public IActionResult CommentListByProductId(string id)
-        {
-            var comments = _context.UserComments.Where(x => x.ProductId == id).ToList();
-            if (comments == null || comments.Count == 0)
-            {
-                return Ok(new { ProductId = id, CommentCount = 0 });
-            }
-            return Ok(new { ProductId = id, CommentCount = comments.Count });
-        }
-
-        // Birden fazla ürün için yorum sayısı al
-        [HttpPost("CommentCountsByProductIds")]
-        public async Task<IActionResult> CommentCountsByProductIds([FromBody] List<string> productIds)
-        {
-            var commentCounts = await _commentService.GetCommentCountsByProductIdsAsync(productIds);
-            return Ok(commentCounts);
         }
     }
 }

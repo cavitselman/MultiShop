@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using MS.SignalRRealTimeApi.Services.SignalRCommentServices;
-using MS.SignalRRealTimeApi.Services.SignalRMessageServices;
 
 namespace MS.SignalRRealTimeApi.Hubs
 {

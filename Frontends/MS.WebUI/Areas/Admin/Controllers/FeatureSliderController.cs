@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MS.DtoL.CatalogDtos.FeatureSliderDtos;
 using MS.WebUI.Services.CatalogServices.FeatureSliderServices;
-using Newtonsoft.Json;
-using System.Text;
 
 namespace MS.WebUI.Areas.Admin.Controllers
 {

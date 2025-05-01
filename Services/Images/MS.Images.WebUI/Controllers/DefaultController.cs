@@ -23,12 +23,12 @@ namespace MS.Images.WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ImageDrive imageDrive)
         {
-                if (imageDrive.Photo != null)
-                {
+            if (imageDrive.Photo != null)
+            {
                 imageDrive.SavedFileName = GenerateFileNameToSave(imageDrive.Photo.FileName);
                 imageDrive.SavedUrl = await _cloudStorageService.UploadFileAsync(imageDrive.Photo, imageDrive.SavedFileName);
-                }
-                return RedirectToAction("Index", "Default");
+            }
+            return RedirectToAction("Index", "Default");
         }
 
         private string? GenerateFileNameToSave(string incomingFileName)

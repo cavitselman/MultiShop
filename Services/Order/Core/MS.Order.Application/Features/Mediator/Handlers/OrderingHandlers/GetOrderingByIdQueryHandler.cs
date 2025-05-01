@@ -3,15 +3,10 @@ using MS.Order.Application.Features.Mediator.Queries.OrderingQueries;
 using MS.Order.Application.Features.Mediator.Results.OrderingResults;
 using MS.Order.Application.Interfaces;
 using MS.Order.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MS.Order.Application.Features.Mediator.Handlers.OrderingHandlers
 {
-    public class GetOrderingByIdQueryHandler:IRequestHandler<GetOrderingByIdQuery,GetOrderingByIdQueryResult>
+    public class GetOrderingByIdQueryHandler : IRequestHandler<GetOrderingByIdQuery, GetOrderingByIdQueryResult>
     {
         private readonly IRepository<Ordering> _repository;
 
@@ -22,7 +17,7 @@ namespace MS.Order.Application.Features.Mediator.Handlers.OrderingHandlers
 
         public async Task<GetOrderingByIdQueryResult> Handle(GetOrderingByIdQuery request, CancellationToken cancellationToken)
         {
-            var values=await _repository.GetByIdAsync(request.Id);
+            var values = await _repository.GetByIdAsync(request.Id);
             return new GetOrderingByIdQueryResult
             {
                 OrderDate = values.OrderDate,

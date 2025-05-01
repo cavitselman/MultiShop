@@ -1,14 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MS.Order.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MS.Order.Persistence.Context
 {
-    public class OrderContext:DbContext
+    public class OrderContext : DbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

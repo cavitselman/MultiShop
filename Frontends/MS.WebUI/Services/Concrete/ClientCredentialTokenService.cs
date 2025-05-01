@@ -1,7 +1,6 @@
 ﻿using Duende.IdentityModel.Client;
 using IdentityModel.AspNetCore.AccessTokenManagement;
 using Microsoft.Extensions.Options;
-using MS.DtoL.IdentityDtos.LoginDtos;
 using MS.WebUI.Services.Interfaces;
 using MS.WebUI.Settings;
 

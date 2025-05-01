@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MS.Order.Application.Features.CQRS.Commands.AddressCommands;
 using MS.Order.Application.Features.CQRS.Handlers.AddressHandlers;

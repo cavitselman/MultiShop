@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MS.DtoL.CatalogDtos.BrandDtos;
 using MS.WebUI.Services.CatalogServices.BrandServices;
-using Newtonsoft.Json;
-using System.Text;
 
 namespace MS.WebUI.Areas.Admin.Controllers
 {
@@ -11,7 +8,7 @@ namespace MS.WebUI.Areas.Admin.Controllers
     public class BrandController : Controller
     {
         private readonly IBrandService _brandService;
-public BrandController(IBrandService brandService)
+        public BrandController(IBrandService brandService)
         {
             _brandService = brandService;
         }

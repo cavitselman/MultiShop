@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MS.Catalog.Services.StatisticServices;
 
 namespace MS.Catalog.Controllers
@@ -42,7 +41,7 @@ namespace MS.Catalog.Controllers
             var value = await _statisticService.GetProductAvgPrice();
             return Ok(value);
         }
-        
+
         [HttpGet("GetMaxPriceProductName")]
         public async Task<IActionResult> GetMaxPriceProductName()
         {

@@ -8,20 +8,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
-    {      
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(opt =>
+    {
         opt.Authority = builder.Configuration["IdentityServerUrl"];
         opt.Audience = "ResourceComment";
         opt.RequireHttpsMetadata = false;
     });
 
-builder.Services.AddHttpContextAccessor();
-builder.Services.AddScoped<ICommentService, CommentService>();
-
-builder.Services.AddDbContext<CommentContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-
+// Add services to the container.
+builder.Services.AddDbContext<CommentContext>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

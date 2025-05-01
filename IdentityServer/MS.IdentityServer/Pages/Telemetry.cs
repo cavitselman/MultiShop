@@ -14,7 +14,7 @@ namespace MS.IdentityServer.Pages;
 public static class Telemetry
 {
     private static readonly string ServiceVersion = typeof(Telemetry).Assembly.GetName().Version!.ToString();
-    
+
     /// <summary>
     /// Service name for telemetry.
     /// </summary>

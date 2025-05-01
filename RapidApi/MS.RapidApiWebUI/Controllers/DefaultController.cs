@@ -48,7 +48,7 @@ namespace MS.RapidApiWebUI.Controllers
                 var body = await response.Content.ReadAsStringAsync();
                 var values = JsonConvert.DeserializeObject<ExchangeViewModel.Rootobject>(body);
                 ViewBag.exchangeRateUsd = values.data.exchange_rate;
-                ViewBag.previous_closeUsd = values.data.previous_close;                
+                ViewBag.previous_closeUsd = values.data.previous_close;
             }
 
             var client2 = new HttpClient();
