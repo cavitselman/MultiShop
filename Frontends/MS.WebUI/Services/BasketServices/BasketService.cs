@@ -5,34 +5,56 @@ namespace MS.WebUI.Services.BasketServices
     public class BasketService : IBasketService
     {
         private readonly HttpClient _httpClient;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public BasketService(HttpClient httpClient)
+        public BasketService(HttpClient httpClient, IHttpContextAccessor httpContextAccessor)
         {
             _httpClient = httpClient;
+            _httpContextAccessor = httpContextAccessor;
         }
 
+        private string GetUserId()
+        {
+            return _httpContextAccessor.HttpContext?.User?.FindFirst("sub")?.Value;
+        }
         public async Task AddBasketItem(BasketItemDto basketItemDto)
         {
-            var values = await GetBasket();
-            if (values != null)
+            var userId = GetUserId();
+            if (string.IsNullOrEmpty(userId))
             {
-                if (!values.BasketItems.Any(x => x.ProductId == basketItemDto.ProductId))
-                {
-                    values.BasketItems.Add(basketItemDto);
-                }
-                else
-                {
-                    values = new BasketTotalDto();
-                    values.BasketItems.Add(basketItemDto);
-                }
+                throw new InvalidOperationException("User is not authenticated.");
             }
+
+            var values = await GetBasket();
+
+            if (values == null)
+            {
+                values = new BasketTotalDto
+                {
+                    UserId = userId,
+                    DiscountCode = null,
+                    BasketItems = new List<BasketItemDto>()
+                };
+            }
+
+            // Eğer BasketItemDto'da UserId yoksa, dinamik olarak al
+            if (string.IsNullOrEmpty(basketItemDto.UserId))
+            {
+                basketItemDto.UserId = userId;
+            }
+
+            if (!values.BasketItems.Any(x => x.ProductId == basketItemDto.ProductId))
+            {
+                values.BasketItems.Add(basketItemDto);
+            }
+
             await SaveBasket(values);
         }
 
-        public Task DeleteBasket(string userId)
+        public async Task DeleteBasket(string userId)
         {
-            throw new NotImplementedException();
-        }
+            await _httpClient.DeleteAsync($"baskets/{userId}");
+        }        
 
         public async Task<BasketTotalDto> GetBasket()
         {
@@ -54,7 +76,6 @@ namespace MS.WebUI.Services.BasketServices
         {
             await _httpClient.PostAsJsonAsync<BasketTotalDto>("baskets", basketTotalDto);
         }
-
         public async Task UpdateBasketItem(BasketItemDto item)
         {
             var basket = await GetBasket();

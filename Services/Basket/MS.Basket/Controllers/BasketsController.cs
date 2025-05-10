@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MS.Basket.Dtos;
 using MS.Basket.LoginServices;
 using MS.Basket.Services;
 
 namespace MS.Basket.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class BasketsController : ControllerBase
