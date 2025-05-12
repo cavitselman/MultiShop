@@ -65,37 +65,42 @@ namespace MS.WebUI.Services.BasketServices
 
         public async Task<bool> RemoveBasketItem(string productId)
         {
-            var values = await GetBasket();
-            var deletedItem = values.BasketItems.FirstOrDefault(x => x.ProductId == productId);
-            var result = values.BasketItems.Remove(deletedItem);
-            await SaveBasket(values);
-            return true;
+            var basket = await GetBasket();
+            if (basket == null || basket.BasketItems == null)
+            {
+                return false;
+            }
+
+            var itemToRemove = basket.BasketItems.FirstOrDefault(x => x.ProductId == productId);
+            if (itemToRemove != null)
+            {
+                basket.BasketItems.Remove(itemToRemove);
+                await SaveBasket(basket);
+                return true;
+            }
+
+            return false;
         }
 
         public async Task SaveBasket(BasketTotalDto basketTotalDto)
         {
             await _httpClient.PostAsJsonAsync<BasketTotalDto>("baskets", basketTotalDto);
         }
+
         public async Task UpdateBasketItem(BasketItemDto item)
         {
             var basket = await GetBasket();
 
-            // Sepet hiç yoksa ya da boşsa işlem yapma
-            if (basket == null || basket.BasketItems == null || !basket.BasketItems.Any())
-                return;
+            if (basket == null || basket.BasketItems == null)
+            {
+                throw new InvalidOperationException("Basket not found.");
+            }
 
             var existingItem = basket.BasketItems.FirstOrDefault(x => x.ProductId == item.ProductId);
             if (existingItem != null)
             {
                 existingItem.Quantity = item.Quantity;
-
-                // İsteğe göre güncel fiyatı da güncelle
-                existingItem.Price = item.Price;
             }
-
-            // Boş ya da null sepet gönderme
-            if (basket.BasketItems == null || !basket.BasketItems.Any())
-                return;
 
             await SaveBasket(basket);
         }
