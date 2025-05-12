@@ -71,69 +71,48 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
-        // Sayfa yüklendiğinde toplamı güncelle
-        updateCartTotal();
+    // Miktar artırma ve azaltma butonlarına tıklama olaylarını bağla
+    $(".btn-plus, .btn-minus").off("click").on("click", function () {
+        var row = $(this).closest("tr");
+        var productId = $(this).data("product-id");
+        var action = $(this).data("action");
+        var quantityInput = row.find(".quantity-input");
+        var currentQuantity = parseInt(quantityInput.val()) || 0;
 
-        $(".btn-plus, .btn-minus").off("click");
+        // Yeni miktarı hesapla
+        var newQuantity = action === "increase" ? currentQuantity + 1 : currentQuantity - 1;
+        if (newQuantity < 1) return; // Miktar 1'in altına düşmesin
 
-        $(".btn-plus").on("click", function () {
-            var quantityInput = $(this).closest("tr").find(".quantity-input");
-            var quantity = parseInt(quantityInput.val()) || 0;
-            quantityInput.val(quantity + 1);
-            updateTotalPrice($(this).closest("tr"));
-            updateCartTotal();
-        });
+        // AJAX isteği gönder
+        $.ajax({
+            url: "/ShoppingCart/UpdateQuantity",
+            method: "POST",
+            data: {
+                productId: productId,
+                quantity: newQuantity
+            },
+            success: function (response) {
+                // Başarılı olduğunda miktarı ve toplam fiyatı güncelle
+                quantityInput.val(newQuantity);
+                var price = parseFloat(row.find(".align-middle:nth-child(3)").text().replace("₺", "").replace(",", "."));
+                row.find(".total-price").text((newQuantity * price).toFixed(2) + "₺");
 
-        $(".btn-minus").on("click", function () {
-            var quantityInput = $(this).closest("tr").find(".quantity-input");
-            var quantity = parseInt(quantityInput.val()) || 0;
-            if (quantity > 1) {
-                quantityInput.val(quantity - 1);
-                updateTotalPrice($(this).closest("tr"));
-                updateCartTotal();
+                // Sunucudan dönen değerlerle toplamları güncelle
+                $("#productTotal").text(response.total.toFixed(2) + "₺");
+                $("#taxAmount").text(response.tax.toFixed(2) + "₺");
+                $("#shippingFee").text(response.shippingFee.toFixed(2) + "₺");
+                $("#cartTotal").text(response.totalAmount.toFixed(2) + "₺");
+
+                if (response.total > 500 || response.shippingFee === 0) {
+                    $("#shippingNote").text("500₺ ve Üzeri Kargo Bedava (Satıcı Karşılar)");
+                } else {
+                    $("#shippingNote").text("");
+                }
+            },
+            error: function () {
+                alert("Miktar güncellenirken bir hata oluştu.");
             }
-        });
-
-        function updateTotalPrice(row) {
-            var quantity = parseInt(row.find(".quantity-input").val()) || 0;
-            var price = parseFloat(row.find(".product-price").text().replace("₺", "").replace(",", "."));
-            var newTotal = (quantity * price).toFixed(2);
-            row.find(".total-price").text(newTotal + "₺");
-        }
-
-        function updateCartTotal() {
-            var cartTotal = 0;
-            $(".total-price").each(function () {
-                var itemTotal = parseFloat($(this).text().replace("₺", "").replace(",", "."));
-                cartTotal += itemTotal;
-            });
-
-            var tax = cartTotal * 0.10; // KDV %10
-            var discount = parseFloat("@Model.DiscountRate") > 0 ? (cartTotal * (parseFloat("@Model.DiscountRate") / 100)) : 0;
-            var totalWithTax = cartTotal - discount + tax;
-            var shippingFee = cartTotal === 0 ? 0 : (totalWithTax > 500 ? 0 : 50); // 500₺ üzeri ücretsiz kargo, sepet boş ise kargo 0₺
-            var finalTotal = totalWithTax + shippingFee;
-
-            // Sayfadaki değerleri güncelle
-            $("#productTotal").text(cartTotal.toFixed(2) + "₺");
-            $("#taxAmount").text(tax.toFixed(2) + "₺");
-            $("#discountAmount").text(discount.toFixed(2) + "₺");
-            $("#shippingFee").text(shippingFee.toFixed(2) + "₺");
-            $("#cartTotal").text(finalTotal.toFixed(2) + "₺");
-
-            // Kargo notunu güncelle
-            if (cartTotal > 500 || shippingFee === 0) {
-                $("#shippingNote").text("500₺ ve Üzeri Kargo Bedava (Satıcı Karşılar)");
-            } else {
-                $("#shippingNote").text("");
-            }
-        }
-
-        // Sayfada mevcut sepet verilerini saklamak
-        $(".quantity-input").each(function () {
-            $(this).on("change", function () {
-                updateCartTotal();
-            });
         });
     });
+});
 </script>
