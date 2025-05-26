@@ -11,5 +11,6 @@ namespace MS.WebUI.Services.OrderServices.OrderOrderingServices
         Task UpdateOrderingAsync(UpdateOrderingDto updateOrderingDto);
         Task DeleteOrderingAsync(int id);
         Task<UpdateOrderingDto> GetByIdOrderingAsync(int id);
+        Task<ResultOrderingByUserIdDto> GetLastOrderingByUserIdAsync(string userId);
     }
 }

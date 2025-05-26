@@ -19,6 +19,7 @@ namespace MS.Order.Application.Features.Mediator.Handlers.OrderingHandlers
             var values = await _repository.GetByIdAsync(request.OrderingId);
             values.OrderDate = request.OrderDate;
             values.UserId = request.UserId;
+            values.OrderNumber = request.OrderNumber; // OrderNumber güncelleniyor
             values.TotalPrice = request.TotalPrice;
             await _repository.UpdateAsync(values);
         }

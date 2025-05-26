@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MS.DtoL.OrderDtos.OrderOrderingDtos
+﻿namespace MS.DtoL.OrderDtos.OrderOrderingDtos
 {
     public class UpdateOrderingDto
     {
@@ -12,5 +6,7 @@ namespace MS.DtoL.OrderDtos.OrderOrderingDtos
         public string UserId { get; set; }
         public decimal TotalPrice { get; set; }
         public DateTime OrderDate { get; set; }
+        public string OrderNumber { get; set; }
+        public List<ResultOrderDetailDto> OrderDetails { get; set; }
     }
 }

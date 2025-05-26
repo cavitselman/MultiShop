@@ -60,7 +60,7 @@
             <h5>Toplam</h5>
             <h5 id="cartTotal">@ViewBag.totalAmount.ToString("N2")₺</h5>
         </div>
-        <form method="post" action="/Order/Index/">
+        <form asp-controller="ShoppingCart" asp-action="CompleteOrder" method="post">
             <input type="hidden" name="discountRate" value="@Model.DiscountRate" />
             <input type="hidden" name="discountName" value="@Model.DiscountCode" />
             <button type="submit" class="btn btn-block btn-primary font-weight-bold my-3 py-3">Siparişi Tamamla</button>

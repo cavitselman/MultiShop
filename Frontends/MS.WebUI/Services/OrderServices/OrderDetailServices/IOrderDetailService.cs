@@ -4,6 +4,7 @@ namespace MS.WebUI.Services.OrderServices.OrderDetailServices
 {
     public interface IOrderDetailService
     {
-        Task<List<ResultOrderDetailDto>> GetOrderDetailsAsync(string orderNumber);
+        Task<List<ResultOrderDetailDto>> GetOrderDetailsByOrderingIdAsync(int orderingId);
+        Task CreateOrderDetailAsync(CreateOrderDetailDto dto);
     }
 }

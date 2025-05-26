@@ -1,0 +1,45 @@
+﻿@model OrderDetailViewModel
+@{
+    ViewData["Title"] = "MyOrderDetail";
+    Layout = "~/Areas/User/Views/UserLayout/Index.cshtml";
+}
+
+<div class="container my-5">
+    <h2 class="text-center mb-4">Sipariş Detayı</h2>
+
+    @if (Model.OrderDetails != null && Model.OrderDetails.Any())
+    {
+        <div class="text-center mb-4">
+            <p><strong>Sipariş Numarası:</strong> @Model.OrderNumber</p>
+            <p><strong>Tarih:</strong> @Model.OrderDate.ToString("dd.MM.yyyy HH:mm")</p>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover mx-auto" style="max-width: 700px;">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Ürün</th>
+                        <th scope="col">Adet</th>
+                        <th scope="col">Fiyat</th>
+                        <th scope="col">Toplam</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OrderDetails)
+                    {
+                        <tr>
+                            <td>@item.ProductName</td>
+                            <td class="text-center">@item.ProductAmount</td>
+                            <td class="text-end">@item.ProductPrice ₺</td>
+                            <td class="text-end">@Model.TotalPrice ₺</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning text-center">Bu siparişe ait detay bulunamadı.</div>
+    }
+</div>

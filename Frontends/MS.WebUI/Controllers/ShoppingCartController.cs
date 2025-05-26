@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MS.DtoL.BasketDtos;
+using MS.DtoL.OrderDtos.OrderDetailDtos;
+using MS.DtoL.OrderDtos.OrderOrderingDtos;
 using MS.WebUI.Services.BasketServices;
 using MS.WebUI.Services.CatalogServices.ProductServices;
+using MS.WebUI.Services.OrderServices.OrderDetailServices;
+using MS.WebUI.Services.OrderServices.OrderOrderingServices;
 
 namespace MS.WebUI.Controllers
 {
@@ -9,11 +13,15 @@ namespace MS.WebUI.Controllers
     {
         private readonly IProductService _productService;
         private readonly IBasketService _basketService;
+        private readonly IOrderOrderingService _orderOrderingService;
+        private readonly IOrderDetailService _orderDetailService;
 
-        public ShoppingCartController(IProductService productService, IBasketService basketService)
+        public ShoppingCartController(IProductService productService, IBasketService basketService, IOrderOrderingService orderOrderingService, IOrderDetailService orderDetailService)
         {
             _productService = productService;
             _basketService = basketService;
+            _orderOrderingService = orderOrderingService;
+            _orderDetailService = orderDetailService;
         }
 
         public async Task<IActionResult> Index(string code, int discountRate, decimal totalNewPriceWithDiscount)
@@ -100,10 +108,15 @@ namespace MS.WebUI.Controllers
             });
         }
 
-        public async Task<IActionResult> RemoveBasketItem(string id)
+        [HttpPost]
+        public async Task<IActionResult> RemoveBasketItem(string productId)
         {
-            await _basketService.RemoveBasketItem(id);
-            return Redirect("/ShoppingCart/Index");
+            var result = await _basketService.RemoveBasketItem(productId);
+            if (result)
+            {
+                return Ok();
+            }
+            return BadRequest("Ürün kaldırılırken bir hata oluştu.");
         }
     }
 }
