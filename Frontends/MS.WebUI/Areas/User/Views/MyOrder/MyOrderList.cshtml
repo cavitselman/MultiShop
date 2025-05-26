@@ -55,8 +55,9 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Toplam Fiyat</th>
+                            <th>Sipariş Numarası</th>
                             <th>Sipariş Tarihi</th>
+                            <th>Toplam Fiyat</th>                            
                             <th>Sipariş Detayları</th>
                         </tr>
                     </thead>
@@ -66,9 +67,10 @@
                             count++;
                             <tr>
                                 <td>@count</td>
-                                <td>@item.TotalPrice ₺</td>
+                                <td>@item.OrderNumber</td>
                                 <td>@(((DateTime)item.OrderDate).ToString("dd-MMM-yyyy"))</td>
-                                <td><a href="#" class="btn btn-warning btn-sm">Sipariş Detayları</a></td>
+                                <td>@item.TotalPrice ₺</td>
+                                <td><a href="/User/MyOrder/MyOrderDetail/@item.OrderingId" class="btn btn-warning btn-sm">Sipariş Detayları</a></td>
                             </tr>
                         }
                     </tbody>

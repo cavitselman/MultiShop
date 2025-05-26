@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MS.DtoL.BasketDtos;
+using MS.DtoL.OrderDtos.OrderDetailDtos;
+using MS.DtoL.OrderDtos.OrderOrderingDtos;
 using MS.WebUI.Services.BasketServices;
 using MS.WebUI.Services.CatalogServices.ProductServices;
+using MS.WebUI.Services.OrderServices.OrderDetailServices;
+using MS.WebUI.Services.OrderServices.OrderOrderingServices;
 
 namespace MS.WebUI.Controllers
 {
@@ -9,11 +13,15 @@ namespace MS.WebUI.Controllers
     {
         private readonly IProductService _productService;
         private readonly IBasketService _basketService;
+        private readonly IOrderOrderingService _orderOrderingService;
+        private readonly IOrderDetailService _orderDetailService;
 
-        public ShoppingCartController(IProductService productService, IBasketService basketService)
+        public ShoppingCartController(IProductService productService, IBasketService basketService, IOrderOrderingService orderOrderingService, IOrderDetailService orderDetailService)
         {
             _productService = productService;
             _basketService = basketService;
+            _orderOrderingService = orderOrderingService;
+            _orderDetailService = orderDetailService;
         }
 
         public async Task<IActionResult> Index(string code, int discountRate, decimal totalNewPriceWithDiscount)
@@ -100,15 +108,54 @@ namespace MS.WebUI.Controllers
             });
         }
 
-        [HttpPost]
-        public async Task<IActionResult> RemoveBasketItem(string productId)
+        public async Task<IActionResult> RemoveBasketItem(string id)
         {
-            var result = await _basketService.RemoveBasketItem(productId);
-            if (result)
+            await _basketService.RemoveBasketItem(id);
+            return Redirect("/ShoppingCart/Index");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CompleteOrder()
+        {
+            var basket = await _basketService.GetBasket();
+
+            // TempData'dan indirim oranını al
+            int discountRate = TempData["DiscountRate"] != null ? Convert.ToInt32(TempData["DiscountRate"]) : 0;
+
+            decimal totalPrice = basket.TotalPrice;
+            decimal tax = totalPrice * 0.10m;
+            decimal totalWithTax = totalPrice + tax;
+            decimal discountAmount = discountRate > 0 ? totalWithTax * (discountRate / 100m) : 0;
+            decimal totalNewPriceWithDiscount = totalWithTax - discountAmount;
+
+            var createOrderingDto = new CreateOrderingDto
             {
-                return Ok();
-            }
-            return BadRequest("Ürün kaldırılırken bir hata oluştu.");
+                UserId = basket.UserId,
+                TotalPrice = totalNewPriceWithDiscount,
+                OrderDate = DateTime.Now,
+                OrderNumber = Guid.NewGuid().ToString().Substring(0, 8)
+            };
+            await _orderOrderingService.CreateOrderingAsync(createOrderingDto);
+
+            // Sipariş detayları ekleniyor (değişiklik yok)
+            var orders = await _orderOrderingService.GetOrderingByUserIdAsync(basket.UserId);
+            var lastOrder = orders.OrderByDescending(x => x.OrderDate).FirstOrDefault();
+
+            foreach (var item in basket.BasketItems)
+            {
+                var orderDetailDto = new CreateOrderDetailDto
+                {
+                    ProductId = item.ProductId,
+                    ProductName = item.ProductName,
+                    ProductPrice = item.Price,
+                    ProductAmount = item.Quantity,
+                    ProductTotalPrice = item.Price * item.Quantity,
+                    OrderingId = lastOrder.OrderingId
+                };
+                await _orderDetailService.CreateOrderDetailAsync(orderDetailDto);
+            }            
+
+            return RedirectToAction("Index", "Order");
         }
     }
 }

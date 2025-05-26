@@ -2,10 +2,11 @@
 {
     public class GetOrderDetailByIdQuery
     {
-        public int Id { get; set; }
-        public GetOrderDetailByIdQuery(int id)
+        public int OrderingId { get; set; }
+
+        public GetOrderDetailByIdQuery(int orderingId)
         {
-            Id = id;
+            OrderingId = orderingId;
         }
     }
 }

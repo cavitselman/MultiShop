@@ -1,14 +1,12 @@
 ﻿using MS.DtoL.OrderDtos.OrderDetailDtos;
 
-namespace MS.DtoL.OrderDtos.OrderOrderingDtos
+namespace MS.WebUI.Areas.User.Models
 {
-    public class ResultOrderingByUserIdDto
+    public class OrderDetailViewModel
     {
-        public int OrderingId { get; set; }
-        public string UserId { get; set; }
         public string OrderNumber { get; set; }
-        public decimal TotalPrice { get; set; }
         public DateTime OrderDate { get; set; }
+        public decimal TotalPrice { get; set; }
         public List<ResultOrderDetailDto> OrderDetails { get; set; }
     }
 }

@@ -8,24 +8,27 @@ namespace MS.Order.Application.Features.CQRS.Handlers.OrderDetailHandlers
     public class GetOrderDetailByIdQueryHandler
     {
         private readonly IRepository<OrderDetail> _repository;
+
         public GetOrderDetailByIdQueryHandler(IRepository<OrderDetail> repository)
         {
             _repository = repository;
         }
 
-        public async Task<GetOrderDetailByIdQueryResult> Handle(GetOrderDetailByIdQuery query)
+        public async Task<List<GetOrderDetailByIdQueryResult>> Handle(GetOrderDetailByIdQuery query)
         {
-            var values = await _repository.GetByIdAsync(query.Id);
-            return new GetOrderDetailByIdQueryResult
+            var orderDetails = await _repository.GetAllAsync();
+            var filtered = orderDetails.Where(x => x.OrderingId == query.OrderingId).ToList();
+
+            return filtered.Select(x => new GetOrderDetailByIdQueryResult
             {
-                OrderDetailId = values.OrderDetailId,
-                ProductAmount = values.ProductAmount,
-                ProductId = values.ProductId,
-                ProductName = values.ProductName,
-                OrderingId = values.OrderingId,
-                ProductPrice = values.ProductPrice,
-                ProductTotalPrice = values.ProductTotalPrice
-            };
+                OrderDetailId = x.OrderDetailId,
+                ProductAmount = x.ProductAmount,
+                ProductId = x.ProductId,
+                ProductName = x.ProductName,
+                OrderingId = x.OrderingId,
+                ProductPrice = x.ProductPrice,
+                ProductTotalPrice = x.ProductTotalPrice
+            }).ToList();
         }
     }
 }

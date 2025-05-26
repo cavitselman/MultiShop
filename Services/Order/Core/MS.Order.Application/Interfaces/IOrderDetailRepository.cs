@@ -1,4 +1,6 @@
-﻿namespace MS.Order.Application.Interfaces
+﻿using MS.Order.Domain.Entities;
+
+namespace MS.Order.Application.Interfaces
 {
     public interface IOrderDetailRepository
     {

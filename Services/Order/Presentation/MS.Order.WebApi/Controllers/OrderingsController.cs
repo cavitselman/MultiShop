@@ -59,5 +59,20 @@ namespace MS.Order.WebApi.Controllers
             var values = await _mediator.Send(new GetOrderingByUserIdQuery(id));
             return Ok(values);
         }
+
+        [HttpGet("getlastorderbyuserid/{userId}")]
+        public async Task<IActionResult> GetLastOrderByUserId(string userId)
+        {
+            var orders = await _mediator.Send(new GetOrderingByUserIdQuery(userId));
+
+            var lastOrder = orders
+                .OrderByDescending(x => x.OrderDate)
+                .FirstOrDefault();
+
+            if (lastOrder == null)
+                return NotFound();
+
+            return Ok(lastOrder);
+        }
     }
 }

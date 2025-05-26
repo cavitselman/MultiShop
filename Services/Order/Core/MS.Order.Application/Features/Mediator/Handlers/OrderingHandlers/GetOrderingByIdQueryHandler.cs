@@ -23,6 +23,7 @@ namespace MS.Order.Application.Features.Mediator.Handlers.OrderingHandlers
                 OrderDate = values.OrderDate,
                 OrderingId = values.OrderingId,
                 TotalPrice = values.TotalPrice,
+                OrderNumber = values.OrderNumber,
                 UserId = values.UserId
             };
         }

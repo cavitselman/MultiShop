@@ -19,6 +19,7 @@ using MS.WebUI.Services.DiscountServices;
 using MS.WebUI.Services.Interfaces;
 using MS.WebUI.Services.MessageServices;
 using MS.WebUI.Services.OrderServices.OrderAddressServices;
+using MS.WebUI.Services.OrderServices.OrderDetailServices;
 using MS.WebUI.Services.OrderServices.OrderOrderingServices;
 using MS.WebUI.Services.StatisticServices.CatalogStatisticServices;
 using MS.WebUI.Services.StatisticServices.DiscountStatisticServices;
@@ -180,6 +181,11 @@ namespace MS.WebUI.Extensions
 
         private static void AddOrderHttpClients(IServiceCollection services, ServiceApiSettings values)
         {
+            services.AddHttpClient<IOrderDetailService, OrderDetailService>(opt =>
+            {
+                opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Order.Path}");
+            }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+
             services.AddHttpClient<IOrderAddressService, OrderAddressService>(opt =>
             {
                 opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Order.Path}");

@@ -4,10 +4,11 @@
 }
 
 <div class="container">
-    <div class="thank-you-message">
-        <p class="thank-you-text">Alışverişinizde bizi tercih ettiğiniz için <strong>teşekkür ederiz.</strong></p>
+    <div class="thank-you-message">        
+        <p class="thank-you-text">Alışverişinizde bizi tercih ettiğiniz için <strong>teşekkür ederiz.</strong></p><br /><br />
+        <p>*Kartınızdan @ViewBag.TotalPrice₺ çekilmiştir.*</p>
         <p class="order-number"><strong>Sipariş Numarası:</strong> @ViewBag.OrderNumber</p><br />
-        <p class="order-link">Sipariş detayları için <a href="/Orders">Siparişlerim</a>'e git.</p>
+        <p class="order-link">Sipariş detayları için <a href="/User/MyOrder/MyOrderList">Siparişlerim</a>'e git.</p>
     </div>
 
     @* @if (ViewBag.OrderDetails != null && ViewBag.OrderDetails.Any())

@@ -22,6 +22,7 @@ namespace MS.Order.Application.Features.Mediator.Handlers.OrderingHandlers
                 OrderDate = x.OrderDate,
                 OrderingId = x.OrderingId,
                 TotalPrice = x.TotalPrice,
+                OrderNumber = x.OrderNumber,
                 UserId = x.UserId
             }).ToList();
         }

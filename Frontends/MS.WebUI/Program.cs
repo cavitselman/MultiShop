@@ -5,6 +5,8 @@ using MS.WebUI.Extensions;
 using MS.WebUI.Handlers;
 using MS.WebUI.Services.Concrete;
 using MS.WebUI.Services.Interfaces;
+using MS.WebUI.Services.OrderServices.OrderDetailServices;
+using MS.WebUI.Services.OrderServices.OrderOrderingServices;
 using MS.WebUI.Settings;
 
 var builder = WebApplication.CreateBuilder(args);

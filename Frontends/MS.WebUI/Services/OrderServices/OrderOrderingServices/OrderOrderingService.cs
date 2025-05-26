@@ -40,6 +40,14 @@ namespace MS.WebUI.Services.OrderServices.OrderOrderingServices
             return value;
         }
 
+        public async Task<ResultOrderingByUserIdDto> GetLastOrderingByUserIdAsync(string userId)
+        {
+            var response = await _httpClient.GetAsync($"orderings/getlastorderbyuserid/{userId}");
+            var jsonData = await response.Content.ReadAsStringAsync();
+            var value = JsonConvert.DeserializeObject<ResultOrderingByUserIdDto>(jsonData);
+            return value;
+        }
+
         public async Task<List<ResultOrderingByUserIdDto>> GetOrderingByUserIdAsync(string id)
         {
             var responseMessage = await _httpClient.GetAsync("orderings/getorderingbyuserid/" + id);

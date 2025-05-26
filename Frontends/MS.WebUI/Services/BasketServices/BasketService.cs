@@ -53,8 +53,8 @@ namespace MS.WebUI.Services.BasketServices
 
         public async Task DeleteBasket(string userId)
         {
-            await _httpClient.DeleteAsync($"baskets/{userId}");
-        }        
+            await _httpClient.DeleteAsync("baskets");
+        }
 
         public async Task<BasketTotalDto> GetBasket()
         {
