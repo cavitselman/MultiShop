@@ -9,6 +9,7 @@ namespace MS.DtoL.OrderDtos.OrderOrderingDtos
         public string OrderNumber { get; set; }
         public decimal TotalPrice { get; set; }
         public DateTime OrderDate { get; set; }
+        public int Status { get; set; }
         public List<ResultOrderDetailDto> OrderDetails { get; set; }
     }
 }

@@ -62,17 +62,31 @@ namespace MS.WebUI.Controllers
         public async Task<IActionResult> AddBasketItem(string id)
         {
             var values = await _productService.GetByIdProductAsync(id);
-            var items = new BasketItemDto
+            var basket = await _basketService.GetBasket();
+
+            var existingItem = basket.BasketItems.FirstOrDefault(x => x.ProductId == values.ProductId);
+
+            if (existingItem != null)
             {
-                ProductId = values.ProductId,
-                ProductName = values.ProductName,
-                Price = values.ProductPrice,
-                Quantity = 1,
-                ProductImageUrl = values.ProductImageUrl
-            };
-            await _basketService.AddBasketItem(items);
+                existingItem.Quantity += 1;
+                await _basketService.UpdateBasketItem(existingItem);
+            }
+            else
+            {
+                var newItem = new BasketItemDto
+                {
+                    ProductId = values.ProductId,
+                    ProductName = values.ProductName,
+                    Price = values.ProductPrice,
+                    Quantity = 1,
+                    ProductImageUrl = values.ProductImageUrl
+                };
+                await _basketService.AddBasketItem(newItem);
+            }
+
             return Redirect("/ShoppingCart/Index");
         }
+
 
         [HttpPost]
         public async Task<IActionResult> UpdateQuantity(string productId, int quantity)

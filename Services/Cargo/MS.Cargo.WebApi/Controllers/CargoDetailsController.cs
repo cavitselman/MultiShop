@@ -33,7 +33,10 @@ namespace MS.Cargo.WebApi.Controllers
                 Barcode = createCargoDetailDto.Barcode,
                 CargoCompanyId = createCargoDetailDto.CargoCompanyId,
                 ReceiverCustomer = createCargoDetailDto.ReceiverCustomer,
-                SenderCustomer = createCargoDetailDto.SenderCustomer
+                SenderCustomer = createCargoDetailDto.SenderCustomer,
+                OrderingId = createCargoDetailDto.OrderingId,
+                Reason = createCargoDetailDto.Reason,     
+                Description = createCargoDetailDto.Description 
             };
             _cargoDetailService.TInsert(CargoDetail);
             return Ok("Kargo Detayları Başarıyla Oluşturuldu");
@@ -66,6 +69,15 @@ namespace MS.Cargo.WebApi.Controllers
             };
             _cargoDetailService.TUpdate(CargoDetail);
             return Ok("Kargo Detayları Başarıyla Güncellendi");
+        }
+
+        [HttpGet("ByOrderingId/{orderingId}")]
+        public IActionResult GetByOrderingId(int orderingId)
+        {
+            var values = _cargoDetailService.TGetAll()
+                            .Where(c => c.OrderingId == orderingId)
+                            .ToList();
+            return Ok(values);
         }
     }
 }

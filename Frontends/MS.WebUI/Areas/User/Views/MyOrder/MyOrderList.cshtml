@@ -58,6 +58,7 @@
                             <th>Sipariş Numarası</th>
                             <th>Sipariş Tarihi</th>
                             <th>Toplam Fiyat</th>                            
+                            <th>Durum</th>                            
                             <th>Sipariş Detayları</th>
                         </tr>
                     </thead>
@@ -70,6 +71,33 @@
                                 <td>@item.OrderNumber</td>
                                 <td>@(((DateTime)item.OrderDate).ToString("dd-MMM-yyyy"))</td>
                                 <td>@item.TotalPrice ₺</td>
+                                <td>
+                                    @{
+                                        var statusText = item.Status switch
+                                        {
+                                            0 => "Beklemede",
+                                            1 => "Hazırlanıyor",
+                                            2 => "Kargoda",
+                                            3 => "İptal Edildi",
+                                            4 => "Teslim Edildi",
+                                            5 => "İade Edildi",
+                                            _ => "Bilinmiyor"
+                                        };
+
+                                        var badgeClass = item.Status switch
+                                        {
+                                            0 => "secondary",
+                                            1 => "info",
+                                            2 => "primary",
+                                            3 => "danger",
+                                            4 => "success",
+                                            5 => "warning",
+                                            _ => "dark"
+                                        };
+                                    }
+                                    <span class="badge bg-@badgeClass">@statusText</span>
+                                </td>
+
                                 <td><a href="/User/MyOrder/MyOrderDetail/@item.OrderingId" class="btn btn-warning btn-sm">Sipariş Detayları</a></td>
                             </tr>
                         }

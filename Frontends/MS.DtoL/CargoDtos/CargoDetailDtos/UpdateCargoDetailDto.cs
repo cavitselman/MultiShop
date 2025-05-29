@@ -1,4 +1,4 @@
-﻿namespace MS.Cargo.DtoL.Dtos.CargoDetailDtos
+﻿namespace MS.DtoL.CargoDtos.CargoDetailDtos
 {
     public class UpdateCargoDetailDto
     {

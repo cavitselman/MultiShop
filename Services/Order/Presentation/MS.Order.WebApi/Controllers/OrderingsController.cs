@@ -47,7 +47,7 @@ namespace MS.Order.WebApi.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateOrdering(UpdateOrderingCommand command)
+        public async Task<IActionResult> UpdateOrdering([FromBody] UpdateOrderingCommand command)
         {
             await _mediator.Send(command);
             return Ok("Sipariş başarıyla güncellendi");

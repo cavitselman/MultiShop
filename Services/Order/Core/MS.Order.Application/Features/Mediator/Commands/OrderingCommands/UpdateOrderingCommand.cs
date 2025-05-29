@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using MS.Order.Domain.Enums;
 
 namespace MS.Order.Application.Features.Mediator.Commands.OrderingCommands
 {
@@ -9,5 +10,6 @@ namespace MS.Order.Application.Features.Mediator.Commands.OrderingCommands
         public string OrderNumber { get; set; }
         public decimal TotalPrice { get; set; }
         public DateTime OrderDate { get; set; }
+        public int Status { get; set; }
     }
 }

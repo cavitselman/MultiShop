@@ -16,16 +16,42 @@ namespace MS.Order.Application.Features.Mediator.Handlers.OrderingHandlers
 
         public async Task Handle(CreateOrderingCommand request, CancellationToken cancellationToken)
         {
-            var orderNumber = "ORD" + DateTime.Now.ToString("yyyyMMddHHmmss"); // Sipariş numarası oluşturuluyor
+            var orderNumber = await GenerateUniqueOrderNumberAsync();
+
             var ordering = new Ordering
             {
                 OrderDate = request.OrderDate,
                 TotalPrice = request.TotalPrice,
                 UserId = request.UserId,
-                OrderNumber = orderNumber // OrderNumber ekleniyor
+                OrderNumber = orderNumber
             };
 
             await _repository.CreateAsync(ordering);
+        }
+
+        private static string GenerateOrderNumber()
+        {
+            const string digits = "0123456789";
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            var random = new Random();
+            var firstDigit = digits[random.Next(digits.Length)];
+            var remaining = new string(Enumerable.Repeat(chars, 7).Select(s => s[random.Next(s.Length)]).ToArray());
+            return "ORD" + firstDigit + remaining;
+        }
+
+        private async Task<string> GenerateUniqueOrderNumberAsync()
+        {
+            string orderNumber;
+            bool exists;
+            do
+            {
+                orderNumber = GenerateOrderNumber();
+                var existing = await _repository.GetByFilterAsync(x => x.OrderNumber == orderNumber);
+                exists = existing != null;
+            }
+            while (exists);
+
+            return orderNumber;
         }
     }
 }
