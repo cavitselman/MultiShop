@@ -1,6 +1,12 @@
-﻿namespace MS.Cargo.DtoL.Dtos.CargoDetailDtos
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MS.DtoL.CargoDtos.CargoDetailDtos
 {
-    public class UpdateCargoDetailDto
+    public class ResultCargoDetailDto
     {
         public int CargoDetailId { get; set; }
         public string SenderCustomer { get; set; }

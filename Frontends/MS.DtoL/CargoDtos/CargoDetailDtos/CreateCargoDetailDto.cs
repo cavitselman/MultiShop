@@ -1,8 +1,7 @@
-﻿namespace MS.Cargo.DtoL.Dtos.CargoDetailDtos
+﻿namespace MS.DtoL.CargoDtos.CargoDetailDtos
 {
-    public class UpdateCargoDetailDto
+    public class CreateCargoDetailDto
     {
-        public int CargoDetailId { get; set; }
         public string SenderCustomer { get; set; }
         public string ReceiverCustomer { get; set; }
         public string Barcode { get; set; }
@@ -10,5 +9,7 @@
         public string? Description { get; set; }
         public int OrderingId { get; set; }
         public int CargoCompanyId { get; set; }
+        public bool IsSelected { get; set; }
+        public string ProductId { get; set; }
     }
 }

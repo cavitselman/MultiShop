@@ -2,6 +2,7 @@
 using MS.Order.Application.Features.Mediator.Commands.OrderingCommands;
 using MS.Order.Application.Interfaces;
 using MS.Order.Domain.Entities;
+using MS.Order.Domain.Enums;
 
 namespace MS.Order.Application.Features.Mediator.Handlers.OrderingHandlers
 {
@@ -21,6 +22,7 @@ namespace MS.Order.Application.Features.Mediator.Handlers.OrderingHandlers
             values.UserId = request.UserId;
             values.OrderNumber = request.OrderNumber; // OrderNumber güncelleniyor
             values.TotalPrice = request.TotalPrice;
+            values.Status = (OrderStatus)request.Status;
             await _repository.UpdateAsync(values);
         }
     }

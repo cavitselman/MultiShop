@@ -18,14 +18,22 @@ namespace MS.Order.Application.Features.Mediator.Handlers.OrderingHandlers
         public async Task<GetOrderingByIdQueryResult> Handle(GetOrderingByIdQuery request, CancellationToken cancellationToken)
         {
             var values = await _repository.GetByIdAsync(request.Id);
+
+            if (values == null)
+            {
+                return null;
+            }
+
             return new GetOrderingByIdQueryResult
             {
                 OrderDate = values.OrderDate,
                 OrderingId = values.OrderingId,
                 TotalPrice = values.TotalPrice,
                 OrderNumber = values.OrderNumber,
+                Status = values.Status,
                 UserId = values.UserId
             };
         }
+
     }
 }

@@ -34,11 +34,24 @@ namespace MS.WebUI.Services.OrderServices.OrderOrderingServices
         public async Task<UpdateOrderingDto> GetByIdOrderingAsync(int id)
         {
             var responseMessage = await _httpClient.GetAsync("orderings/" + id);
+
+            if (!responseMessage.IsSuccessStatusCode)
+            {
+                // İstersen burada null dönebilir veya hata fırlatabilirsin.
+                return null;
+            }
+
             var jsondata = await responseMessage.Content.ReadAsStringAsync();
+
+            if (string.IsNullOrEmpty(jsondata))
+            {
+                return null;
+            }
+
             var value = JsonConvert.DeserializeObject<UpdateOrderingDto>(jsondata);
-            //var value = await responseMessage.Content.ReadFromJsonAsync<GetByIdCategoryDto>();
             return value;
         }
+
 
         public async Task<ResultOrderingByUserIdDto> GetLastOrderingByUserIdAsync(string userId)
         {

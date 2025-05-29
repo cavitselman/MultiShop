@@ -1,4 +1,6 @@
-﻿namespace MS.Order.Application.Features.CQRS.Results.OrderDetailResults
+﻿using MS.Order.Domain.Enums;
+
+namespace MS.Order.Application.Features.CQRS.Results.OrderDetailResults
 {
     public class GetOrderDetailByIdQueryResult
     {
