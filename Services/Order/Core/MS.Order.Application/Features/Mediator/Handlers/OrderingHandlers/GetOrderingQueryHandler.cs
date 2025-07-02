@@ -24,7 +24,8 @@ namespace MS.Order.Application.Features.Mediator.Handlers.OrderingHandlers
                 OrderDate = x.OrderDate,
                 TotalPrice = x.TotalPrice,
                 UserId = x.UserId,
-                OrderNumber = x.OrderNumber
+                OrderNumber = x.OrderNumber,
+                Status = x.Status
             }).ToList();
         }
     }

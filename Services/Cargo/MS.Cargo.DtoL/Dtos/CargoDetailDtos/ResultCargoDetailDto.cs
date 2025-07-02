@@ -15,6 +15,8 @@ namespace MS.Cargo.DtoL.Dtos.CargoDetailDtos
         public string? Reason { get; set; }
         public string? Description { get; set; }
         public int OrderingId { get; set; }
+        public int OrderDetailId { get; set; }
+        public int ReturnAmount { get; set; }
         public int CargoCompanyId { get; set; }
     }
 }

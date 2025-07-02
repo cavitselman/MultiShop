@@ -5,6 +5,13 @@
     Layout = "~/Areas/User/Views/UserLayout/Index.cshtml";
 }
 
+@if (!string.IsNullOrEmpty(Model.RefundNote))
+{
+    <div class="alert alert-info">
+        @Html.Raw(Model.RefundNote)
+    </div>
+}
+
 <div class="container my-5">
     <h2 class="text-center mb-4">Sipariş Detayı</h2>
 
@@ -43,27 +50,25 @@
                 </tbody>
                  <tr>
     <td colspan="4" class="text-center fw-bold fs-5 pt-2">
-        Genel Toplam: @Model.TotalPrice.ToString("N2") ₺
+        (KDV Dahil) Genel Toplam: @Model.TotalPrice.ToString("N2") ₺
     </td>
 </tr>
             </table>
         </div>
         <div class="d-flex justify-content-center gap-3 mt-4">
-            <form id="cancelOrderForm" action="/User/MyOrder/CancelOrder" method="post">
-            <input type="hidden" name="orderingId" value="@Model.OrderingId" />
-            <button type="button" id="btnCancelOrder" class="btn btn-danger">İptal Et</button>
-            </form>
-
-            <form asp-action="MarkAsDelivered" method="post">
-                <input type="hidden" name="orderId" value="@Model.OrderNumber" />
-                <button type="submit" class="btn btn-success">Teslim Edildi</button>
-            </form>
+            @if (Model.Status == 0)
+            {
+              <form id="cancelOrderForm" action="/User/MyOrder/CancelOrder" method="post">
+              <input type="hidden" name="orderingId" value="@Model.OrderingId" />
+              <button type="button" id="btnCancelOrder" class="btn btn-danger">İptal Et</button>
+              </form>
+            }
 
             @if (Model.Status == 4)
             {
              <form action="/User/MyOrder/RequestRefund" method="get">
              <input type="hidden" name="id" value="@Model.OrderingId" />
-             <button type="submit" class="btn btn-warning">İade Et</button>
+             <button type="submit" class="btn btn-dark">İade Et</button>
              </form>
             }
         </div>

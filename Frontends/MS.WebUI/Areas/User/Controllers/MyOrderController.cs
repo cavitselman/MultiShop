@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MS.DtoL.CargoDtos.CargoDetailDtos;
 using MS.DtoL.OrderDtos.OrderOrderingDtos;
 using MS.WebUI.Areas.User.Models;
@@ -42,6 +43,18 @@ namespace MS.WebUI.Areas.User.Controllers
             if (order == null || orderDetails == null)
                 return NotFound();
 
+            var cargoDetails = await _cargoDetailService.GetByOrderingIdAsync(id);
+
+            string refundNote = null;
+
+            if (cargoDetails != null && cargoDetails.Any())
+            {
+                var barcodes = cargoDetails.Select(c => c.Barcode);
+
+                refundNote = "İade talebiniz alınmıştır. Lütfen 7 gün içinde aşağıdaki iade kargo kodu ile anlaşmalı kargo şirketimize teslim ediniz:<br/>"
+                             + string.Join("<br/>", barcodes);
+            }
+
             var model = new OrderDetailViewModel
             {
                 OrderingId = order.OrderingId,
@@ -49,7 +62,8 @@ namespace MS.WebUI.Areas.User.Controllers
                 OrderDate = order.OrderDate,
                 TotalPrice = order.TotalPrice,
                 Status = order.Status,
-                OrderDetails = orderDetails
+                OrderDetails = orderDetails,
+                RefundNote = refundNote
             };
 
             return View(model);
@@ -70,7 +84,7 @@ namespace MS.WebUI.Areas.User.Controllers
                 OrderNumber = order.OrderNumber,
                 TotalPrice = order.TotalPrice,
                 OrderDate = order.OrderDate,
-                Status = 3 
+                Status = 1
             };
 
             await _orderOrderingService.UpdateOrderingAsync(updateDto);
@@ -88,7 +102,7 @@ namespace MS.WebUI.Areas.User.Controllers
             var cargoDetails = orderDetails.Select(od => new CreateCargoDetailDtoExtended
             {
                 OrderingId = id,
-                ProductId = od.ProductId,
+                OrderDetailId = od.OrderDetailId, // artık OrderDetailId üzerinden gidiyoruz
                 Description = "",
                 Reason = "",
                 IsSelected = false
@@ -98,7 +112,16 @@ namespace MS.WebUI.Areas.User.Controllers
             {
                 OrderingId = id,
                 OrderDetails = orderDetails,
-                CargoDetails = cargoDetails
+                CargoDetails = cargoDetails,
+
+                ReasonList = new List<SelectListItem>
+                {
+                     new SelectListItem { Value = "", Text = "Seçiniz" },
+                     new SelectListItem { Value = "Ürün Kusurlu", Text = "Ürün Kusurlu" },
+                     new SelectListItem { Value = "Bedeni/ Boyutu Uyumsuz", Text = "Bedeni/ Boyutu Uyumsuz" },
+                     new SelectListItem { Value = "Vazgeçtim", Text = "Vazgeçtim" },
+                     new SelectListItem { Value = "Diğer", Text = "Diğer" }
+                 }
             };
 
             return View(model);
@@ -107,40 +130,59 @@ namespace MS.WebUI.Areas.User.Controllers
         [HttpPost]
         public async Task<IActionResult> RequestRefund(RequestRefundViewModel model)
         {
-            if (!ModelState.IsValid)
-                return View(model);
-
-            var userId = User.FindFirst("sub")?.Value ?? User.Identity.Name;
+            var userId = User.FindFirst("sub")?.Value ?? User.Identity?.Name;
 
             var order = await _orderOrderingService.GetByIdOrderingAsync(model.OrderingId);
             if (order == null || order.UserId != userId)
                 return Unauthorized();
 
-            var selectedItems = model.CargoDetails.Where(c => c.IsSelected).ToList();
+            var selectedItems = model.CargoDetails.Where(c => c.ReturnAmount > 0).ToList();
+
             if (!selectedItems.Any())
             {
-                ModelState.AddModelError("", "Lütfen iade edilecek en az bir ürün seçiniz.");
+                ModelState.AddModelError("", "Lütfen iade edilecek en az bir ürün için adet seçiniz.");
+                model.OrderDetails = await _orderDetailService.GetOrderDetailsByOrderingIdAsync(model.OrderingId);
                 return View(model);
             }
 
+            var barcodes = new List<string>();
+
             foreach (var cargoDetail in selectedItems)
             {
+                var barcode = GenerateBarcode();
                 var dto = new CreateCargoDetailDto
                 {
-                    OrderingId = model.OrderingId,
-                    ProductId = cargoDetail.ProductId,
+                    OrderDetailId = cargoDetail.OrderDetailId,
+                    OrderingId = cargoDetail.OrderingId,
+                    ReturnAmount = cargoDetail.ReturnAmount,
                     Description = cargoDetail.Description,
                     Reason = cargoDetail.Reason,
                     SenderCustomer = userId,
                     ReceiverCustomer = "Admin",
-                    Barcode = GenerateBarcode(),
+                    Barcode = barcode,
                     CargoCompanyId = 1
                 };
 
                 await _cargoDetailService.InsertAsync(dto);
+                barcodes.Add(barcode);
             }
 
-            return RedirectToAction("MyOrderDetail", new { id = model.OrderingId });
+            // Sipariş durumunu PENDING (örnek: enum = 0) yapıyoruz
+            var updateDto = new UpdateOrderingDto
+            {
+                OrderingId = order.OrderingId,
+                UserId = order.UserId,
+                OrderNumber = order.OrderNumber,
+                TotalPrice = order.TotalPrice,
+                OrderDate = order.OrderDate,
+                Status = 4 // Pending = İade bekliyor
+            };
+
+            await _orderOrderingService.UpdateOrderingAsync(updateDto);
+
+            TempData["RefundSuccess"] = $"İade talebiniz alınmıştır. Lütfen 7 gün içinde aşağıdaki barkod numaraları ile anlaşmalı kargo şirketimize teslim ediniz:<br/><strong>{string.Join("<br/>", barcodes)}</strong>";
+
+            return Redirect($"/User/MyOrder/MyOrderDetail/{model.OrderingId}");
         }
 
         private string GenerateBarcode()

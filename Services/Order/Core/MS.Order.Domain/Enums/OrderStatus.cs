@@ -9,9 +9,11 @@ namespace MS.Order.Domain.Enums
     public enum OrderStatus
     {
         Pending,
-        Approved,
-        Delivered,
         Cancelled,
-        Refunded
+        Shipped,
+        Delivered,
+        ReturnRequested,
+        Refunded,
+        ReturnRejected
     }
 }

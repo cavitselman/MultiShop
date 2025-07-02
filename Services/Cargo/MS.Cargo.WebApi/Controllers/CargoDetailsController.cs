@@ -36,7 +36,9 @@ namespace MS.Cargo.WebApi.Controllers
                 SenderCustomer = createCargoDetailDto.SenderCustomer,
                 OrderingId = createCargoDetailDto.OrderingId,
                 Reason = createCargoDetailDto.Reason,     
-                Description = createCargoDetailDto.Description 
+                Description = createCargoDetailDto.Description,
+                ReturnAmount = createCargoDetailDto.ReturnAmount,
+                OrderDetailId = createCargoDetailDto.OrderDetailId
             };
             _cargoDetailService.TInsert(CargoDetail);
             return Ok("Kargo Detayları Başarıyla Oluşturuldu");

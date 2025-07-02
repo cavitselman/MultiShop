@@ -2,28 +2,28 @@
 
 #nullable disable
 
-namespace MS.Order.Persistence.Migrations
+namespace MS.Cargo.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class mig3 : Migration
+    public partial class mig5 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "OrderNumber",
-                table: "Orderings",
-                type: "nvarchar(max)",
+            migrationBuilder.AddColumn<int>(
+                name: "OrderDetailId2",
+                table: "CargoDetails",
+                type: "int",
                 nullable: false,
-                defaultValue: "");
+                defaultValue: 0);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "OrderNumber",
-                table: "Orderings");
+                name: "OrderDetailId2",
+                table: "CargoDetails");
         }
     }
 }

@@ -1,0 +1,66 @@
+﻿@model List<ResultInboxMessageDto>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/AdminLayout/_AdminLayout.cshtml";
+    var count = 0;
+}
+
+<section class="content container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="chart-box">
+                <h2 class="text-center mb-4">Gelen Mesajlar</h2>
+                <table class="table table-bordered table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>Gönderen ID</th>
+                            <th>Alıcı ID</th>
+                            <th>Konu</th>
+                            <th>Tarih</th>
+                            <th>Durum</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Any())
+                        {
+                            foreach (var item in Model)
+                            {
+                                count++;
+                                <tr>
+                                    <td>@count</td>
+                                    <td>@item.SenderId</td>
+                                    <td>@item.ReceiverId</td>
+                                    <td>@item.Subject</td>
+                                    <td>@item.MessageDate.ToString("dd.MM.yyyy HH:mm")</td>
+                                    <td>
+                                        @if (item.IsRead)
+                                        {
+                                            <span class="badge bg-success">Okundu</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-warning text-dark">Yeni</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <a href="/Admin/Message/MessageDetail/@item.UserMessageId" class="btn btn-sm btn-primary">Mesajı Aç</a>
+                                        <a href="/Admin/Message/Delete/@item.UserMessageId" class="btn btn-sm btn-danger">Sil</a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="7" class="text-center text-muted">Gelen kutusunda mesaj yok.</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

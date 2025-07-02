@@ -8,52 +8,58 @@
 <div class="container my-5">
     <h2 class="text-center mb-4">İade Talebi Oluştur</h2>
     <form action="/User/MyOrder/RequestRefund" method="post">
-        <input type="hidden" asp-for="OrderingId" />
+        <input type="hidden" name="OrderingId" value="@Model.OrderingId" />
 
         @if (Model.OrderDetails != null && Model.OrderDetails.Count > 0)
-{
-    @for (int i = 0; i < Model.CargoDetails.Count; i++)
-    {
-        <div class="card mb-4 p-3 shadow-sm">
-            <div class="form-check mb-2 d-flex align-items-center">
-                <input type="checkbox" asp-for="CargoDetails[i].IsSelected" class="form-check-input me-2" id="selectProduct_@i" />
-                @* Ürün Adı Kontrolü *@
-                <label class="form-check-label fw-bold me-3" for="selectProduct_@i">
-                    @if (Model.OrderDetails.Count > i)
-                    {
-                        @Model.OrderDetails[i].ProductName
-                    }
-                    else
-                    {
-                        <span>Ürün adı mevcut değil</span>
-                    }
-                </label>
-                <div class="ms-3">
-                    <label class="form-label"> </label>
-                    <select asp-for="CargoDetails[i].ReturnAmount" class="form-select" style="width:auto;">
-                        <option value="">Adet Seçiniz</option>
-                        @for (int j = 1; j <= Model.OrderDetails[i].ProductAmount; j++)
-                        {
-                            <option value="@j">@j</option>
-                        }
-                    </select>
+        {
+            @for (int i = 0; i < Model.CargoDetails.Count; i++)
+            {
+                var cargo = Model.CargoDetails[i];
+                var orderDetail = Model.OrderDetails.FirstOrDefault(od => od.OrderDetailId == cargo.OrderDetailId);
+
+                // Burada ürün adı ve miktar ataması
+                var productName = orderDetail?.ProductName ?? "Ürün adı bulunamadı";
+                var productAmount = orderDetail?.ProductAmount ?? 1;
+
+                <div class="card mb-4 p-3 shadow-sm">
+                    <input type="hidden" name="CargoDetails[@i].OrderDetailId" value="@cargo.OrderDetailId" />
+                    <input type="hidden" name="CargoDetails[@i].OrderingId" value="@cargo.OrderingId" />
+
+                    <div class="mb-2">
+                        <strong>Ürün:</strong> @productName
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">İade Edilecek Adet</label>
+                        <select name="CargoDetails[@i].ReturnAmount" class="form-select" style="max-width: 200px;">
+                            <option value="">Adet Seçiniz</option>
+                            @for (int j = 1; j <= productAmount; j++)
+                            {
+                                <option value="@j">@j</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+    <label class="form-label">İade Nedeni</label>
+    <select name="CargoDetails[@i].Reason" class="form-select">
+        @foreach (var reason in Model.ReasonList)
+        {
+            @:<option value="@reason.Value"@(cargo.Reason == reason.Value ? " selected" : "")>@reason.Text</option>
+        }
+    </select>
+</div>
+                    <div class="mb-3">
+                        <label class="form-label">Açıklama</label>
+                        <textarea name="CargoDetails[@i].Description" class="form-control">@cargo.Description</textarea>
+                    </div>
                 </div>
-            </div>
-            <div class="mb-3">
-                <label asp-for="CargoDetails[i].Reason" class="form-label">İade Nedeni</label>
-                <input asp-for="CargoDetails[i].Reason" class="form-control" />
-            </div>
-            <div class="mb-3">
-                <label asp-for="CargoDetails[i].Description" class="form-label">Açıklama</label>
-                <textarea asp-for="CargoDetails[i].Description" class="form-control"></textarea>
-            </div>
-        </div>
-    }
-}
-else
-{
-    <p>İade talebi oluşturmak için ürün bulunamadı.</p>
-}
+            }
+        }
+        else
+        {
+            <p>İade talebi oluşturmak için ürün bulunamadı.</p>
+        }
 
         <button type="submit" class="btn btn-primary">İade Talebi Gönder</button>
     </form>

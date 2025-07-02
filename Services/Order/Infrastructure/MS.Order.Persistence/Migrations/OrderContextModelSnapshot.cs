@@ -82,7 +82,7 @@ namespace MS.Order.Persistence.Migrations
 
                     b.HasKey("AddressId");
 
-                    b.ToTable("Addresses");
+                    b.ToTable("Addresses", (string)null);
                 });
 
             modelBuilder.Entity("MS.Order.Domain.Entities.OrderDetail", b =>
@@ -117,7 +117,7 @@ namespace MS.Order.Persistence.Migrations
 
                     b.HasIndex("OrderingId");
 
-                    b.ToTable("OrderDetails");
+                    b.ToTable("OrderDetails", (string)null);
                 });
 
             modelBuilder.Entity("MS.Order.Domain.Entities.Ordering", b =>
@@ -147,7 +147,7 @@ namespace MS.Order.Persistence.Migrations
 
                     b.HasKey("OrderingId");
 
-                    b.ToTable("Orderings");
+                    b.ToTable("Orderings", (string)null);
                 });
 
             modelBuilder.Entity("MS.Order.Domain.Entities.OrderDetail", b =>

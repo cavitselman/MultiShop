@@ -1,0 +1,74 @@
+﻿@model OrderDetailViewModel
+
+@{
+    ViewData["Title"] = "OrderDetailList";
+    Layout = "~/Areas/Admin/Views/AdminLayout/_AdminLayout.cshtml";
+}
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 shadow rounded p-4 bg-white">
+            <h2 class="text-center mb-4">Sipariş Detayı</h2>
+
+            @if (Model.Status == 3)
+            {
+                <h5 class="text-center text-danger">*Bu sipariş iptal edilmiştir.*</h5>
+            }
+
+            @if (Model.OrderDetails != null && Model.OrderDetails.Any())
+            {
+                <div class="text-center mb-4">
+                    <p><strong>Sipariş Numarası:</strong> @Model.OrderNumber</p>
+                    <p><strong>Tarih:</strong> @Model.OrderDate.ToString("dd.MM.yyyy HH:mm")</p>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead class="table-dark text-center">
+                            <tr>
+                                <th>Ürün</th>
+                                <th>Adet</th>
+                                <th>Fiyat</th>
+                                <th>Toplam</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.OrderDetails)
+                            {
+                                <tr>
+                                    <td>@item.ProductName</td>
+                                    <td class="text-center">@item.ProductAmount</td>
+                                    <td class="text-end">@item.ProductPrice.ToString("N2") ₺</td>
+                                    <td class="text-end">@((item.ProductPrice * item.ProductAmount).ToString("N2")) ₺</td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="4" class="text-center fw-bold fs-5 pt-3">
+                                    (KDV Dahil) Genel Toplam: @Model.TotalPrice.ToString("N2") ₺
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                @if (Model.Status == 0)
+                {
+                    <div class="text-center mt-4">
+                        <form id="cancelOrderForm" action="/User/MyOrder/CancelOrder" method="post">
+                            <input type="hidden" name="orderingId" value="@Model.OrderingId" />
+                            <button type="button" id="btnCancelOrder" class="btn btn-danger">İptal Et</button>
+                        </form>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="alert alert-warning text-center mt-4">
+                    Bu siparişe ait detay bulunamadı.
+                </div>
+            }
+        </div>
+    </div>
+</div>

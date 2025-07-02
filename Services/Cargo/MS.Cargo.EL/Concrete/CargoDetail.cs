@@ -1,4 +1,10 @@
-﻿namespace MS.Cargo.EL.Concrete
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MS.Cargo.EL.Concrete
 {
     public class CargoDetail
     {
@@ -10,6 +16,8 @@
         public string? Reason { get; set; }
         public string? Description { get; set; }
         public int OrderingId { get; set; }
+        public int ReturnAmount { get; set; }
+        public int OrderDetailId { get; set; }
         public CargoCompany CargoCompany { get; set; }
     }
 }

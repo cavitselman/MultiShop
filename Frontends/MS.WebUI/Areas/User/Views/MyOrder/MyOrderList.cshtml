@@ -76,28 +76,29 @@
                                         var statusText = item.Status switch
                                         {
                                             0 => "Beklemede",
-                                            1 => "Hazırlanıyor",
-                                            2 => "Kargoda",
-                                            3 => "İptal Edildi",
-                                            4 => "Teslim Edildi",
+                                            1 => "İptal Edildi",
+                                            2 => "Kargoya Verildi",
+                                            3 => "Teslim Edildi",
+                                            4 => "İade Talep Edildi",
                                             5 => "İade Edildi",
+                                            6 => "İade Reddedildi",
                                             _ => "Bilinmiyor"
                                         };
 
                                         var badgeClass = item.Status switch
                                         {
-                                            0 => "secondary",
-                                            1 => "info",
-                                            2 => "primary",
-                                            3 => "danger",
-                                            4 => "success",
-                                            5 => "warning",
-                                            _ => "dark"
+                                            0 => "secondary", // Beklemede
+                                            1 => "danger",    // İptal Edildi
+                                            2 => "info",      // Kargoya Verildi
+                                            3 => "success",   // Teslim Edildi
+                                            4 => "warning",   // İade Talep Edildi
+                                            5 => "dark",      // İade Edildi
+                                            6 => "danger",    // İade Reddedildi
+                                            _ => "primary"
                                         };
                                     }
                                     <span class="badge bg-@badgeClass">@statusText</span>
                                 </td>
-
                                 <td><a href="/User/MyOrder/MyOrderDetail/@item.OrderingId" class="btn btn-warning btn-sm">Sipariş Detayları</a></td>
                             </tr>
                         }

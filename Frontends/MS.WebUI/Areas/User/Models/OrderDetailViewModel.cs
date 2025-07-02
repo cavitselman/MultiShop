@@ -10,7 +10,8 @@ namespace MS.WebUI.Areas.User.Models
         public DateTime OrderDate { get; set; }
         public decimal TotalPrice { get; set; }
         public int Status { get; set; }
+        public string? RefundNote { get; set; }
 
-        public List<ResultOrderDetailDto> OrderDetails { get; set; }
+        public List<ResultOrderDetailDto> OrderDetails { get; set; }        
     }
 }

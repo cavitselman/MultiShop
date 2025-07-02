@@ -10,5 +10,7 @@
         public string? Description { get; set; }
         public int OrderingId { get; set; }
         public int CargoCompanyId { get; set; }
+        public int OrderDetailId { get; set; }
+        public int ReturnAmount { get; set; }
     }
 }

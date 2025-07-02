@@ -1,0 +1,82 @@
+﻿@model List<ResultOrderingByUserIdDto>
+@{
+    ViewData["Title"] = "OrderList";
+    Layout = "~/Areas/Admin/Views/AdminLayout/_AdminLayout.cshtml";
+    int count = 0;
+}
+
+<section class="content container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="chart-box">
+                <div class="bs-example" data-example-id="bordered-table">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Sipariş No</th>
+                                <th>Kullanıcı ID</th>
+                                <th>Tarih</th>
+                                <th>Tutar</th>
+                                <th>Durum</th>
+                                <th>İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                count++;
+                                var statusText = item.Status switch
+                                {
+                                    0 => "Beklemede",
+                                    1 => "İptal Edildi",
+                                    2 => "Kargoya Verildi",
+                                    3 => "Teslim Edildi",
+                                    4 => "İade Talep Edildi",
+                                    5 => "İade Edildi",
+                                    6 => "İade Reddedildi",
+                                    _ => "Bilinmiyor"
+                                };
+
+                                var badgeClass = item.Status switch
+                                {
+                                    0 => "default",
+                                    1 => "danger",
+                                    2 => "info",
+                                    3 => "success",
+                                    4 => "warning",
+                                    5 => "primary",
+                                    6 => "danger",
+                                    _ => "default"
+                                };
+
+                                <tr>
+                                    <td>@count</td>
+                                    <td>@item.OrderNumber</td>
+                                    <td>@item.UserId</td>
+                                    <td>@item.OrderDate.ToString("dd.MM.yyyy")</td>
+                                    <td>@item.TotalPrice₺</td>
+                                    <td><span class="label label-@badgeClass">@statusText</span></td>
+                                    <td>
+                                        @if (item.Status == 0) // Sadece Beklemede ise butonları göster
+                                        {
+                                            <form method="post" action="/Admin/Order/Ship/@item.OrderingId" style="display:inline;">
+                                                <button type="submit" class="btn btn-sm btn-info">Kargoya Ver</button>
+                                            </form>
+
+                                            <form method="post" action="/Admin/Order/Cancel/@item.OrderingId" style="display:inline;">
+                                                <button type="submit" class="btn btn-sm btn-danger">İptal Et</button>
+                                            </form>
+                                        }
+
+                                        <a href="/Admin/Order/OrderDetailList/@item.OrderingId" class="btn btn-sm btn-primary">Detay</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
