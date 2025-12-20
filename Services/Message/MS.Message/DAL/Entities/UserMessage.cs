@@ -3,6 +3,7 @@
     public class UserMessage
     {
         public int UserMessageId { get; set; }
+        public string Username { get; set; }
         public string SenderId { get; set; }
         public string ReceiverId { get; set; }
         public string Subject { get; set; }

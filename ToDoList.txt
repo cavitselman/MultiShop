@@ -1,0 +1,3 @@
+-On the microservice side, even if the controllers log in while authorized, they do not receive the information because they do not see the token, so I left it as allowannoymous, it will be fixed later.
+-Visuals and cargo part will be done
+-There is authorization in the product controller and it pulls the data, but when you add authorization to other productdetails and productimages, it does not pull the data. Check that.

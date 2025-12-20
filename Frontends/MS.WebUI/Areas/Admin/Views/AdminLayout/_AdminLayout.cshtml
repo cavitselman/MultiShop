@@ -20,9 +20,9 @@
             <!-- Content Header (Page header) -->
             @await Component.InvokeAsync("_AdminLayoutMainSectionViewbagComponentPartial")
             <!-- Main content -->
-            @RenderBody()
+            @RenderBody()            
             <!-- content -->
-        </div>
+        </div>        
         <!-- content-wrapper -->
         <!-- Main Footer -->
         <footer class="main-footer dark-bg">
@@ -35,5 +35,7 @@
     <script src="~/MainDownload-OvioAdmin-html5-template/html/dist/js/jquery.min.js"></script>
     <script src="~/MainDownload-OvioAdmin-html5-template/html/bootstrap/js/bootstrap.min.js"></script>
     <script src="~/MainDownload-OvioAdmin-html5-template/html/dist/js/ovio.js"></script>
+
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

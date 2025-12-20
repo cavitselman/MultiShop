@@ -25,7 +25,7 @@ namespace MS.WebUI.Areas.Admin.Controllers
             ViewBag.v2 = "Ürünler";
             ViewBag.v3 = "Ürün Detayları Ekleme/Güncelleme";
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:7070/api/ProductDetails/GetProductDetailByProductId?id=" + id);
+            var responseMessage = await client.GetAsync("http://localhost:7070/api/ProductDetails/GetProductDetailByProductId/" + id);
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
@@ -46,7 +46,7 @@ namespace MS.WebUI.Areas.Admin.Controllers
                 var client1 = _httpClientFactory.CreateClient();
                 var jsonData1 = JsonConvert.SerializeObject(updateProductDetailDto);
                 StringContent stringContent1 = new StringContent(jsonData1, Encoding.UTF8, "application/json");
-                var responseMessage1 = await client1.PutAsync("https://localhost:7070/api/ProductDetails/", stringContent1);
+                var responseMessage1 = await client1.PutAsync("http://localhost:7070/api/ProductDetails/", stringContent1);
                 if (responseMessage1.IsSuccessStatusCode)
                 {
                     return Redirect("/Admin/Product/ProductListWithCategory");
@@ -57,7 +57,7 @@ namespace MS.WebUI.Areas.Admin.Controllers
             var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(updateProductDetailDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responseMessage = await client.PutAsync("https://localhost:7070/api/ProductDetails/", stringContent);
+            var responseMessage = await client.PutAsync("http://localhost:7070/api/ProductDetails/", stringContent);
             if (responseMessage.IsSuccessStatusCode)
             {
                 return Redirect("/Admin/Product/ProductListWithCategory");

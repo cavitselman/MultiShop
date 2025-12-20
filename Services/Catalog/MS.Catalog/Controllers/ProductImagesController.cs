@@ -5,7 +5,7 @@ using MS.Catalog.Services.ProductImageServices;
 
 namespace MS.Catalog.Controllers
 {
-    [Authorize]
+    [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductImagesController : ControllerBase
@@ -31,7 +31,7 @@ namespace MS.Catalog.Controllers
             return Ok(values);
         }
 
-        [HttpGet("id")]
+        [HttpGet("GetProductImageById/{id}")]
         public async Task<IActionResult> GetProductImageById(string id)
         {
             var values = await _productImageService.GetByIdProductImageAsync(id);

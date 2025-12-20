@@ -1,10 +1,99 @@
-﻿@model List<ResultInboxMessageDto>
+﻿@model ResultInboxMessageDto
 
 @{
     ViewData["Title"] = "MessageDetail";
     Layout = "~/Areas/Admin/Views/AdminLayout/_AdminLayout.cshtml";
 }
 
-<div class="container my-5">
-    <h3 class="text-center mb-4">Mesajlaşma</h3>
+<div class="container mt-5" style="max-width: 700px;">
+    <div class="card shadow-sm p-4">
+        <h4 class="mb-4">Mesaj Detayı</h4>
+
+        <dl class="row">
+            <dt class="col-sm-3">Gönderen:</dt>
+            <dd class="col-sm-9">@Model.Username (@Model.SenderId)</dd>
+         
+            <dt class="col-sm-3">Konu:</dt>
+            <dd class="col-sm-9">@Model.Subject</dd>
+          
+            <dt class="col-sm-3">Tarih:</dt>
+            <dd class="col-sm-9">@Model.MessageDate.ToString("dd.MM.yyyy HH:mm")</dd>
+        </dl>
+
+        <hr />
+        <p style="white-space: pre-line;"><strong>@Model.Username:</strong> @Model.MessageDetail</p>
+    </div>
+    
+    <div id="repliesContainer" class="mt-4">
+        @if (ViewBag.Replies != null && ((IEnumerable<ResultSendboxMessageDto>)ViewBag.Replies).Any())
+        {
+            @foreach (var reply in (IEnumerable<ResultSendboxMessageDto>)ViewBag.Replies)
+            {
+                <div class="border rounded p-2 mb-2">
+                    <strong>(Admin) @reply.Username:</strong> @reply.MessageDetail <br />
+                    <small class="text-muted">@reply.MessageDate.ToString("dd.MM.yyyy HH:mm")</small>
+                </div>
+            }
+        }
+        else
+        {
+            <p class="text-muted">Henüz cevap yok.</p>
+        }
+    </div>
+
+    
+
+
+    <br /><br />
+    <!-- Cevap yaz formu -->
+    <div class="card shadow-sm p-4 mt-4">
+        <form id="replyForm">
+            <input type="hidden" id="ReceiverId" name="ReceiverId" value="@Model.SenderId" />
+            <input type="hidden" id="Subject" name="Subject" value="@Model.Subject" />
+            <input type="hidden" id="ParentMessageId" name="ParentMessageId" value="@Model.UserMessageId" />
+
+            <div class="mb-3">
+                <label for="MessageDetail" class="form-label">Cevap Yaz</label>
+                <textarea class="form-control" id="MessageDetail" name="MessageDetail" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Gönder</button>
+        </form>
+    </div>
 </div>
+
+        @section Scripts{
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#replyForm').submit(function(e) {
+        e.preventDefault(); // Sayfanın reload olmasını engelle
+
+        var formData = {
+            ReceiverId: $('#ReceiverId').val(),
+            Subject: $('#Subject').val(),
+            ParentMessageId: $('#ParentMessageId').val(),
+            MessageDetail: $('#MessageDetail').val()
+        };
+
+                $.ajax({
+            url: '/Admin/Message/SendMessageAjax',
+            type: 'POST',
+            data: formData,
+            success: function(response) {
+                if(response.success) {
+                    // Yeni cevabı repliesContainer içine ekle
+                    var newReplyHtml = '<div class="border rounded p-2 mb-2">' +
+                        '<strong>(Admin) ' + response.username + ':</strong> ' + response.messageDetail + '<br />' +
+                        '<small class="text-muted">' + response.messageDate + '</small>' +
+                        '</div>';
+
+                    $('#repliesContainer').append(newReplyHtml); // artık doğru div var
+                    $('#MessageDetail').val(''); // textarea temizle
+                }
+            }
+        });
+
+    });
+});
+</script>
+}

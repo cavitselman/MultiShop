@@ -12,6 +12,7 @@ namespace MS.Cargo.DAL.EntityFramework
         {
             _cargoContext = cargoContext;
         }
+
         public CargoCustomer GetCargoCustomerById(string id)
         {
             var values = _cargoContext.CargoCustomers.Where(x => x.UserCustomerId == id).FirstOrDefault();

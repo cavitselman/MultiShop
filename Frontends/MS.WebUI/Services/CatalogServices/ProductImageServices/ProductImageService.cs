@@ -32,7 +32,7 @@ namespace MS.WebUI.Services.CatalogServices.ProductImageServices
 
         public async Task<GetByIdProductImageDto> GetByIdProductImageAsync(string id)
         {
-            var responseMessage = await _httpClient.GetAsync("productimages/" + id);
+            var responseMessage = await _httpClient.GetAsync("productimages/GetProductImageById/" + id);
             var values = await responseMessage.Content.ReadFromJsonAsync<GetByIdProductImageDto>();
             return values;
         }

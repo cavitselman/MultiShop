@@ -30,5 +30,17 @@ namespace MS.WebUI.Services.MessageServices
             var values = await responseMessage.Content.ReadFromJsonAsync<int>();
             return values;
         }
+
+        public async Task CreateMessageAsync(CreateMessageDto createMessageDto)
+        {
+            var responseMessage = await _httpClient.PostAsJsonAsync("UserMessage", createMessageDto);
+
+            if (!responseMessage.IsSuccessStatusCode)
+            {
+                var errorContent = await responseMessage.Content.ReadAsStringAsync();
+                // Hangi status code ve hata mesajı geldiğini logla
+                throw new Exception($"API Error: {responseMessage.StatusCode} - {errorContent}");
+            }
+        }
     }
 }

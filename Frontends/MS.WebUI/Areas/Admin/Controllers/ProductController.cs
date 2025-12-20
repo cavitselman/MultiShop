@@ -56,13 +56,13 @@ namespace MS.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> CreateProduct(CreateProductDto createProductDto)
         {
             await _productService.CreateProductAsync(createProductDto);
-            return Redirect("/Admin/Product/Index");
+            return Redirect("/Admin/Product/ProductListWithCategory");
         }
 
         public async Task<IActionResult> DeleteProduct(string id)
         {
             await _productService.DeleteProductAsync(id);
-            return Redirect("/Admin/Product/Index");
+            return Redirect("/Admin/Product/ProductListWithCategory");
         }
 
         [HttpGet]
@@ -85,7 +85,7 @@ namespace MS.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> UpdateProduct(UpdateProductDto updateProductDto)
         {
             await _productService.UpdateProductAsync(updateProductDto);
-            return Redirect("/Admin/Product/Index");
+            return Redirect("/Admin/Product/ProductListWithCategory");
         }
     }
 }

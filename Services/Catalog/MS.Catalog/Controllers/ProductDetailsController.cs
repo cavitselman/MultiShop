@@ -5,7 +5,7 @@ using MS.Catalog.Services.ProductDetailDetailServices;
 
 namespace MS.Catalog.Controllers
 {
-    [Authorize]
+    [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductDetailsController : ControllerBase
