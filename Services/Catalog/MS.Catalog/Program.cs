@@ -1,3 +1,4 @@
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using MS.Catalog.Services.AboutServices;
@@ -7,12 +8,14 @@ using MS.Catalog.Services.ContactServices;
 using MS.Catalog.Services.FeatureServices;
 using MS.Catalog.Services.FeatureSliderServices;
 using MS.Catalog.Services.OfferDiscountServices;
+using MS.Catalog.Services.ProductAggregateServices;
 using MS.Catalog.Services.ProductDetailDetailServices;
 using MS.Catalog.Services.ProductImageServices;
 using MS.Catalog.Services.ProductServices;
 using MS.Catalog.Services.SpecialOfferServices;
 using MS.Catalog.Services.StatisticServices;
 using MS.Catalog.Settings;
+using MS.Catalog.Validators;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -39,6 +42,7 @@ builder.Services.AddScoped<IBrandService, BrandService>();
 builder.Services.AddScoped<IAboutService, AboutService>();
 builder.Services.AddScoped<IContactService, ContactService>();
 builder.Services.AddScoped<IStatisticService, StatisticService>();
+builder.Services.AddScoped<IProductAggregateService, ProductAggregateService>();
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
@@ -48,7 +52,8 @@ builder.Services.AddScoped<IDatabaseSettings>(sp =>
     return sp.GetRequiredService<IOptions<DatabaseSettings>>().Value;
 });
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<UpdateProductFullDtoValidator>());
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

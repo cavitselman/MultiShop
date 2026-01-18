@@ -10,6 +10,7 @@ using MS.WebUI.Services.CatalogServices.ContactServices;
 using MS.WebUI.Services.CatalogServices.FeatureServices;
 using MS.WebUI.Services.CatalogServices.FeatureSliderServices;
 using MS.WebUI.Services.CatalogServices.OfferDiscountServices;
+using MS.WebUI.Services.CatalogServices.ProductAggregateServices;
 using MS.WebUI.Services.CatalogServices.ProductDetailServices;
 using MS.WebUI.Services.CatalogServices.ProductImageServices;
 using MS.WebUI.Services.CatalogServices.ProductServices;
@@ -99,6 +100,8 @@ namespace MS.WebUI.Extensions
             {
                 opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Catalog.Path}");
             }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
+
+            services.AddScoped<IProductAggregateService, ProductAggregateService>();
 
             services.AddHttpClient<ISpecialOfferService, SpecialOfferService>(opt =>
             {

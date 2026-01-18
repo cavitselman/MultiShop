@@ -10,5 +10,6 @@ namespace MS.Catalog.Services.ProductDetailDetailServices
         Task DeleteProductDetailAsync(string id);
         Task<GetByIdProductDetailDto> GetByIdProductDetailAsync(string id);
         Task<GetByIdProductDetailDto> GetByProductIdProductDetailAsync(string id);
+        Task DeleteByProductIdAsync(string productId);
     }
 }

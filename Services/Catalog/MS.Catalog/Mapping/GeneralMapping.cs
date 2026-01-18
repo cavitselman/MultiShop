@@ -23,13 +23,12 @@ namespace MS.Catalog.Mapping
             CreateMap<Category, UpdateCategoryDto>().ReverseMap();
             CreateMap<Category, GetByIdCategoryDto>().ReverseMap();
 
-            CreateMap<Product, ResultProductDto>().ReverseMap();
-            CreateMap<Product, CreateProductDto>().ReverseMap();
-            CreateMap<Product, UpdateProductDto>().ReverseMap();
-            CreateMap<Product, GetByIdProductDto>().ReverseMap();
             CreateMap<Product, ResultProductDto>()
     .ForMember(dest => dest.CommentCount, opt => opt.Ignore())
     .ReverseMap();
+            CreateMap<Product, CreateProductDto>().ReverseMap();
+            CreateMap<Product, UpdateProductDto>().ReverseMap();
+            CreateMap<Product, GetByIdProductDto>().ReverseMap();            
             CreateMap<Product, ResultProductWithCategoryDto>().ReverseMap();
 
             CreateMap<ProductDetail, ResultProductDetailDto>().ReverseMap();

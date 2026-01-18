@@ -24,6 +24,11 @@ namespace MS.Catalog.Services.ProductDetailDetailServices
             await _ProductDetailCollection.InsertOneAsync(values);
         }
 
+        public async Task DeleteByProductIdAsync(string productId)
+        {
+            await _ProductDetailCollection.DeleteOneAsync(x => x.ProductId == productId);
+        }
+
         public async Task DeleteProductDetailAsync(string id)
         {
             await _ProductDetailCollection.DeleteOneAsync(x => x.ProductDetailId == id);

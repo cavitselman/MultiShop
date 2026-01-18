@@ -20,6 +20,15 @@ namespace MS.Catalog.Services.ProductServices
             _mapper = mapper;
         }
 
+        public async Task<string> CreateProductAndReturnIdAsync(CreateProductDto createProductDto)
+        {
+            var product = _mapper.Map<Product>(createProductDto);
+
+            await _productCollection.InsertOneAsync(product);
+
+            return product.ProductId;
+        }
+
         public async Task CreateProductAsync(CreateProductDto createProductDto)
         {
             var values = _mapper.Map<Product>(createProductDto);
@@ -66,8 +75,16 @@ namespace MS.Catalog.Services.ProductServices
 
         public async Task UpdateProductAsync(UpdateProductDto updateProductDto)
         {
-            var values = _mapper.Map<Product>(updateProductDto);
-            await _productCollection.FindOneAndReplaceAsync(x => x.ProductId == updateProductDto.ProductId, values);
+            var existingProduct = await _productCollection.Find(x => x.ProductId == updateProductDto.ProductId).FirstOrDefaultAsync();
+
+            if (existingProduct == null)
+            {
+                return;
+            }
+
+            _mapper.Map(updateProductDto, existingProduct);
+
+            await _productCollection.FindOneAndReplaceAsync(x => x.ProductId == updateProductDto.ProductId, existingProduct);
         }
     }
 }

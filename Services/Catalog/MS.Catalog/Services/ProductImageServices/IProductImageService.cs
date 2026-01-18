@@ -10,5 +10,6 @@ namespace MS.Catalog.Services.ProductImageServices
         Task DeleteProductImageAsync(string id);
         Task<GetByIdProductImageDto> GetByIdProductImageAsync(string id);
         Task<GetByIdProductImageDto> GetByProductIdProductImageAsync(string id);
+        Task DeleteByProductIdAsync(string productId);
     }
 }

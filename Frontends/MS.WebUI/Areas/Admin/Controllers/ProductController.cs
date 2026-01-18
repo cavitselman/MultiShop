@@ -1,22 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using MS.DtoL.CatalogDtos.ProductDtos;
+using MS.Catalog.Dtos.ProductDtos;
 using MS.WebUI.Services.CatalogServices.CategoryServices;
-using MS.WebUI.Services.CatalogServices.ProductServices;
+using MS.Catalog.Services.ProductAggregateServices;
 
 namespace MS.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class ProductController : Controller
     {
-        private readonly IProductService _productService;
+        private readonly IProductAggregateService _productAggregateService;
         private readonly ICategoryService _categoryService;
 
-        public ProductController(IProductService productService, ICategoryService categoryService)
+        public ProductController(
+            IProductAggregateService productAggregateService,
+            ICategoryService categoryService)
         {
-            _productService = productService;
+            _productAggregateService = productAggregateService;
             _categoryService = categoryService;
         }
+
         void ProductViewbagList()
         {
             ViewBag.v0 = "Ürün İşlemleri";
@@ -24,44 +27,49 @@ namespace MS.WebUI.Areas.Admin.Controllers
             ViewBag.v2 = "Ürünler";
             ViewBag.v3 = "Ürün Listesi";
         }
-        public async Task<IActionResult> Index()
-        {
-            ProductViewbagList();
-            var values = await _productService.GetAllProductAsync();
-            return View(values);
-        }
+
         public async Task<IActionResult> ProductListWithCategory()
         {
             ProductViewbagList();
-            var values = await _productService.GetProductWithCategoryAsync();
-            return View(values);
+            // Eğer Product + Category listesi istiyorsak burada servis çağrısı eklenebilir
+            return View();
         }
 
         [HttpGet]
         public async Task<IActionResult> CreateProduct()
         {
             ProductViewbagList();
-            var values = await _categoryService.GetAllCategoryAsync();
-            List<SelectListItem> CategoryValues = (from x in values
-                                                   select new SelectListItem
-                                                   {
-                                                       Text = x.CategoryName,
-                                                       Value = x.CategoryId
-                                                   }).ToList();
-            ViewBag.CategoryValues = CategoryValues;
+
+            var categories = await _categoryService.GetAllCategoryAsync();
+            ViewBag.CategoryValues = categories
+                .Select(x => new SelectListItem
+                {
+                    Text = x.CategoryName,
+                    Value = x.CategoryId
+                }).ToList();
+
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateProduct(CreateProductDto createProductDto)
         {
-            await _productService.CreateProductAsync(createProductDto);
-            return Redirect("/Admin/Product/ProductListWithCategory");
-        }
+            if (!ModelState.IsValid)
+            {
+                var categories = await _categoryService.GetAllCategoryAsync();
+                ViewBag.CategoryValues = categories
+                    .Select(x => new SelectListItem
+                    {
+                        Text = x.CategoryName,
+                        Value = x.CategoryId
+                    }).ToList();
 
-        public async Task<IActionResult> DeleteProduct(string id)
-        {
-            await _productService.DeleteProductAsync(id);
+                return View(createProductDto);
+            }
+
+            // Aggregate service çağrısı
+            await _productAggregateService.CreateProductFullAsync(createProductDto);
+
             return Redirect("/Admin/Product/ProductListWithCategory");
         }
 
@@ -69,22 +77,47 @@ namespace MS.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> UpdateProduct(string id)
         {
             ProductViewbagList();
-            var values = await _categoryService.GetAllCategoryAsync();
-            List<SelectListItem> CategoryValues = (from x in values
-                                                   select new SelectListItem
-                                                   {
-                                                       Text = x.CategoryName,
-                                                       Value = x.CategoryId
-                                                   }).ToList();
-            ViewBag.CategoryValues = CategoryValues;
-            var productValues = await _productService.GetByIdProductAsync(id);
-            return View(productValues);
+
+            var categories = await _categoryService.GetAllCategoryAsync();
+            ViewBag.CategoryValues = categories
+                .Select(x => new SelectListItem
+                {
+                    Text = x.CategoryName,
+                    Value = x.CategoryId
+                }).ToList();
+
+            // AggregateService veya ProductService üzerinden mevcut product verilerini çek
+            var product = await _productAggregateService.GetProductFullByIdAsync(id);
+            // product tipinin UpdateProductFullDto olduğundan emin ol
+
+            return View(product);
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateProduct(UpdateProductDto updateProductDto)
+        public async Task<IActionResult> UpdateProduct(UpdateProductFullDto updateProductDto)
         {
-            await _productService.UpdateProductAsync(updateProductDto);
+            if (!ModelState.IsValid)
+            {
+                var categories = await _categoryService.GetAllCategoryAsync();
+                ViewBag.CategoryValues = categories
+                    .Select(x => new SelectListItem
+                    {
+                        Text = x.CategoryName,
+                        Value = x.CategoryId
+                    }).ToList();
+
+                return View(updateProductDto);
+            }
+
+            await _productAggregateService.UpdateProductFullAsync(updateProductDto);
+
+            return Redirect("/Admin/Product/ProductListWithCategory");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteProductFull(string id)
+        {
+            await _productAggregateService.DeleteProductFullAsync(id);
             return Redirect("/Admin/Product/ProductListWithCategory");
         }
     }

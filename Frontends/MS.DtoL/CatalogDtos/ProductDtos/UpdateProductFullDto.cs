@@ -1,7 +1,15 @@
-﻿namespace MS.DtoL.CatalogDtos.ProductDtos
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MS.DtoL.CatalogDtos.ProductDtos
 {
-    public class CreateProductDto
+    public class UpdateProductFullDto
     {
+        public string ProductId { get; set; }
+
         // Product
         public string ProductName { get; set; }
         public decimal ProductPrice { get; set; }

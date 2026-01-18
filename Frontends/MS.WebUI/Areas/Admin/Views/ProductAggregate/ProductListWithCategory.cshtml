@@ -1,0 +1,101 @@
+﻿@using MS.DtoL.CatalogDtos.ProductDtos
+@model List<UpdateProductFullDto>
+
+@{
+    ViewData["Title"] = "Tüm Ürünler";
+    Layout = "~/Areas/Admin/Views/AdminLayout/_AdminLayout.cshtml";
+    int count = 0;
+}
+
+<section class="content container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="chart-box">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Ürün Adı</th>
+                            <th>Fiyat</th>
+                            <th>Görsel 1</th>
+                            <th>Görsel 2</th>
+                            <th>Görsel 3</th>
+                            <th>Görsel 4</th>
+                            <th>Detay</th>
+                            <th>Sil</th>
+                            <th>Güncelle</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            count++;
+                            <tr>
+                                <th scope="row">@count</th>
+                                <td>@item.ProductName</td>
+                                <td>@item.ProductPrice₺</td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(item.Image1))
+                                    {
+                                        <img src="@item.Image1" style="width:50px; height:50px; object-fit:cover; border-radius:5px;" alt="Ürün" />
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">Yok</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(item.Image2))
+                                    {
+                                        <img src="@item.Image2" style="width:50px; height:50px; object-fit:cover; border-radius:5px;" alt="Ürün" />
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">Yok</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(item.Image3))
+                                    {
+                                        <img src="@item.Image3" style="width:50px; height:50px; object-fit:cover; border-radius:5px;" alt="Ürün" />
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">Yok</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(item.Image4))
+                                    {
+                                        <img src="@item.Image4" style="width:50px; height:50px; object-fit:cover; border-radius:5px;" alt="Ürün" />
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">Yok</span>
+                                    }
+                                </td>
+                                <td>@(item.ProductDescription?.Length > 5 ? item.ProductDescription.Substring(0, 5) + "..." : item.ProductDescription)</td>
+                                <td>
+                                    <form action="/Admin/ProductAggregate/DeleteProductFull" method="post" style="display:inline;">
+
+                                        <input type="hidden" name="id" value="@item.ProductId" />
+
+                                        <button type="submit" class="btn btn-danger"
+                                                onclick="return confirm('Bu ürünü silmek istediğinize emin misiniz?');">
+                                            Sil
+                                        </button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <a href="/Admin/ProductAggregate/UpdateProduct/@item.ProductId" class="btn btn-success">Güncelle</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <a href="/Admin/ProductAggregate/CreateProduct" class="btn btn-primary">Yeni Ürün Girişi</a>
+            </div>
+        </div>
+    </div>
+</section>

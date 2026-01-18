@@ -1,7 +1,9 @@
-﻿namespace MS.DtoL.CatalogDtos.ProductDtos
+﻿namespace MS.Catalog.Dtos.ProductDtos
 {
-    public class CreateProductDto
+    public class UpdateProductFullDto
     {
+        public string ProductId { get; set; }
+
         // Product
         public string ProductName { get; set; }
         public decimal ProductPrice { get; set; }

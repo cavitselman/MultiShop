@@ -1,4 +1,4 @@
-﻿@model GetByIdProductDto
+﻿@model MS.Catalog.Dtos.ProductDtos.UpdateProductFullDto
 
 @{
     ViewData["Title"] = "UpdateProduct";
@@ -26,8 +26,29 @@
                         <label>Ürün Kategorisi</label>
                         @Html.DropDownListFor(x => x.CategoryId, (List<SelectListItem>)ViewBag.CategoryValues, new { @style = "padding:0;", @class = "form-control" })
                         <br />
+
+                        <hr />
+                        <h4>Ürün İç Görselleri</h4>
+                        <label>Görsel 1</label>
+                        <input type="text" class="form-control" asp-for="Image1" />
+                        <br />
+                        <label>Görsel 2</label>
+                        <input type="text" class="form-control" asp-for="Image2" />
+                        <br />
+                        <label>Görsel 3</label>
+                        <input type="text" class="form-control" asp-for="Image3" />
+                        <br />
+                        <label>Görsel 4</label>
+                        <input type="text" class="form-control" asp-for="Image4" />
+                        <br />
+
+                        <hr />
+                        <h4>Ürün Detay</h4>
                         <label>Ürün Açıklaması</label>
                         <textarea class="form-control" asp-for="ProductDescription" rows="5"></textarea>
+                        <br />
+                        <label>Ürün Bilgisi</label>
+                        <textarea class="form-control" asp-for="ProductInfo" rows="3"></textarea>
                         <br />
                         <button class="btn btn-success">Ürünü Güncelle</button>
                     </form>
