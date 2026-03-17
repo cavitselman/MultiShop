@@ -3,6 +3,7 @@ using MS.WebUI.Services.BasketServices;
 using MS.WebUI.Services.CargoServices.CargoCompanyServices;
 using MS.WebUI.Services.CargoServices.CargoCustomerServices;
 using MS.WebUI.Services.CargoServices.CargoDetailServices;
+using MS.WebUI.Services.CargoServices.CargoOperationServices;
 using MS.WebUI.Services.CatalogServices.AboutServices;
 using MS.WebUI.Services.CatalogServices.BrandServices;
 using MS.WebUI.Services.CatalogServices.CategoryServices;
@@ -227,6 +228,11 @@ namespace MS.WebUI.Extensions
             }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
 
             services.AddHttpClient<ICargoDetailService, CargoDetailService>(opt =>
+            {
+                opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Cargo.Path}");
+            }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+
+            services.AddHttpClient<ICargoOperationService, CargoOperationService>(opt =>
             {
                 opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Cargo.Path}");
             }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();

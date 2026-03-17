@@ -1,7 +1,7 @@
 ﻿@model MS.DtoL.CatalogDtos.ProductDtos.CreateProductDto
 
 @{
-    ViewData["Title"] = "Yeni Ürün Ekle";
+    ViewData["Title"] = "CreateProduct";
     Layout = "~/Areas/Admin/Views/AdminLayout/_AdminLayout.cshtml";
 }
 
@@ -21,7 +21,7 @@
                     <input type="text" class="form-control" asp-for="ProductImageUrl" />
                     <br />
                     <label>Ürün Kategorisi</label>
-                    @Html.DropDownListFor(x => x.CategoryId, (List<SelectListItem>)ViewBag.CategoryValues, new { @class = "form-control", @style = "height: 50px;" })
+                    @Html.DropDownListFor(x => x.CategoryId, (List<SelectListItem>)ViewBag.CategoryValues, "Lütfen Kategori Seçiniz", new { @class = "form-control", @style = "height: 50px;" })
                     <br />
                     <label>Ürün Açıklaması</label>
                     <textarea class="form-control" asp-for="ProductDescription" rows="3"></textarea>

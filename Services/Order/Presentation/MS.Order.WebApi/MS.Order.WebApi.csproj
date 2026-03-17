@@ -10,7 +10,7 @@
     <PackageReference Include="MediatR" Version="12.4.1" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.11" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.11">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.23">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -22,7 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Frontends\MS.WebUI\MS.WebUI.csproj" />
     <ProjectReference Include="..\..\..\..\NetAspire\MS.NetAspire.ServiceDefaults\MS.NetAspire.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\..\..\Cargo\MS.Cargo.DAL\MS.Cargo.DAL.csproj" />
     <ProjectReference Include="..\..\Core\MS.Order.Application\MS.Order.Application.csproj" />
     <ProjectReference Include="..\..\Core\MS.Order.Domain\MS.Order.Domain.csproj" />
     <ProjectReference Include="..\..\Infrastructure\MS.Order.Persistence\MS.Order.Persistence.csproj" />

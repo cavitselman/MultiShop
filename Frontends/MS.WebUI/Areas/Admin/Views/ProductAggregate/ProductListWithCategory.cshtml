@@ -1,8 +1,7 @@
-﻿@using MS.DtoL.CatalogDtos.ProductDtos
-@model List<UpdateProductFullDto>
+﻿@model List<UpdateProductFullDto>
 
 @{
-    ViewData["Title"] = "Tüm Ürünler";
+    ViewData["Title"] = "ProductListWithCategory";
     Layout = "~/Areas/Admin/Views/AdminLayout/_AdminLayout.cshtml";
     int count = 0;
 }
@@ -15,15 +14,12 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Ürün Adı</th>
-                            <th>Fiyat</th>
-                            <th>Görsel 1</th>
-                            <th>Görsel 2</th>
-                            <th>Görsel 3</th>
-                            <th>Görsel 4</th>
-                            <th>Detay</th>
-                            <th>Sil</th>
-                            <th>Güncelle</th>
+                            <th class="text-center">Ana Görsel</th>
+                            <th class="text-center">Ürün Adı</th>
+                            <th class="text-center">Kategori</th>
+                            <th class="text-center">Fiyat</th>
+                            <th class="text-center">Detay</th>
+                            <th class="text-center" style="width: 200px;">İşlemler</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -31,63 +27,42 @@
                         {
                             count++;
                             <tr>
-                                <th scope="row">@count</th>
-                                <td>@item.ProductName</td>
-                                <td>@item.ProductPrice₺</td>
-                                <td>
-                                    @if (!string.IsNullOrEmpty(item.Image1))
-                                    {
-                                        <img src="@item.Image1" style="width:50px; height:50px; object-fit:cover; border-radius:5px;" alt="Ürün" />
-                                    }
-                                    else
-                                    {
-                                        <span class="text-muted">Yok</span>
-                                    }
-                                </td>
-                                <td>
-                                    @if (!string.IsNullOrEmpty(item.Image2))
-                                    {
-                                        <img src="@item.Image2" style="width:50px; height:50px; object-fit:cover; border-radius:5px;" alt="Ürün" />
-                                    }
-                                    else
-                                    {
-                                        <span class="text-muted">Yok</span>
-                                    }
-                                </td>
-                                <td>
-                                    @if (!string.IsNullOrEmpty(item.Image3))
-                                    {
-                                        <img src="@item.Image3" style="width:50px; height:50px; object-fit:cover; border-radius:5px;" alt="Ürün" />
-                                    }
-                                    else
-                                    {
-                                        <span class="text-muted">Yok</span>
-                                    }
-                                </td>
-                                <td>
-                                    @if (!string.IsNullOrEmpty(item.Image4))
-                                    {
-                                        <img src="@item.Image4" style="width:50px; height:50px; object-fit:cover; border-radius:5px;" alt="Ürün" />
-                                    }
-                                    else
-                                    {
-                                        <span class="text-muted">Yok</span>
-                                    }
-                                </td>
-                                <td>@(item.ProductDescription?.Length > 5 ? item.ProductDescription.Substring(0, 5) + "..." : item.ProductDescription)</td>
-                                <td>
-                                    <form action="/Admin/ProductAggregate/DeleteProductFull" method="post" style="display:inline;">
+                                <th scope="row" style="vertical-align: middle; text-align: center;">@count</th>
 
-                                        <input type="hidden" name="id" value="@item.ProductId" />
-
-                                        <button type="submit" class="btn btn-danger"
-                                                onclick="return confirm('Bu ürünü silmek istediğinize emin misiniz?');">
-                                            Sil
-                                        </button>
-                                    </form>
+                                <td style="vertical-align: middle; text-align: center;">
+                                    @if (!string.IsNullOrEmpty(item.ProductImageUrl))
+                                    {
+                                        <img src="@item.ProductImageUrl" style="width:75px; height:75px; object-fit:cover; border-radius:5px; border:1px solid #ddd;" alt="Ürün" />
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-secondary">Görsel Yok</span>
+                                    }
                                 </td>
-                                <td>
-                                    <a href="/Admin/ProductAggregate/UpdateProduct/@item.ProductId" class="btn btn-success">Güncelle</a>
+
+                                <td style="vertical-align: middle; text-align: center;">@item.ProductName</td>
+                                <td style="vertical-align: middle; text-align: center;">@item.CategoryName</td>
+                                <td style="vertical-align: middle; text-align: center;">@item.ProductPrice₺</td>
+
+                                <td style="vertical-align: middle; text-align: center;">
+                                    @(item.ProductDescription?.Length > 20 ? item.ProductDescription.Substring(0, 20) + "..." : item.ProductDescription)
+                                </td>
+
+                                <td style="vertical-align: middle; text-align: center;">
+                                    <div style="display: flex; justify-content: center; align-items: center; gap: 10px;">
+
+                                        <form action="/Admin/ProductAggregate/DeleteProductFull" method="post" style="margin:0;">
+                                            <input type="hidden" name="id" value="@item.ProductId" />
+                                            <button type="submit" class="btn btn-danger btn-sm"
+                                                    onclick="return confirm('Bu ürünü silmek istediğinize emin misiniz?');">
+                                                Sil
+                                            </button>
+                                        </form>
+
+                                        <a href="/Admin/ProductAggregate/UpdateProduct/@item.ProductId" class="btn btn-success btn-sm">
+                                            Güncelle
+                                        </a>
+                                    </div>
                                 </td>
                             </tr>
                         }

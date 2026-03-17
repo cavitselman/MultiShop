@@ -2,6 +2,6 @@
 {
     public class CreateCargoCompanyDto
     {
-        public string cargoCompanyName { get; set; }
+        public string CargoCompanyName { get; set; }
     }
 }

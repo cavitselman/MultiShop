@@ -1,0 +1,51 @@
+﻿@model List<ResultCargoDetailDto>
+
+@{
+    ViewData["Title"] = "CargoDetailList";
+    Layout = "~/Areas/Admin/Views/AdminLayout/_AdminLayout.cshtml";
+}
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Kargodaki Siparişler</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Barkod</th>
+                                <th>Alıcı</th>
+                                <th>Kargo Firması</th>
+                                <th>İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td><strong>@item.Barcode</strong></td>
+                                    <td>@item.ReceiverCustomer</td>
+                                    <td>
+                                        <span class="badge badge-primary">@item.CargoCompanyId</span>
+                                    </td>
+                                    <td>
+                                        <a href="/Admin/Cargo/NewCargoOperation?barcode=@item.Barcode" class="btn btn-warning btn-sm">
+                                            <i class="fa fa-truck"></i> Hareket Ekle
+                                        </a>
+
+                                        <a href="/Admin/Order/OrderDetailList/@item.OrderingId" class="btn btn-info btn-sm">
+                                            <i class="fa fa-search"></i> Siparişi Gör
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

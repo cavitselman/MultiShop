@@ -2,7 +2,7 @@
 {
     public class UpdateCargoCompanyDto
     {
-        public int cargoCompanyId { get; set; }
-        public string cargoCompanyName { get; set; }
+        public int CargoCompanyId { get; set; }
+        public string CargoCompanyName { get; set; }
     }
 }

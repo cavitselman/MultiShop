@@ -9,6 +9,7 @@ using MS.WebUI.Services.OrderServices.OrderOrderingServices;
 namespace MS.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Route("Admin/Order")]
     public class OrderController : Controller
     {
         private readonly IOrderOrderingService _orderOrderingService;
@@ -22,6 +23,8 @@ namespace MS.WebUI.Areas.Admin.Controllers
             _cargoDetailService = cargoDetailService;
         }
 
+        // SİPARİŞ LİSTESİ
+        [HttpGet("OrderList")]
         public async Task<IActionResult> OrderList()
         {
             ViewBag.v0 = "Siparişler";
@@ -30,15 +33,14 @@ namespace MS.WebUI.Areas.Admin.Controllers
             ViewBag.v3 = "Sipariş Listesi";
 
             var orders = await _orderOrderingService.GetAllOrderingAsync();
-
-            // Eğer DTO içinde FullName yoksa sadece UserId ile bırakıyoruz.
-            // İstersen burada user bilgisi de çekip model genişletebilirsin.
-
+            // Listeyi tarihe göre (yeni en üstte) sıralayalım
             var model = orders.OrderByDescending(o => o.OrderDate).ToList();
 
             return View(model);
         }
 
+        // SİPARİŞ DETAYLARI (KARGO BİLGİSİ DAHİL)
+        [HttpGet("OrderDetailList/{id}")]
         public async Task<IActionResult> OrderDetailList(int id)
         {
             ViewBag.v0 = "Sipariş Detayı";
@@ -52,6 +54,7 @@ namespace MS.WebUI.Areas.Admin.Controllers
             if (order == null || orderDetails == null)
                 return NotFound();
 
+            // Eğer sipariş kargolandıysa, kargo detaylarını da çekiyoruz
             var cargoDetails = await _cargoDetailService.GetByOrderingIdAsync(id);
 
             var model = new OrderDetailViewModel
@@ -61,35 +64,19 @@ namespace MS.WebUI.Areas.Admin.Controllers
                 OrderDate = order.OrderDate,
                 TotalPrice = order.TotalPrice,
                 Status = order.Status,
-                OrderDetails = orderDetails
+                OrderDetails = orderDetails,
+                // Kargo detayı varsa view model'e ekleyebilirsin veya ViewBag ile taşıyabilirsin
+                // CargoDetail = cargoDetails.FirstOrDefault() 
             };
+
+            // View tarafında kargo bilgisini göstermek istersen:
+            ViewBag.CargoInfo = cargoDetails.FirstOrDefault();
 
             return View(model);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Ship(int id)
-        {
-            var order = await _orderOrderingService.GetByIdOrderingAsync(id);
-            if (order == null)
-                return NotFound();
-
-            var updateDto = new UpdateOrderingDto
-            {
-                OrderingId = order.OrderingId,
-                UserId = order.UserId,
-                OrderNumber = order.OrderNumber,
-                TotalPrice = order.TotalPrice,
-                OrderDate = order.OrderDate,
-                Status = 2 // Kargoya Verildi
-            };
-
-            await _orderOrderingService.UpdateOrderingAsync(updateDto);
-
-            return Redirect($"/Admin/Order/OrderList");
-        }
-
-        [HttpPost]
+        // SİPARİŞ İPTAL ETME
+        [HttpPost("Cancel/{id}")]
         public async Task<IActionResult> Cancel(int id)
         {
             var order = await _orderOrderingService.GetByIdOrderingAsync(id);
@@ -103,12 +90,12 @@ namespace MS.WebUI.Areas.Admin.Controllers
                 OrderNumber = order.OrderNumber,
                 TotalPrice = order.TotalPrice,
                 OrderDate = order.OrderDate,
-                Status = 1 // İptal Edildi
+                Status = 1 // 1: İptal Edildi
             };
 
             await _orderOrderingService.UpdateOrderingAsync(updateDto);
 
-            return Redirect($"/Admin/Order/OrderList");
+            return RedirectToAction("OrderList");
         }
 
     }

@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using MS.DtoL.CargoDtos.CargoDetailDtos;
 using MS.DtoL.OrderDtos.OrderOrderingDtos;
 using MS.WebUI.Areas.User.Models;
+using MS.WebUI.Services.CargoServices.CargoCompanyServices;
 using MS.WebUI.Services.CargoServices.CargoDetailServices;
+using MS.WebUI.Services.CargoServices.CargoOperationServices;
 using MS.WebUI.Services.Interfaces;
 using MS.WebUI.Services.OrderServices.OrderDetailServices;
 using MS.WebUI.Services.OrderServices.OrderOrderingServices;
@@ -18,13 +20,23 @@ namespace MS.WebUI.Areas.User.Controllers
         private readonly IOrderDetailService _orderDetailService;
         private readonly IUserService _userService;
         private readonly ICargoDetailService _cargoDetailService;
+        private readonly ICargoOperationService _cargoOperationService;
+        private readonly ICargoCompanyService _cargoCompanyService;
 
-        public MyOrderController(IOrderOrderingService orderOrderingService, IUserService userService, IOrderDetailService orderDetailService, ICargoDetailService cargoDetailService)
+        public MyOrderController(
+            IOrderOrderingService orderOrderingService,
+            IUserService userService,
+            IOrderDetailService orderDetailService,
+            ICargoDetailService cargoDetailService,
+            ICargoOperationService cargoOperationService,
+            ICargoCompanyService cargoCompanyService) // EKLENDİ
         {
             _orderOrderingService = orderOrderingService;
             _userService = userService;
             _orderDetailService = orderDetailService;
             _cargoDetailService = cargoDetailService;
+            _cargoOperationService = cargoOperationService; // ATANDI
+            _cargoCompanyService = cargoCompanyService;
         }
 
         public async Task<IActionResult> MyOrderList()
@@ -43,16 +55,38 @@ namespace MS.WebUI.Areas.User.Controllers
             if (order == null || orderDetails == null)
                 return NotFound();
 
+            // 1. Kargo Detaylarını Çek
             var cargoDetails = await _cargoDetailService.GetByOrderingIdAsync(id);
 
+            // 2. İade Notu Hazırla (Mevcut Kodun)
             string refundNote = null;
-
-            if (cargoDetails != null && cargoDetails.Any())
+            if (order.Status == 4 && cargoDetails != null && cargoDetails.Any())
             {
+                // İade durumunda, genellikle son oluşturulan kargo kaydı iade kodudur.
+                // Veya tüm barkodları listelemek istersen:
                 var barcodes = cargoDetails.Select(c => c.Barcode);
 
                 refundNote = "İade talebiniz alınmıştır. Lütfen 7 gün içinde aşağıdaki iade kargo kodu ile anlaşmalı kargo şirketimize teslim ediniz:<br/>"
                              + string.Join("<br/>", barcodes);
+            }
+            // -----------------------
+
+            // Kargo Takip Kısmı (Normal kargo süreci için)
+            if (cargoDetails != null && cargoDetails.Any())
+            {
+                var mainCargo = cargoDetails.First();
+                ViewBag.CargoDetail = mainCargo;
+
+                // Firma Adını Çek
+                var company = await _cargoCompanyService.GetByIdCargoCompanyAsync(mainCargo.CargoCompanyId);
+                ViewBag.CargoCompanyName = company.CargoCompanyName;
+
+                // Hareketleri Çek
+                var allOps = await _cargoOperationService.GetAllAsync();
+                var cargoOps = allOps.Where(x => x.Barcode == mainCargo.Barcode)
+                                     .OrderByDescending(x => x.OperationDate)
+                                     .ToList();
+                ViewBag.CargoOperations = cargoOps;
             }
 
             var model = new OrderDetailViewModel

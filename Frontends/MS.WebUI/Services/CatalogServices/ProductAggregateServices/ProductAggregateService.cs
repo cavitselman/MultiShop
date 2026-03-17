@@ -1,6 +1,8 @@
-﻿using MS.DtoL.CatalogDtos.ProductDtos;
-using MS.DtoL.CatalogDtos.ProductImageDtos;
+﻿using MS.Catalog.Entities;
 using MS.DtoL.CatalogDtos.ProductDetailDtos;
+using MS.DtoL.CatalogDtos.ProductDtos;
+using MS.DtoL.CatalogDtos.ProductImageDtos;
+using MS.WebUI.Services.CatalogServices.CategoryServices;
 using MS.WebUI.Services.CatalogServices.ProductDetailServices;
 using MS.WebUI.Services.CatalogServices.ProductImageServices;
 using MS.WebUI.Services.CatalogServices.ProductServices;
@@ -12,15 +14,18 @@ namespace MS.WebUI.Services.CatalogServices.ProductAggregateServices
         private readonly IProductService _productService;
         private readonly IProductImageService _productImageService;
         private readonly IProductDetailService _productDetailService;
+        private readonly ICategoryService _categoryService;
 
         public ProductAggregateService(
             IProductService productService,
             IProductImageService productImageService,
-            IProductDetailService productDetailService)
+            IProductDetailService productDetailService,
+            ICategoryService categoryService)
         {
             _productService = productService;
             _productImageService = productImageService;
             _productDetailService = productDetailService;
+            _categoryService = categoryService;
         }
 
         public async Task CreateProductFullAsync(CreateProductDto dto)
@@ -112,12 +117,14 @@ namespace MS.WebUI.Services.CatalogServices.ProductAggregateServices
         public async Task<List<UpdateProductFullDto>> GetAllProductFullAsync()
         {
             var products = await _productService.GetAllProductAsync();
+            var categories = await _categoryService.GetAllCategoryAsync();
             var result = new List<UpdateProductFullDto>();
 
             foreach (var p in products)
             {
                 var images = await _productImageService.GetByProductIdProductImageAsync(p.ProductId);
                 var detail = await _productDetailService.GetByProductIdProductDetailAsync(p.ProductId);
+                var catName = categories.FirstOrDefault(x => x.CategoryId == p.CategoryId)?.CategoryName;
 
                 result.Add(new UpdateProductFullDto
                 {
@@ -126,6 +133,7 @@ namespace MS.WebUI.Services.CatalogServices.ProductAggregateServices
                     ProductPrice = p.ProductPrice,
                     ProductImageUrl = p.ProductImageUrl,
                     CategoryId = p.CategoryId,
+                    CategoryName = catName,
                     Image1 = images?.Image1,
                     Image2 = images?.Image2,
                     Image3 = images?.Image3,
@@ -144,6 +152,7 @@ namespace MS.WebUI.Services.CatalogServices.ProductAggregateServices
             if (product == null) return null;
             var images = await _productImageService.GetByProductIdProductImageAsync(productId);
             var detail = await _productDetailService.GetByProductIdProductDetailAsync(productId);
+            var category = await _categoryService.GetByIdCategoryAsync(product.CategoryId);
 
             return new UpdateProductFullDto
             {
@@ -152,6 +161,7 @@ namespace MS.WebUI.Services.CatalogServices.ProductAggregateServices
                 ProductPrice = product.ProductPrice,
                 ProductImageUrl = product.ProductImageUrl,
                 CategoryId = product.CategoryId,
+                CategoryName = category?.CategoryName,
                 Image1 = images?.Image1,
                 Image2 = images?.Image2,
                 Image3 = images?.Image3,

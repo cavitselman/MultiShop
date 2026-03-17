@@ -60,9 +60,7 @@
                                     <td>
                                         @if (item.Status == 0) // Sadece Beklemede ise butonları göster
                                         {
-                                            <form method="post" action="/Admin/Order/Ship/@item.OrderingId" style="display:inline;">
-                                                <button type="submit" class="btn btn-sm btn-info">Kargoya Ver</button>
-                                            </form>
+                                            <a href="/Admin/Cargo/AddCargo?id=@item.OrderingId" class="btn btn-sm btn-info">Kargoya Ver</a>
 
                                             <form method="post" action="/Admin/Order/Cancel/@item.OrderingId" style="display:inline;">
                                                 <button type="submit" class="btn btn-sm btn-danger">İptal Et</button>
